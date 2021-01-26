@@ -1,14 +1,16 @@
 {
   "expo": {
-    "name": "biblia",
-    "slug": "biblia",
+    "name": "Bible",
+    "slug": "bible",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
+    "primaryColor": "#FFFFFF",
+    "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#FFFFFF"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -18,6 +20,15 @@
     ],
     "ios": {
       "supportsTablet": true
+    },
+    "android": {
+      "package": "com.untitledengineers.bible",
+      "versionCode": 1,
+      "userInterfaceStyle": "light"
+    },
+    "androidNavigationBar": {
+      "barStyle": "dark-content",
+      "backgroundColor": "#FFFFFF"
     },
     "web": {
       "favicon": "./assets/favicon.png"

@@ -15,7 +15,7 @@ import {
   ChapterText,
 } from './styles';
 
-import bibleData from '../../data/biblia.json';
+import bibleData from '../../data/bible_ptbr.json';
 
 export interface IBook {
   name: string;

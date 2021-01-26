@@ -11,7 +11,7 @@ export const Container = styled.SafeAreaView`
 `;
 
 export const Content = styled.View`
-  margin-left: 136px;
+  margin-left: 40px;
 `;
 
 export const Button = styled(RectButton)`
