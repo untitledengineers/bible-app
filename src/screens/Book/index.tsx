@@ -53,6 +53,7 @@ const Book = () => {
   const [indexViewable, setIndexViewable] = useState<number | null>(0);
   const [indexToScroll, sentIndexToScroll] = useState(0);
   const listRef = useRef<FlatList>(null);
+  const drawerRef = useRef<DrawerLayout>(null);
   const { isVisible, handleVisible } = useLoading();
   const window = useWindowDimensions();
 
@@ -79,6 +80,8 @@ const Book = () => {
   });
 
   const handleScrollToIndex = useCallback((index: number) => {
+    drawerRef.current.closeDrawer();
+
     listRef.current?.scrollToIndex({ animated: true, index });
 
     sentIndexToScroll(index);
@@ -161,6 +164,7 @@ const Book = () => {
   return (
     <Container>
       <DrawerLayout
+        ref={drawerRef}
         drawerWidth={40}
         edgeWidth={window.width}
         drawerPosition="right"
