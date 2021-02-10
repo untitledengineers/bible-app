@@ -1,15 +1,17 @@
-/* eslint-disable no-plusplus */
-import React from 'react';
+import React, { useMemo } from 'react';
 import { FlatList, ListRenderItem } from 'react-native';
 
 import * as S from './styles';
 
 type DrawerProps = {
-  chaptersNumber: number[];
+  bookLength: number;
   handleScroll: (index: number) => void;
 };
 
-const DrawerNavigation = ({ chaptersNumber, handleScroll }: DrawerProps) => {
+const DrawerNavigation = ({ bookLength, handleScroll }: DrawerProps) => {
+  const bookChapters = useMemo(() =>
+    Array.from({length: bookLength}, (_, i) => i + 1),[bookLength]);
+
   const renderItem: ListRenderItem<number> = ({ index }) => (
     <S.Item onPress={() => handleScroll(index)}>
       <S.ItemContent>{index + 1}</S.ItemContent>
@@ -22,7 +24,7 @@ const DrawerNavigation = ({ chaptersNumber, handleScroll }: DrawerProps) => {
 
   return (
     <FlatList
-      data={chaptersNumber}
+      data={bookChapters}
       keyExtractor={item => item.toString()}
       renderItem={renderItem}
       initialNumToRender={21}

@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import React, { useMemo } from 'react';
 import {
   Animated,
   FlatList,
@@ -22,10 +22,12 @@ const SwipeableButton = ({
 }: React.PropsWithChildren<SwipeableButtonProps>) => {
   const window = useWindowDimensions();
   const navigation = useNavigation();
+  const bookChapters = useMemo(() =>
+    Array.from({length: book.length}, (_, i) => i + 1),[book.length]);
 
   const handleNavigate = (index: number) => {
     navigation.navigate('Book', {
-      bookName: book.name,
+      book,
       initialScrollIndex: index,
     });
   };
@@ -50,7 +52,7 @@ const SwipeableButton = ({
         }}
       >
         <FlatList
-          data={book.chaptersNumber}
+          data={bookChapters}
           keyExtractor={chapter => chapter.toString()}
           renderItem={renderItem}
           horizontal

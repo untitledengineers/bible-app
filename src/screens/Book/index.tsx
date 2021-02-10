@@ -8,7 +8,7 @@ import {
 import { useRoute } from '@react-navigation/native';
 import DrawerLayout from 'react-native-gesture-handler/DrawerLayout';
 
-import bibleData from '../../data/bible_ptbr.json';
+import bibleBooks from '../../data/bible_ptbr';
 
 import DrawerNavigation from './DrawerNavigation';
 
@@ -29,16 +29,18 @@ import {
   AnimatedHeader,
 } from './styles';
 
-type IParams = {
-  bookName: string;
+import { IBook } from '../../screens/Home';
+
+type Params = {
+  book: IBook;
   initialScrollIndex?: number;
 };
 
-type IBook = {
-  name: string;
-  chapters: string[][];
-  chaptersNumber: number[];
-};
+type Chapter = {
+  [key: string]: {
+    [key: string]: string;
+  };
+}
 
 const HEADER_APP_MAX_HEIGHT = 40;
 const HEADER_APP_MIN_HEIGHT = 0;
@@ -47,9 +49,8 @@ const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
 const Book = () => {
   const route = useRoute();
-  const { bookName, initialScrollIndex } = route.params as IParams;
-  const [bookChapters, setBookChapters] = useState<string[][]>([]);
-  const [chaptersNumber, setChaptersNumber] = useState<number[]>([]);
+  const { book, initialScrollIndex } = route.params as Params;
+  const [bookChapters, setBookChapters] = useState<Chapter[]>([]);
   const [indexViewable, setIndexViewable] = useState<number | null>(0);
   const [indexToScroll, sentIndexToScroll] = useState(0);
   const listRef = useRef<FlatList>(null);
@@ -80,7 +81,7 @@ const Book = () => {
   });
 
   const handleScrollToIndex = useCallback((index: number) => {
-    drawerRef.current.closeDrawer();
+    drawerRef.current?.closeDrawer();
 
     listRef.current?.scrollToIndex({ animated: true, index });
 
@@ -88,17 +89,14 @@ const Book = () => {
   }, []);
 
   useEffect(() => {
-    const bibles = bibleData as IBook[];
+    const bookChaptersJson = bibleBooks[book.name];
 
-    const booksFound = bibles.filter(bible => bible.name === bookName);
-
-    setBookChapters(booksFound[0].chapters);
-    setChaptersNumber(booksFound[0].chaptersNumber);
+    setBookChapters(bookChaptersJson);
 
     if (initialScrollIndex) {
       sentIndexToScroll(initialScrollIndex);
     }
-  }, [bookName, initialScrollIndex]);
+  }, [initialScrollIndex]);
 
   useEffect(() => {
     if (indexViewable === indexToScroll && isVisible) {
@@ -133,29 +131,33 @@ const Book = () => {
 
   const renderChapterItem = ({
     item,
-    index,
   }: {
-    item: string[];
-    index: number;
-  }) => (
-    <>
-      {item.map((verse, vIndex) => (
-        <Item key={vIndex.toString()}>
-          {vIndex === 0 && <FirstVerseNumber>{index + 1}</FirstVerseNumber>}
+    item: Chapter;
+  }) => {
+    const [chapterNumber] = Object.keys(item);
+    const [chapterVersesObj] = Object.values(item);
+    const chapterVersesArray = Object.values(chapterVersesObj);
 
-          <Verse>
-            {vIndex !== 0 && <VerseNumber>{vIndex + 1}</VerseNumber>} {verse}
-          </Verse>
-        </Item>
-      ))}
-    </>
-  );
+    return (
+      <>
+        {chapterVersesArray.map((verse, vIndex) => (
+          <Item key={chapterNumber + vIndex}>
+            {vIndex === 0 && <FirstVerseNumber>{chapterNumber}</FirstVerseNumber>}
+
+            <Verse>
+              {vIndex !== 0 && <VerseNumber>{vIndex + 1}</VerseNumber>} {verse}
+            </Verse>
+          </Item>
+        ))}
+      </>
+    );
+  };
 
   const renderHeader = () => (
     <ListHeader>
       <ListHeaderSeparator />
 
-      <ListHeaderText>{bookName}</ListHeaderText>
+      <ListHeaderText>{book.name}</ListHeaderText>
 
       <ListHeaderSeparator />
     </ListHeader>
@@ -174,7 +176,7 @@ const Book = () => {
         renderNavigationView={() => (
           <DrawerNavigation
             handleScroll={handleScrollToIndex}
-            chaptersNumber={chaptersNumber}
+            bookLength={book.length}
           />
         )}
       >
@@ -189,7 +191,7 @@ const Book = () => {
         <AnimatedFlatList
           ref={listRef}
           data={bookChapters}
-          keyExtractor={(chapter: string[]) => chapter[1].toString()}
+          keyExtractor={(chapter: Chapter) => Object.keys(chapter)[0]}
           renderItem={renderChapterItem}
           ListHeaderComponent={renderHeader}
           ItemSeparatorComponent={() => <ItemSeparator />}

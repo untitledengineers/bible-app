@@ -15,11 +15,11 @@ import {
   ChapterText,
 } from './styles';
 
-import bibleData from '../../data/bible_ptbr.json';
+import { BOOKS_MAP } from '../../constants';
 
 export interface IBook {
   name: string;
-  chaptersNumber: number[];
+  length: number;
 }
 
 const Home = () => {
@@ -28,14 +28,14 @@ const Home = () => {
   const renderBookItem: ListRenderItem<IBook> = ({ item }) => (
     <SwipeableButton book={item}>
       <Button
-        onPress={() => navigation.navigate('Book', { bookName: item.name })}
+        onPress={() => navigation.navigate('Book', { book: item })}
       >
         <Content>
           <Title>{item.name}</Title>
 
           <Chapter>
             <Entypo name="open-book" size={18} color="#999" />
-            <ChapterText> {item.chaptersNumber.length} Capítulos</ChapterText>
+            <ChapterText> {item.length} Capítulos</ChapterText>
           </Chapter>
         </Content>
       </Button>
@@ -45,7 +45,7 @@ const Home = () => {
   return (
     <Container>
       <FlatList
-        data={bibleData as IBook[]}
+        data={BOOKS_MAP}
         keyExtractor={book => book.name}
         renderItem={renderBookItem}
         ItemSeparatorComponent={() => <Separator />}
