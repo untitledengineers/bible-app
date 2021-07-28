@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { AppLoading } from 'expo';
+import AppLoading from 'expo-app-loading';
 import {
   useFonts,
   Cardo_400Regular,
