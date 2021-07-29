@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import {
   Animated,
   FlatList,
@@ -22,6 +22,27 @@ const SwipeableButton = ({
 }: React.PropsWithChildren<SwipeableButtonProps>) => {
   const window = useWindowDimensions();
   const navigation = useNavigation();
+  const listRef = useRef<FlatList>(null);
+
+  const [nextListIndex, setNextListIndex] = useState(0);
+
+  const handleScrollLeft = () => {
+    const isBiggerThanZero = nextListIndex > 0;
+
+    if(isBiggerThanZero) {
+      setNextListIndex(prev => prev - 1);
+      listRef.current?.scrollToIndex({ index: nextListIndex - 1, animated: true });
+    }
+  }
+
+  const handleScrollRight = () => {
+    const isLessThanChaptersLength = nextListIndex < book.chaptersNumber.length - 4;
+
+    if(isLessThanChaptersLength) {
+      setNextListIndex(prev => prev + 1);
+      listRef.current?.scrollToIndex({ index: nextListIndex + 1, animated: true });
+    }
+  }
 
   const handleNavigate = (index: number) => {
     navigation.navigate('Book', {
@@ -49,20 +70,29 @@ const SwipeableButton = ({
           transform: [{ translateX }],
         }}
       >
+        <S.Item onPress={handleScrollLeft}>
+          <S.ItemContent>&lt;</S.ItemContent>
+        </S.Item>
+
         <FlatList
+          ref={listRef}
           data={book.chaptersNumber}
           keyExtractor={chapter => chapter.toString()}
           renderItem={renderItem}
           horizontal
           scrollEventThrottle={16}
-          showsHorizontalScrollIndicator={false}
+          nestedScrollEnabled
         />
+
+        <S.Item onPress={handleScrollRight}>
+          <S.ItemContent>&gt;</S.ItemContent>
+        </S.Item>
       </S.ListContainer>
     );
   };
 
   return (
-    <Swipeable renderRightActions={renderRightActions}>{children}</Swipeable>
+    <Swipeable renderRightActions={renderRightActions} containerStyle={{ overflow: 'hidden'}}>{children}</Swipeable>
   );
 };
 

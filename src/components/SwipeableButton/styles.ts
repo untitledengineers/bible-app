@@ -15,5 +15,6 @@ export const ItemContent = styled.Text`
 
 export const ListContainer = styled(Animated.View)`
   flex: 1;
+  flex-direction: row;
   background-color: rgba(0, 0, 0, 0.1);
 `;
