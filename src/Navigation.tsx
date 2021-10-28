@@ -1,19 +1,19 @@
-import React from 'react';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import { createStackNavigator } from '@react-navigation/stack';
+import React from 'react'
+import { createDrawerNavigator } from '@react-navigation/drawer'
+import { createStackNavigator } from '@react-navigation/stack'
 
-import Home from './screens/Home';
-import Book from './screens/Book';
+import Home from './screens/Home'
+import Book from './screens/Book'
 
-import DrawerNavigation from './components/DrawerNavigation';
+import DrawerNavigation from './components/DrawerNavigation'
 
-const AppStack = createStackNavigator();
+const AppStack = createStackNavigator()
 
 const HomeRoutes = () => (
   <AppStack.Navigator
     headerMode="none"
     screenOptions={{
-      cardStyle: { backgroundColor: '#efebe4' },
+      cardStyle: { backgroundColor: '#efebe4' }
     }}
   >
     <AppStack.Screen
@@ -23,9 +23,9 @@ const HomeRoutes = () => (
     />
     <AppStack.Screen name="Book" component={Book} />
   </AppStack.Navigator>
-);
+)
 
-const AppDrawer = createDrawerNavigator();
+const AppDrawer = createDrawerNavigator()
 
 const Navigation = () => {
   return (
@@ -37,7 +37,7 @@ const Navigation = () => {
     >
       <AppDrawer.Screen name="Home" component={HomeRoutes} />
     </AppDrawer.Navigator>
-  );
-};
+  )
+}
 
-export default Navigation;
+export default Navigation

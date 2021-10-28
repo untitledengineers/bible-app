@@ -1,10 +1,10 @@
-import 'react-native-gesture-handler';
-import React from 'react';
+import 'react-native-gesture-handler'
+import React from 'react'
 
-import App from './src';
+import App from './src'
 
 const Main = () => {
-  return <App />;
-};
+  return <App />
+}
 
-export default Main;
+export default Main

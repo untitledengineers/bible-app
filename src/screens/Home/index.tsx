@@ -1,9 +1,9 @@
-import React from 'react';
-import { FlatList, ListRenderItem } from 'react-native';
-import { Entypo } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import React from 'react'
+import { FlatList, ListRenderItem } from 'react-native'
+import { Entypo } from '@expo/vector-icons'
+import { useNavigation } from '@react-navigation/native'
 
-import SwipeableButton from '../../components/SwipeableButton';
+import SwipeableButton from '../../components/SwipeableButton'
 
 import {
   Container,
@@ -12,18 +12,18 @@ import {
   Title,
   Content,
   Chapter,
-  ChapterText,
-} from './styles';
+  ChapterText
+} from './styles'
 
-import bibleData from '../../data/bible_ptbr.json';
+import bibleData from '../../data/bible_ptbr.json'
 
 export interface IBook {
-  name: string;
-  chaptersNumber: number[];
+  name: string
+  chaptersNumber: number[]
 }
 
 const Home = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation()
 
   const renderBookItem: ListRenderItem<IBook> = ({ item }) => (
     <SwipeableButton book={item}>
@@ -40,7 +40,7 @@ const Home = () => {
         </Content>
       </Button>
     </SwipeableButton>
-  );
+  )
 
   return (
     <Container>
@@ -53,7 +53,7 @@ const Home = () => {
         nestedScrollEnabled
       />
     </Container>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

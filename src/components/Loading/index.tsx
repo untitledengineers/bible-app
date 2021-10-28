@@ -1,8 +1,8 @@
 /* eslint-disable global-require */
-import React from 'react';
-import LottieView from 'lottie-react-native';
+import React from 'react'
+import LottieView from 'lottie-react-native'
 
-import { Container } from './styles';
+import { Container } from './styles'
 
 const Loading = () => {
   return (
@@ -13,7 +13,7 @@ const Loading = () => {
         loop
       />
     </Container>
-  );
-};
+  )
+}
 
-export default Loading;
+export default Loading

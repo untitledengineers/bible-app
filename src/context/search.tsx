@@ -1,22 +1,22 @@
 /* eslint-disable no-shadow */
-import React, { createContext, useContext, useRef, useCallback } from 'react';
-import { View, Text } from 'react-native';
-import { Modalize } from 'react-native-modalize';
+import React, { createContext, useContext, useRef, useCallback } from 'react'
+import { View, Text } from 'react-native'
+import { Modalize } from 'react-native-modalize'
 
 interface SearchContextData {
-  handleOpen(): void;
+  handleOpen(): void
 }
 
-const SearchContext = createContext<SearchContextData>({} as SearchContextData);
+const SearchContext = createContext<SearchContextData>({} as SearchContextData)
 
 export const SearchProvider = ({
-  children,
+  children
 }: React.PropsWithChildren<unknown>) => {
-  const modalizeRef = useRef<Modalize>(null);
+  const modalizeRef = useRef<Modalize>(null)
 
   const handleOpen = useCallback(() => {
-    modalizeRef.current?.open();
-  }, []);
+    modalizeRef.current?.open()
+  }, [])
 
   return (
     <SearchContext.Provider value={{ handleOpen }}>
@@ -26,7 +26,7 @@ export const SearchProvider = ({
         ref={modalizeRef}
         scrollViewProps={{
           showsVerticalScrollIndicator: false,
-          stickyHeaderIndices: [0],
+          stickyHeaderIndices: [0]
         }}
       >
         <View
@@ -36,12 +36,12 @@ export const SearchProvider = ({
         </View>
       </Modalize>
     </SearchContext.Provider>
-  );
-};
+  )
+}
 
 // Hook próprio
 export function useSearch() {
-  const context = useContext(SearchContext);
+  const context = useContext(SearchContext)
 
-  return context;
+  return context
 }

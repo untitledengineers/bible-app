@@ -1,5 +1,5 @@
-import { BorderlessButton } from 'react-native-gesture-handler';
-import styled from 'styled-components/native';
+import { BorderlessButton } from 'react-native-gesture-handler'
+import styled from 'styled-components/native'
 
 export const Container = styled.View`
   justify-content: center;
@@ -12,8 +12,8 @@ export const Container = styled.View`
   right: 0;
 
   background-color: #efebe4;
-`;
+`
 
 export const Button = styled(BorderlessButton)`
   width: 24px;
-`;
+`
