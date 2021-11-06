@@ -20,6 +20,8 @@ import bibleData from '../../data/bible_ptbr.json'
 export interface IBook {
   name: string
   chaptersNumber: number[]
+  abbrev: string
+  chapters: string[][]
 }
 
 const Home = () => {
