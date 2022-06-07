@@ -5,6 +5,9 @@ import { useNavigation } from '@react-navigation/native'
 
 import SwipeableButton from '../../components/SwipeableButton'
 
+import bibleData from '../../data/bible_ptbr.json'
+import { useBackHandler } from '../../hooks'
+
 import {
   Container,
   Button,
@@ -15,8 +18,6 @@ import {
   ChapterText
 } from './styles'
 
-import bibleData from '../../data/bible_ptbr.json'
-
 export interface IBook {
   name: string
   chaptersNumber: number[]
@@ -26,6 +27,8 @@ export interface IBook {
 
 const Home = () => {
   const navigation = useNavigation()
+
+  useBackHandler()
 
   const renderBookItem: ListRenderItem<IBook> = ({ item }) => (
     <SwipeableButton book={item}>
