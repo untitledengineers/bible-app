@@ -11,6 +11,8 @@ import {
 import { LoadingProvider } from './context/loading'
 import { SearchProvider } from './context/search'
 
+import { setNavigator } from './utils/navigation'
+
 import Navigation from './Navigation'
 
 const App = () => {
@@ -25,7 +27,7 @@ const App = () => {
   }
 
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={setNavigator}>
       <LoadingProvider>
         <SearchProvider>
           <Navigation />

@@ -8,6 +8,7 @@ import { createFilter } from 'react-native-search-filter'
 
 import bibleData from '../../data/bible_ptbr.json'
 import { IBook } from '../../screens/Home'
+import { navigate } from '../../utils/navigation'
 
 import * as S from './styles'
 
@@ -71,12 +72,35 @@ function Search({ closeModal }: Props): JSX.Element {
     [filteredVerses]
   )
 
+  const handleNavigationToBook = (item: {
+    bookName: string
+    chapterNumber?: number
+  }) => {
+    return () => {
+      navigate('Book', {
+        bookName: item.bookName,
+        initialScrollIndex: item.chapterNumber ? item.chapterNumber - 1 : 0
+      })
+
+      closeModal()
+    }
+  }
+
   const renderBook: SectionListRenderItem<IBook> = ({ item }) => (
-    <S.BookName>{item.name}</S.BookName>
+    <S.BookNameWrapper
+      onPress={handleNavigationToBook({ bookName: item.name })}
+    >
+      <S.BookName>{item.name}</S.BookName>
+    </S.BookNameWrapper>
   )
 
   const renderVerse: SectionListRenderItem<Verse> = ({ item }) => (
-    <S.VerseWrapper>
+    <S.VerseWrapper
+      onPress={handleNavigationToBook({
+        bookName: item.bookName,
+        chapterNumber: item.bookChapterNumber
+      })}
+    >
       <S.Verse>{item.bookVerseText}</S.Verse>
       <S.VerseLocation>
         {item.bookName} {item.bookChapterNumber}:{item.bookVerseNumber}
@@ -131,6 +155,7 @@ function Search({ closeModal }: Props): JSX.Element {
         contentContainerStyle={{ paddingHorizontal: 8 }}
         renderSectionHeader={renderSectionHeader}
         renderSectionFooter={renderSectionFooter}
+        keyboardShouldPersistTaps="handled"
       />
     </S.Container>
   )

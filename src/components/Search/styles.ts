@@ -67,6 +67,8 @@ export const SectionSeparator = styled.View`
   border-bottom-width: ${StyleSheet.hairlineWidth}px;
 `
 
+export const BookNameWrapper = styled.TouchableOpacity``
+
 export const BookName = styled.Text`
   font-family: 'Cardo_400Regular';
   font-size: 20px;
@@ -74,7 +76,7 @@ export const BookName = styled.Text`
   color: #3d3424;
 `
 
-export const VerseWrapper = styled.View`
+export const VerseWrapper = styled.TouchableOpacity`
   margin: 8px 0;
 `
 
