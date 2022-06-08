@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useEffect, createRef } from 'react'
 import {
   SectionList,
   SectionListData,
-  SectionListRenderItem
+  SectionListRenderItem,
+  TextInput
 } from 'react-native'
 import { createFilter } from 'react-native-search-filter'
 
@@ -32,6 +33,11 @@ function filterTerms(searchTerm: string, keys: string[]) {
 
 function Search({ closeModal }: Props): JSX.Element {
   const [searchTerm, setSearchTerm] = React.useState('')
+  const inputRef = createRef<TextInput>()
+
+  useEffect(() => {
+    setTimeout(() => inputRef.current?.focus(), 500)
+  }, [inputRef])
 
   const filteredBooks = React.useMemo(() => {
     if (searchTerm === '') return []
@@ -146,7 +152,7 @@ function Search({ closeModal }: Props): JSX.Element {
       <S.Header>
         <S.CloseButton onPress={closeModal} />
 
-        <S.Input onChangeText={setSearchTerm} />
+        <S.Input ref={inputRef} onChangeText={setSearchTerm} />
       </S.Header>
 
       <SectionList

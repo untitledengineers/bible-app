@@ -1,9 +1,8 @@
-import { Platform, StyleSheet } from 'react-native'
+import { Platform, StyleSheet, TextInput } from 'react-native'
 import Constants from 'expo-constants'
 import { LinearGradient } from 'expo-linear-gradient'
 import styled from 'styled-components/native'
 import { Feather } from '@expo/vector-icons'
-import SearchInput from 'react-native-search-filter'
 
 export const Container = styled.View`
   flex: 1;
@@ -23,21 +22,12 @@ export const Header = styled(LinearGradient).attrs(() => ({
     : 10}px;
 `
 
-export const Input = styled(SearchInput).attrs(() => ({
-  placeholder: ' ',
-  inputViewStyles: {
-    marginTop: 'auto',
-    padding: 16
-  },
-  clearIconViewStyles: {
-    position: 'absolute',
-    top: 8,
-    right: 16
-  },
+export const Input = styled(TextInput).attrs(() => ({
+  placeholder: '',
+  padding: 16,
   returnKeyType: 'search',
   underlineColorAndroid: 'transparent',
-  selectionColor: '#ffffff',
-  autoFocus: true
+  selectionColor: '#ffffff'
 }))`
   font-size: 22px;
   color: #ffffff;

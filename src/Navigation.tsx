@@ -1,4 +1,5 @@
 import React from 'react'
+import { useWindowDimensions } from 'react-native'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import { createStackNavigator } from '@react-navigation/stack'
 
@@ -28,12 +29,15 @@ const HomeRoutes = () => (
 const AppDrawer = createDrawerNavigator()
 
 const Navigation = () => {
+  const window = useWindowDimensions()
+
   return (
     <AppDrawer.Navigator
       drawerStyle={{ width: 64 }}
       drawerType="slide"
       overlayColor="rgba(0,0,0,0.5)"
       drawerContent={props => <DrawerNavigation {...props} />}
+      edgeWidth={window.width}
     >
       <AppDrawer.Screen name="Home" component={HomeRoutes} />
     </AppDrawer.Navigator>

@@ -15,6 +15,7 @@ import DrawerNavigation from './DrawerNavigation'
 import HeaderApp from '../../components/Header'
 
 import { useLoading } from '../../context/loading'
+import { useBackHandler } from '../../hooks'
 
 import {
   Container,
@@ -80,12 +81,14 @@ const Book = () => {
   })
 
   const handleScrollToIndex = useCallback((index: number) => {
-    drawerRef.current.closeDrawer()
+    drawerRef.current?.closeDrawer()
 
     listRef.current?.scrollToIndex({ animated: true, index })
 
     sentIndexToScroll(index)
   }, [])
+
+  useBackHandler()
 
   useEffect(() => {
     const bibles = bibleData as IBook[]
