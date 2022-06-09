@@ -52,7 +52,7 @@ const Book = () => {
   const [bookChapters, setBookChapters] = useState<string[][]>([])
   const [chaptersNumber, setChaptersNumber] = useState<number[]>([])
   const [indexViewable, setIndexViewable] = useState<number | null>(0)
-  const [indexToScroll, sentIndexToScroll] = useState(0)
+  const [indexToScroll, setIndexToScroll] = useState(0)
   const listRef = useRef<FlatList>(null)
   const drawerRef = useRef<DrawerLayout>(null)
   const { isVisible, handleVisible } = useLoading()
@@ -85,7 +85,7 @@ const Book = () => {
 
     listRef.current?.scrollToIndex({ animated: true, index })
 
-    sentIndexToScroll(index)
+    setIndexToScroll(index)
   }, [])
 
   useBackHandler()
@@ -99,9 +99,9 @@ const Book = () => {
     setChaptersNumber(booksFound[0].chaptersNumber)
 
     if (initialScrollIndex) {
-      sentIndexToScroll(initialScrollIndex)
+      setTimeout(() => handleScrollToIndex(initialScrollIndex), 500)
     }
-  }, [bookName, initialScrollIndex])
+  }, [bookName, handleScrollToIndex, initialScrollIndex])
 
   useEffect(() => {
     if (indexViewable === indexToScroll && isVisible) {
@@ -197,7 +197,6 @@ const Book = () => {
           ListHeaderComponent={renderHeader}
           ItemSeparatorComponent={() => <ItemSeparator />}
           initialNumToRender={2}
-          initialScrollIndex={initialScrollIndex || 0}
           scrollEventThrottle={16}
           nestedScrollEnabled
           contentContainerStyle={{
