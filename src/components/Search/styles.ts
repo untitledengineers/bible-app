@@ -23,7 +23,7 @@ export const Header = styled(LinearGradient).attrs(() => ({
 `
 
 export const Input = styled(TextInput).attrs(() => ({
-  placeholder: '',
+  placeholder: 'Digite uma palavra-chave',
   padding: 16,
   returnKeyType: 'search',
   underlineColorAndroid: 'transparent',
