@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native'
 
 import SwipeableButton from '../../components/SwipeableButton'
 
-import bibleData from '../../data/bible_ptbr.json'
+import bibleData from '../../data/lite_bible_ptbr.json'
 import { useBackHandler } from '../../hooks'
 
 import {
@@ -56,6 +56,7 @@ const Home = () => {
         ItemSeparatorComponent={() => <Separator />}
         showsVerticalScrollIndicator={false}
         nestedScrollEnabled
+        initialNumToRender={66}
       />
     </Container>
   )
