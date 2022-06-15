@@ -36,7 +36,7 @@ function Search({ closeModal }: Props): JSX.Element {
   const inputRef = createRef<TextInput>()
 
   useEffect(() => {
-    setTimeout(() => inputRef.current?.focus(), 500)
+    setTimeout(() => inputRef.current?.focus(), 200)
   }, [inputRef])
 
   const filteredBooks = React.useMemo(() => {

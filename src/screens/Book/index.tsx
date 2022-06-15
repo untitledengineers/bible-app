@@ -99,7 +99,7 @@ const Book = () => {
     setChaptersNumber(booksFound[0].chaptersNumber)
 
     if (initialScrollIndex) {
-      setTimeout(() => handleScrollToIndex(initialScrollIndex), 500)
+      setTimeout(() => handleScrollToIndex(initialScrollIndex), 200)
     }
   }, [bookName, handleScrollToIndex, initialScrollIndex])
 
