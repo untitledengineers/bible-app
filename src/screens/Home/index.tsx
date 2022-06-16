@@ -56,7 +56,7 @@ const Home = () => {
         ItemSeparatorComponent={() => <Separator />}
         showsVerticalScrollIndicator={false}
         nestedScrollEnabled
-        initialNumToRender={66}
+        initialNumToRender={15}
       />
     </Container>
   )

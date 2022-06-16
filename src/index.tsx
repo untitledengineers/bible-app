@@ -1,12 +1,13 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import {
-  useFonts,
   Cardo_400Regular,
   Cardo_400Regular_Italic,
   Cardo_700Bold
 } from '@expo-google-fonts/cardo'
 import * as SplashScreen from 'expo-splash-screen'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import * as Font from 'expo-font'
 
 import { LoadingProvider } from './context/loading'
 import { SearchProvider } from './context/search'
@@ -21,30 +22,49 @@ SplashScreen.preventAutoHideAsync().catch(() => {
 })
 
 const App = () => {
-  const [fontsLoaded] = useFonts({
-    Cardo_400Regular,
-    Cardo_400Regular_Italic,
-    Cardo_700Bold
-  })
+  const [appIsReady, setAppIsReady] = useState(false)
+  const [hasOnboarded, setHasOnboarded] = useState<string | null>(null)
+
+  useEffect(() => {
+    async function prepare() {
+      try {
+        await Font.loadAsync({
+          Cardo_400Regular,
+          Cardo_400Regular_Italic,
+          Cardo_700Bold
+        })
+
+        const value = await AsyncStorage.getItem('@hasOnboarded')
+
+        setHasOnboarded(value)
+      } catch (e) {
+        console.error(e)
+      } finally {
+        setAppIsReady(true)
+      }
+    }
+
+    prepare()
+  }, [])
 
   const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded) {
+    if (appIsReady) {
       await SplashScreen.hideAsync()
     }
-  }, [fontsLoaded])
+  }, [appIsReady])
 
-  if (!fontsLoaded) {
+  if (!appIsReady) {
     return null
   }
 
   return (
-    <NavigationContainer ref={setNavigator} onReady={onLayoutRootView}>
-      <LoadingProvider>
-        <SearchProvider>
-          <Navigation />
-        </SearchProvider>
-      </LoadingProvider>
-    </NavigationContainer>
+    <LoadingProvider>
+      <SearchProvider>
+        <NavigationContainer ref={setNavigator} onReady={onLayoutRootView}>
+          <Navigation hasOnboarded={hasOnboarded} />
+        </NavigationContainer>
+      </SearchProvider>
+    </LoadingProvider>
   )
 }
 

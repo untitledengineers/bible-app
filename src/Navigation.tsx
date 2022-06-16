@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 
 import Home from './screens/Home'
 import Book from './screens/Book'
+import Onboarding from './screens/Onboarding'
 
 import DrawerNavigation from './components/DrawerNavigation'
 
@@ -28,7 +29,11 @@ const HomeRoutes = () => (
 
 const AppDrawer = createDrawerNavigator()
 
-const Navigation = () => {
+type NavigationProps = {
+  hasOnboarded: string | null
+}
+
+const Navigation = ({ hasOnboarded }: NavigationProps) => {
   const window = useWindowDimensions()
 
   return (
@@ -38,8 +43,16 @@ const Navigation = () => {
       overlayColor="rgba(0,0,0,0.5)"
       drawerContent={props => <DrawerNavigation {...props} />}
       edgeWidth={window.width}
+      initialRouteName={hasOnboarded ? 'Home' : 'Onboarding'}
     >
       <AppDrawer.Screen name="Home" component={HomeRoutes} />
+      <AppDrawer.Screen
+        name="Onboarding"
+        component={Onboarding}
+        options={{
+          gestureEnabled: false
+        }}
+      />
     </AppDrawer.Navigator>
   )
 }
