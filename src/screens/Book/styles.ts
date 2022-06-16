@@ -52,7 +52,7 @@ export const ItemSeparator = styled.View`
 
 export const FirstVerseNumber = styled.Text`
   ${Text}
-  margin-right: 4px;
+  margin-right: 6px;
   font-size: 24px;
   font-family: 'Cardo_700Bold';
 `
@@ -64,5 +64,6 @@ export const VerseNumber = styled.Text`
 
 export const Verse = styled.Text`
   ${Text}
+  flex-shrink: 1;
   font-size: 20px;
 `

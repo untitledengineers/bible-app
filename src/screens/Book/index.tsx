@@ -142,15 +142,25 @@ const Book = () => {
     index: number
   }) => (
     <>
-      {item.map((verse, vIndex) => (
-        <Item key={vIndex.toString()}>
-          {vIndex === 0 && <FirstVerseNumber>{index + 1}</FirstVerseNumber>}
+      {item.map((verse, vIndex) => {
+        if (vIndex === 0) {
+          return (
+            <Item key={`${index}-${vIndex}`}>
+              <FirstVerseNumber>{index + 1}</FirstVerseNumber>
 
-          <Verse>
-            {vIndex !== 0 && <VerseNumber>{vIndex + 1}</VerseNumber>} {verse}
-          </Verse>
-        </Item>
-      ))}
+              <Verse>{verse}</Verse>
+            </Item>
+          )
+        }
+
+        return (
+          <Item key={`${index}-${vIndex}`}>
+            <Verse>
+              <VerseNumber>{vIndex + 1}</VerseNumber> {verse}
+            </Verse>
+          </Item>
+        )
+      })}
     </>
   )
 
