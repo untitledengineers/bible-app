@@ -7,7 +7,7 @@ import {
 } from 'react-native'
 import { createFilter } from 'react-native-search-filter'
 
-import bibleData from '../../data/bible_ptbr.json'
+import bibleData from '../../data/bible_acf.json'
 import { IBook } from '../../screens/Home'
 import { navigate } from '../../utils/navigation'
 

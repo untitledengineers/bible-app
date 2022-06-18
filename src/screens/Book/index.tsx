@@ -8,7 +8,7 @@ import {
 import { useRoute } from '@react-navigation/native'
 import DrawerLayout from 'react-native-gesture-handler/DrawerLayout'
 
-import bibleData from '../../data/bible_ptbr.json'
+import bibleData from '../../data/bible_acf.json'
 
 import DrawerNavigation from './DrawerNavigation'
 
