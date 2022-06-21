@@ -42,7 +42,7 @@ const Navigation = ({ hasOnboarded }: NavigationProps) => {
       drawerType="slide"
       overlayColor="rgba(0,0,0,0.5)"
       drawerContent={props => <DrawerNavigation {...props} />}
-      edgeWidth={window.width}
+      edgeWidth={window.width / 2}
       initialRouteName={hasOnboarded ? 'Home' : 'Onboarding'}
     >
       <AppDrawer.Screen name="Home" component={HomeRoutes} />
