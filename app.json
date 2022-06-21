@@ -21,7 +21,7 @@
     },
     "android": {
       "package": "com.untitledengineers.bible",
-      "versionCode": 2,
+      "versionCode": 3,
       "userInterfaceStyle": "light",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
