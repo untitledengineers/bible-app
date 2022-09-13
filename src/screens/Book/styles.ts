@@ -19,6 +19,7 @@ export const AnimatedHeader = styled(Animated.View)`
 const Text = css`
   font-family: 'Cardo_400Regular';
   color: #3d3424;
+  text-align: justify;
 `
 
 export const ListHeader = styled.View`
