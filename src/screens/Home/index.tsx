@@ -1,5 +1,6 @@
 import React from 'react'
-import { FlatList, ListRenderItem } from 'react-native'
+import { ListRenderItem } from 'react-native'
+import { FlatList } from 'react-native-gesture-handler'
 import { Entypo } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 

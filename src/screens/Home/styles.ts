@@ -5,9 +5,7 @@ import Constants from 'expo-constants'
 
 export const Container = styled.SafeAreaView`
   flex: 1;
-  padding-top: ${Platform.OS === 'android'
-    ? Constants.statusBarHeight + 10
-    : 10}px;
+  padding-top: ${Platform.OS === 'android' ? Constants.statusBarHeight : 10}px;
 `
 
 export const Content = styled.View`

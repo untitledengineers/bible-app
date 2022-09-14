@@ -7,10 +7,9 @@ export const LIST_HEADER_HEIGHT = 112
 
 export const Container = styled.SafeAreaView`
   flex: 1;
-  padding-top: ${Platform.OS === 'android'
-    ? Constants.statusBarHeight + 10
-    : 10}px;
+  padding-top: ${Platform.OS === 'android' ? Constants.statusBarHeight : 10}px;
 `
+
 const Text = css`
   font-family: 'Cardo_400Regular';
   color: #3d3424;
