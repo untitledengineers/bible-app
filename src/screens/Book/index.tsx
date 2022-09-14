@@ -3,7 +3,8 @@ import {
   FlatList,
   Animated,
   ViewToken,
-  useWindowDimensions
+  useWindowDimensions,
+  ListRenderItem
 } from 'react-native'
 import { useRoute } from '@react-navigation/native'
 import DrawerLayout from 'react-native-gesture-handler/DrawerLayout'
@@ -27,7 +28,9 @@ import {
   ListHeader,
   ListHeaderSeparator,
   ListHeaderText,
-  AnimatedHeader
+  AnimatedHeader,
+  LIST_HEADER_HEIGHT,
+  AnimatedTitle
 } from './styles'
 
 type IParams = {
@@ -44,7 +47,7 @@ type IBook = {
 const HEADER_APP_MAX_HEIGHT = 40
 const HEADER_APP_MIN_HEIGHT = 0
 
-const AnimatedFlatList = Animated.createAnimatedComponent(FlatList)
+const AnimatedFlatList = Animated.createAnimatedComponent<any>(FlatList)
 
 const Book = () => {
   const route = useRoute()
@@ -67,6 +70,15 @@ const Book = () => {
   const translateY: Animated.AnimatedInterpolation = diffClamp.interpolate({
     inputRange: [HEADER_APP_MIN_HEIGHT, HEADER_APP_MAX_HEIGHT],
     outputRange: [HEADER_APP_MIN_HEIGHT, -HEADER_APP_MAX_HEIGHT],
+    extrapolate: 'clamp'
+  })
+  const titleOpacity = scrollY.interpolate({
+    inputRange: [
+      0,
+      (LIST_HEADER_HEIGHT + HEADER_APP_MAX_HEIGHT) / 2,
+      LIST_HEADER_HEIGHT + HEADER_APP_MAX_HEIGHT
+    ],
+    outputRange: [0, 0, 1],
     extrapolate: 'clamp'
   })
 
@@ -134,13 +146,7 @@ const Book = () => {
     }, 100)
   }
 
-  const renderChapterItem = ({
-    item,
-    index
-  }: {
-    item: string[]
-    index: number
-  }) => (
+  const renderChapterItem: ListRenderItem<string[]> = ({ item, index }) => (
     <>
       {item.map((verse, vIndex) => {
         if (vIndex === 0) {
@@ -197,6 +203,13 @@ const Book = () => {
           }}
         >
           <HeaderApp />
+          <AnimatedTitle
+            style={{
+              opacity: titleOpacity
+            }}
+          >
+            {bookName}
+          </AnimatedTitle>
         </AnimatedHeader>
 
         <AnimatedFlatList

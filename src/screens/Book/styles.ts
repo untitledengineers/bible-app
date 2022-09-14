@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components/native'
 import Constants from 'expo-constants'
 
 export const ITEM_SEPARATOR_HEIGHT = 10
-export const HEADER_HEIGHT = 112
+export const LIST_HEADER_HEIGHT = 112
 
 export const Container = styled.SafeAreaView`
   flex: 1;
@@ -11,19 +11,29 @@ export const Container = styled.SafeAreaView`
     ? Constants.statusBarHeight + 10
     : 10}px;
 `
-
-export const AnimatedHeader = styled(Animated.View)`
-  z-index: 99;
-`
-
 const Text = css`
   font-family: 'Cardo_400Regular';
   color: #3d3424;
   text-align: justify;
 `
 
+export const AnimatedHeader = styled(Animated.View)`
+  z-index: 99;
+`
+
+export const AnimatedTitle = styled(Animated.Text)`
+  ${Text}
+  position: absolute;
+  top: 4px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 20px;
+  font-family: 'Cardo_700Bold';
+`
+
 export const ListHeader = styled.View`
-  height: ${HEADER_HEIGHT}px;
+  height: ${LIST_HEADER_HEIGHT}px;
   align-items: center;
   justify-content: center;
 `
