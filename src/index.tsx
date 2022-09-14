@@ -62,7 +62,7 @@ const App = () => {
     <LoadingProvider>
       <SearchProvider>
         <NavigationContainer ref={setNavigator} onReady={onLayoutRootView}>
-          <StatusBar backgroundColor="#cabca4" />
+          <StatusBar style="dark" />
           <Navigation hasOnboarded={hasOnboarded} />
         </NavigationContainer>
       </SearchProvider>
