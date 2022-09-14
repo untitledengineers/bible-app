@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
+import { StatusBar } from 'expo-status-bar'
 import { NavigationContainer } from '@react-navigation/native'
 import {
   Cardo_400Regular,
@@ -61,6 +62,7 @@ const App = () => {
     <LoadingProvider>
       <SearchProvider>
         <NavigationContainer ref={setNavigator} onReady={onLayoutRootView}>
+          <StatusBar backgroundColor="#cabca4" />
           <Navigation hasOnboarded={hasOnboarded} />
         </NavigationContainer>
       </SearchProvider>
