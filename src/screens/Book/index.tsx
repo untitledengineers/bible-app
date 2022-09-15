@@ -29,8 +29,7 @@ import {
   ListHeaderSeparator,
   ListHeaderText,
   AnimatedHeader,
-  LIST_HEADER_HEIGHT,
-  AnimatedTitle
+  LIST_HEADER_HEIGHT
 } from './styles'
 
 type IParams = {
@@ -202,14 +201,7 @@ const Book = () => {
             transform: [{ translateY }]
           }}
         >
-          <HeaderApp />
-          <AnimatedTitle
-            style={{
-              opacity: titleOpacity
-            }}
-          >
-            {bookName}
-          </AnimatedTitle>
+          <HeaderApp titleOpacity={titleOpacity} title={bookName} />
         </AnimatedHeader>
 
         <AnimatedFlatList

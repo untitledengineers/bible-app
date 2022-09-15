@@ -20,17 +20,6 @@ export const AnimatedHeader = styled(Animated.View)`
   z-index: 99;
 `
 
-export const AnimatedTitle = styled(Animated.Text)`
-  ${Text}
-  position: absolute;
-  top: 4px;
-  left: 0;
-  right: 0;
-  text-align: center;
-  font-size: 20px;
-  font-family: 'Cardo_700Bold';
-`
-
 export const ListHeader = styled.View`
   height: ${LIST_HEADER_HEIGHT}px;
   align-items: center;
