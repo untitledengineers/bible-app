@@ -2,19 +2,17 @@ import React from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { Animated, useWindowDimensions } from 'react-native'
 import { Swipeable } from 'react-native-gesture-handler'
+import { Entypo } from '@expo/vector-icons'
 
 import { IBook } from '../../screens/Home'
 
 import * as S from './styles'
 
-type SwipeableButtonProps = {
+type BookItemProps = {
   book: IBook
 }
 
-const SwipeableButton = ({
-  children,
-  book
-}: React.PropsWithChildren<SwipeableButtonProps>) => {
+const BookItem = ({ book }: BookItemProps) => {
   const window = useWindowDimensions()
   const navigation = useNavigation()
 
@@ -50,8 +48,24 @@ const SwipeableButton = ({
   }
 
   return (
-    <Swipeable renderRightActions={renderRightActions}>{children}</Swipeable>
+    <Swipeable renderRightActions={renderRightActions}>
+      <S.Button
+        onPress={() => navigation.navigate('Book', { bookName: book.name })}
+      >
+        <S.Content>
+          <S.Title>{book.name}</S.Title>
+
+          <S.Chapter>
+            <Entypo name="open-book" size={18} color="#999" />
+            <S.ChapterText>
+              {' '}
+              {book.chaptersNumber.length} Capítulos
+            </S.ChapterText>
+          </S.Chapter>
+        </S.Content>
+      </S.Button>
+    </Swipeable>
   )
 }
 
-export default SwipeableButton
+export default BookItem

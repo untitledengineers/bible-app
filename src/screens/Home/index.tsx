@@ -1,23 +1,13 @@
 import React from 'react'
 import { ListRenderItem } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
-import { Entypo } from '@expo/vector-icons'
-import { useNavigation } from '@react-navigation/native'
 
-import SwipeableButton from '../../components/SwipeableButton'
+import BookItem from '../../components/BookItem'
 
 import bibleData from '../../data/lite_bible_acf.json'
 import { useBackHandler } from '../../hooks'
 
-import {
-  Container,
-  Button,
-  Separator,
-  Title,
-  Content,
-  Chapter,
-  ChapterText
-} from './styles'
+import { Container, Separator } from './styles'
 
 export interface IBook {
   name: string
@@ -27,25 +17,10 @@ export interface IBook {
 }
 
 const Home = () => {
-  const navigation = useNavigation()
-
   useBackHandler()
 
   const renderBookItem: ListRenderItem<IBook> = ({ item }) => (
-    <SwipeableButton book={item}>
-      <Button
-        onPress={() => navigation.navigate('Book', { bookName: item.name })}
-      >
-        <Content>
-          <Title>{item.name}</Title>
-
-          <Chapter>
-            <Entypo name="open-book" size={18} color="#999" />
-            <ChapterText> {item.chaptersNumber.length} Capítulos</ChapterText>
-          </Chapter>
-        </Content>
-      </Button>
-    </SwipeableButton>
+    <BookItem book={item} />
   )
 
   return (
