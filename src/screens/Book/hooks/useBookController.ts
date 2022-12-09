@@ -29,7 +29,7 @@ type IBook = {
 const HEADER_APP_MAX_HEIGHT = 40
 const HEADER_APP_MIN_HEIGHT = 0
 
-export function useBookController() {
+export const useBookController = () => {
   const route = useRoute()
   const { bookName, initialScrollIndex } = route.params as IParams
   const [bookChapters, setBookChapters] = useState<string[][]>([])
