@@ -30,7 +30,7 @@ const HomeRoutes = () => (
 const AppDrawer = createDrawerNavigator()
 
 type NavigationProps = {
-  hasOnboarded: string | null
+  hasOnboarded: boolean
 }
 
 const Navigation = ({ hasOnboarded }: NavigationProps) => {

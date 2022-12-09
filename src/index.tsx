@@ -24,7 +24,7 @@ SplashScreen.preventAutoHideAsync().catch(() => {
 
 const App = () => {
   const [appIsReady, setAppIsReady] = useState(false)
-  const [hasOnboarded, setHasOnboarded] = useState<string | null>(null)
+  const [hasOnboarded, setHasOnboarded] = useState(false)
 
   useEffect(() => {
     async function prepare() {
@@ -37,7 +37,7 @@ const App = () => {
 
         const value = await AsyncStorage.getItem('@hasOnboarded')
 
-        setHasOnboarded(value)
+        setHasOnboarded(!!value)
       } catch (e) {
         console.error(e)
       } finally {
