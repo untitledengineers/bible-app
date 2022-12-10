@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { Animated, useWindowDimensions } from 'react-native'
-import { Swipeable } from 'react-native-gesture-handler'
+import { Animated, ListRenderItem, useWindowDimensions } from 'react-native'
+import { FlatList, Swipeable } from 'react-native-gesture-handler'
 import { Entypo } from '@expo/vector-icons'
 
 import { IBook } from '../../screens/Home'
@@ -23,6 +23,14 @@ const BookItem = ({ book }: BookItemProps) => {
     })
   }
 
+  const renderChapterItem: ListRenderItem<number> = ({ index }) => {
+    return (
+      <S.Item key={index} onPress={() => handleNavigate(index)}>
+        <S.ItemContent>{index + 1}</S.ItemContent>
+      </S.Item>
+    )
+  }
+
   const renderRightActions = (
     progress: Animated.AnimatedInterpolation<string | number>
   ) => {
@@ -38,13 +46,20 @@ const BookItem = ({ book }: BookItemProps) => {
           transform: [{ translateX }]
         }}
       >
-        <S.List horizontal nestedScrollEnabled>
-          {book.chaptersNumber.map((_, index) => (
-            <S.Item key={index} onPress={() => handleNavigate(index)}>
-              <S.ItemContent>{index + 1}</S.ItemContent>
-            </S.Item>
-          ))}
-        </S.List>
+        <FlatList
+          horizontal
+          nestedScrollEnabled
+          data={book.chaptersNumber}
+          keyExtractor={item => item.toString()}
+          renderItem={renderChapterItem}
+          style={{
+            marginLeft: 40,
+            backgroundColor: 'rgba(0, 0, 0, 0.1)'
+          }}
+          contentContainerStyle={{
+            paddingVertical: 4
+          }}
+        />
       </S.Container>
     )
   }

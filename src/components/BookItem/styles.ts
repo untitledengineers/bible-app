@@ -1,15 +1,10 @@
 import { Animated } from 'react-native'
-import { RectButton, ScrollView } from 'react-native-gesture-handler'
+import { RectButton } from 'react-native-gesture-handler'
 import styled from 'styled-components/native'
 
 export const Container = styled(Animated.View)`
   flex: 1;
   flex-direction: row;
-`
-
-export const List = styled(ScrollView)`
-  margin-left: 40px;
-  background-color: rgba(0, 0, 0, 0.1);
 `
 
 export const Item = styled.TouchableOpacity`
