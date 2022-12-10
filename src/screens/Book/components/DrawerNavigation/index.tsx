@@ -1,6 +1,7 @@
 /* eslint-disable no-plusplus */
-import React from 'react'
-import { FlatList, ListRenderItem } from 'react-native'
+import React, { useCallback } from 'react'
+import { ListRenderItem } from 'react-native'
+import { FlatList } from 'react-native-gesture-handler'
 
 import * as S from './styles'
 
@@ -10,14 +11,18 @@ type DrawerProps = {
 }
 
 const DrawerNavigation = ({ chaptersNumber, handleScroll }: DrawerProps) => {
-  const renderItem: ListRenderItem<number> = ({ index }) => (
-    <S.Item onPress={() => handleScroll(index)}>
-      <S.ItemContent>{index + 1}</S.ItemContent>
-    </S.Item>
+  const renderItem: ListRenderItem<number> = useCallback(
+    ({ index }) => (
+      <S.Item onPress={() => handleScroll(index)}>
+        <S.ItemContent>{index + 1}</S.ItemContent>
+      </S.Item>
+    ),
+    [handleScroll]
   )
 
-  const renderItemSeparator = () => (
-    <S.ItemSeparator>{'\u2B24'}</S.ItemSeparator>
+  const renderItemSeparator = useCallback(
+    () => <S.ItemSeparator>{'\u2B24'}</S.ItemSeparator>,
+    []
   )
 
   return (
