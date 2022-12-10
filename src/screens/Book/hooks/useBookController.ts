@@ -47,7 +47,9 @@ export const useBookController = () => {
     HEADER_APP_MIN_HEIGHT,
     HEADER_APP_MAX_HEIGHT
   )
-  const translateY: Animated.AnimatedInterpolation = diffClamp.interpolate({
+  const translateY: Animated.AnimatedInterpolation<
+    string | number
+  > = diffClamp.interpolate({
     inputRange: [HEADER_APP_MIN_HEIGHT, HEADER_APP_MAX_HEIGHT],
     outputRange: [HEADER_APP_MIN_HEIGHT, -HEADER_APP_MAX_HEIGHT],
     extrapolate: 'clamp'
@@ -73,7 +75,9 @@ export const useBookController = () => {
   })
 
   const handleScrollToIndex = useCallback((index: number) => {
-    drawerRef.current?.closeDrawer()
+    if (drawerRef.current?.state.drawerOpened) {
+      drawerRef.current?.closeDrawer()
+    }
 
     listRef.current?.scrollToIndex({ animated: true, index })
 
