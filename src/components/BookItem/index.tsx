@@ -23,7 +23,9 @@ const BookItem = ({ book }: BookItemProps) => {
     })
   }
 
-  const renderRightActions = (progress: Animated.AnimatedInterpolation) => {
+  const renderRightActions = (
+    progress: Animated.AnimatedInterpolation<string | number>
+  ) => {
     const translateX = progress.interpolate({
       inputRange: [0, 1],
       outputRange: [window.width, 0],
