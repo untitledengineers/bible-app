@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { Animated, ListRenderItem, useWindowDimensions } from 'react-native'
 import { FlatList, Swipeable } from 'react-native-gesture-handler'
@@ -13,62 +13,84 @@ type BookItemProps = {
 }
 
 const BookItem = ({ book }: BookItemProps) => {
+  const [rightActionsIsOpen, setRightActionsIsOpen] = useState(false)
   const window = useWindowDimensions()
   const navigation = useNavigation()
 
-  const handleNavigate = (index: number) => {
+  const handleActionVisibility = (state: boolean) => {
+    setRightActionsIsOpen(state)
+  }
+
+  const handleBookNavigation = useCallback(() => {
     navigation.navigate('Book', {
-      bookName: book.name,
-      initialScrollIndex: index
+      bookName: book.name
     })
-  }
+  }, [book.name, navigation])
 
-  const renderChapterItem: ListRenderItem<number> = ({ index }) => {
-    return (
-      <S.Item key={index} onPress={() => handleNavigate(index)}>
-        <S.ItemContent>{index + 1}</S.ItemContent>
-      </S.Item>
-    )
-  }
+  const handleChapterNavigation = useCallback(
+    (index: number) => {
+      navigation.navigate('Book', {
+        bookName: book.name,
+        initialScrollIndex: index
+      })
+    },
+    [book.name, navigation]
+  )
 
-  const renderRightActions = (
-    progress: Animated.AnimatedInterpolation<string | number>
-  ) => {
-    const translateX = progress.interpolate({
-      inputRange: [0, 1],
-      outputRange: [window.width, 0],
-      extrapolate: 'clamp'
-    })
+  const renderChapterItem: ListRenderItem<number> = useCallback(
+    ({ index }) => {
+      return (
+        <S.Item key={index} onPress={() => handleChapterNavigation(index)}>
+          <S.ItemContent>{index + 1}</S.ItemContent>
+        </S.Item>
+      )
+    },
+    [handleChapterNavigation]
+  )
 
-    return (
-      <S.Container
-        style={{
-          transform: [{ translateX }]
-        }}
-      >
-        <FlatList
-          horizontal
-          nestedScrollEnabled
-          data={book.chaptersNumber}
-          keyExtractor={item => item.toString()}
-          renderItem={renderChapterItem}
+  const renderRightActions = useCallback(
+    (progress: Animated.AnimatedInterpolation<string | number>) => {
+      const translateX = progress.interpolate({
+        inputRange: [0, 1],
+        outputRange: [window.width, 0],
+        extrapolate: 'clamp'
+      })
+
+      return (
+        <S.Container
           style={{
-            marginLeft: 40,
-            backgroundColor: 'rgba(0, 0, 0, 0.1)'
+            transform: [{ translateX }]
           }}
-          contentContainerStyle={{
-            paddingVertical: 4
-          }}
-        />
-      </S.Container>
-    )
-  }
+        >
+          {rightActionsIsOpen && (
+            <FlatList
+              horizontal
+              nestedScrollEnabled
+              data={book.chaptersNumber}
+              keyExtractor={item => item.toString()}
+              renderItem={renderChapterItem}
+              style={{
+                marginLeft: 40,
+                backgroundColor: 'rgba(0, 0, 0, 0.1)'
+              }}
+              contentContainerStyle={{
+                paddingVertical: 4
+              }}
+            />
+          )}
+        </S.Container>
+      )
+    },
+    [book.chaptersNumber, renderChapterItem, rightActionsIsOpen, window.width]
+  )
 
   return (
-    <Swipeable renderRightActions={renderRightActions}>
-      <S.Button
-        onPress={() => navigation.navigate('Book', { bookName: book.name })}
-      >
+    <Swipeable
+      renderRightActions={renderRightActions}
+      onBegan={() => handleActionVisibility(true)}
+      onSwipeableClose={() => handleActionVisibility(false)}
+    >
+      <S.Button onPress={handleBookNavigation}>
         <S.Content>
           <S.Title>{book.name}</S.Title>
 
