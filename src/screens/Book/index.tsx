@@ -89,6 +89,7 @@ const Book = () => {
             chaptersNumber={chaptersNumber}
           />
         )}
+        useNativeAnimations={false}
       >
         <AnimatedHeader
           style={{
