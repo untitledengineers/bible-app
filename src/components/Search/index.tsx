@@ -1,4 +1,4 @@
-import React, { useEffect, createRef } from 'react'
+import React, { useEffect, createRef, useCallback } from 'react'
 import {
   SectionList,
   SectionListData,
@@ -21,6 +21,8 @@ interface Verse {
 }
 
 interface Props {
+  searchTerm: string
+  setSearchTerm: (term: string) => void
   closeModal: () => void
 }
 
@@ -31,12 +33,14 @@ function filterTerms(searchTerm: string, keys: string[]) {
   return (bibleData as IBook[]).filter(createFilter(searchTerm, keys))
 }
 
-function Search({ closeModal }: Props): JSX.Element {
-  const [searchTerm, setSearchTerm] = React.useState('')
+function Search({ closeModal, searchTerm, setSearchTerm }: Props): JSX.Element {
   const inputRef = createRef<TextInput>()
 
   useEffect(() => {
-    setTimeout(() => inputRef.current?.focus(), 200)
+    if (!searchTerm) {
+      setTimeout(() => inputRef.current?.focus(), 200)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputRef])
 
   const filteredBooks = React.useMemo(() => {
@@ -78,40 +82,46 @@ function Search({ closeModal }: Props): JSX.Element {
     [filteredVerses]
   )
 
-  const handleNavigationToBook = (item: {
-    bookName: string
-    chapterNumber?: number
-  }) => {
-    return () => {
-      navigate('Book', {
-        bookName: item.bookName,
-        initialScrollIndex: item.chapterNumber ? item.chapterNumber - 1 : 0
-      })
+  const handleNavigationToBook = useCallback(
+    (item: { bookName: string; chapterNumber?: number }) => {
+      return () => {
+        navigate('Book', {
+          bookName: item.bookName,
+          initialScrollIndex: item.chapterNumber ? item.chapterNumber - 1 : 0
+        })
 
-      closeModal()
-    }
-  }
-
-  const renderBook: SectionListRenderItem<IBook> = ({ item }) => (
-    <S.BookNameWrapper
-      onPress={handleNavigationToBook({ bookName: item.name })}
-    >
-      <S.BookName>{item.name}</S.BookName>
-    </S.BookNameWrapper>
+        closeModal()
+      }
+    },
+    [closeModal]
   )
 
-  const renderVerse: SectionListRenderItem<Verse> = ({ item }) => (
-    <S.VerseWrapper
-      onPress={handleNavigationToBook({
-        bookName: item.bookName,
-        chapterNumber: item.bookChapterNumber
-      })}
-    >
-      <S.Verse>{item.bookVerseText}</S.Verse>
-      <S.VerseLocation>
-        {item.bookName} {item.bookChapterNumber}:{item.bookVerseNumber}
-      </S.VerseLocation>
-    </S.VerseWrapper>
+  const renderBook: SectionListRenderItem<IBook> = useCallback(
+    ({ item }) => (
+      <S.BookNameWrapper
+        onPress={handleNavigationToBook({ bookName: item.name })}
+      >
+        <S.BookName>{item.name}</S.BookName>
+      </S.BookNameWrapper>
+    ),
+    [handleNavigationToBook]
+  )
+
+  const renderVerse: SectionListRenderItem<Verse> = useCallback(
+    ({ item }) => (
+      <S.VerseWrapper
+        onPress={handleNavigationToBook({
+          bookName: item.bookName,
+          chapterNumber: item.bookChapterNumber
+        })}
+      >
+        <S.Verse>{item.bookVerseText}</S.Verse>
+        <S.VerseLocation>
+          {item.bookName} {item.bookChapterNumber}:{item.bookVerseNumber}
+        </S.VerseLocation>
+      </S.VerseWrapper>
+    ),
+    [handleNavigationToBook]
   )
 
   const renderSectionHeader = (info: {
@@ -145,14 +155,18 @@ function Search({ closeModal }: Props): JSX.Element {
           item.bookChapterNumber + item.bookVerseNumber + item.bookVerseText
       }
     ]
-  }, [filteredBooks, parsedVerses])
+  }, [filteredBooks, parsedVerses, renderBook, renderVerse])
 
   return (
     <S.Container>
       <S.Header>
         <S.CloseButton onPress={closeModal} />
 
-        <S.Input ref={inputRef} onChangeText={setSearchTerm} />
+        <S.Input
+          ref={inputRef}
+          value={searchTerm}
+          onChangeText={setSearchTerm}
+        />
       </S.Header>
 
       <SectionList

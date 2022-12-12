@@ -1,4 +1,3 @@
-/* eslint-disable no-shadow */
 import React, { createContext, useContext, useState, useCallback } from 'react'
 
 import Search from '../components/Search'
@@ -13,6 +12,7 @@ const SearchContext = createContext<SearchContextData>({} as SearchContextData)
 export const SearchProvider = ({
   children
 }: React.PropsWithChildren<unknown>): JSX.Element => {
+  const [searchTerm, setSearchTerm] = useState('')
   const [isModalVisible, setIsModalVisible] = useState(false)
 
   const handleOpen = useCallback(() => {
@@ -28,7 +28,11 @@ export const SearchProvider = ({
       {children}
 
       <ModalView visible={isModalVisible}>
-        <Search closeModal={handleClose} />
+        <Search
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          closeModal={handleClose}
+        />
       </ModalView>
     </SearchContext.Provider>
   )
