@@ -49,13 +49,6 @@ export const ItemSeparator = styled.View`
   height: ${ITEM_SEPARATOR_HEIGHT}px;
 `
 
-export const FirstVerseNumber = styled.Text`
-  ${Text}
-  margin-right: 6px;
-  font-size: 24px;
-  font-family: 'Cardo_700Bold';
-`
-
 export const VerseNumber = styled.Text`
   ${Text}
   font-size: 14px;

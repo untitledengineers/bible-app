@@ -9,7 +9,6 @@ import HeaderApp from '../../components/Header'
 import {
   Container,
   Item,
-  FirstVerseNumber,
   VerseNumber,
   Verse,
   ItemSeparator,
@@ -41,19 +40,21 @@ const Book = () => {
     handleDoubleTap
   } = useBookController()
 
+  const renderHeader = (text: string) => (
+    <ListHeader>
+      <ListHeaderSeparator />
+
+      <ListHeaderText>{text}</ListHeaderText>
+
+      <ListHeaderSeparator />
+    </ListHeader>
+  )
+
   const renderChapterItem: ListRenderItem<string[]> = ({ item, index }) => (
     <>
+      {index !== 0 && renderHeader(String(index + 1))}
+
       {item.map((verse, vIndex) => {
-        if (vIndex === 0) {
-          return (
-            <Item key={`${index}-${vIndex}`}>
-              <FirstVerseNumber>{index + 1}</FirstVerseNumber>
-
-              <Verse>{verse}</Verse>
-            </Item>
-          )
-        }
-
         return (
           <Item key={`${index}-${vIndex}`}>
             <Verse>
@@ -63,16 +64,6 @@ const Book = () => {
         )
       })}
     </>
-  )
-
-  const renderHeader = () => (
-    <ListHeader>
-      <ListHeaderSeparator />
-
-      <ListHeaderText>{bookName}</ListHeaderText>
-
-      <ListHeaderSeparator />
-    </ListHeader>
   )
 
   return (
@@ -110,7 +101,7 @@ const Book = () => {
             data={bookChapters}
             keyExtractor={(chapter: string[]) => chapter[1].toString()}
             renderItem={renderChapterItem}
-            ListHeaderComponent={renderHeader}
+            ListHeaderComponent={() => renderHeader(bookName)}
             ItemSeparatorComponent={() => <ItemSeparator />}
             initialNumToRender={2}
             scrollEventThrottle={16}
