@@ -7,11 +7,16 @@ import {
 } from 'react-native'
 import { useRoute } from '@react-navigation/native'
 import DrawerLayout from 'react-native-gesture-handler/DrawerLayout'
+import {
+  HandlerStateChangeEvent,
+  State,
+  TapGestureHandlerEventPayload
+} from 'react-native-gesture-handler'
 
 import bibleData from '../../../data/bible_acf.json'
 
 import { useLoading } from '../../../context/loading'
-import { useBackHandler } from '../../../hooks'
+import { useSearch } from '../../../context/search'
 
 import { LIST_HEADER_HEIGHT } from '../styles'
 
@@ -40,6 +45,7 @@ export const useBookController = () => {
   const drawerRef = useRef<DrawerLayout>(null)
   const { isVisible, handleVisible } = useLoading()
   const window = useWindowDimensions()
+  const { handleOpen } = useSearch()
 
   const scrollY = useRef(new Animated.Value(0)).current
   const diffClamp = Animated.diffClamp(
@@ -84,7 +90,14 @@ export const useBookController = () => {
     setIndexToScroll(index)
   }, [])
 
-  useBackHandler()
+  const handleDoubleTap = useCallback(
+    (event: HandlerStateChangeEvent<TapGestureHandlerEventPayload>) => {
+      if (event.nativeEvent.state === State.ACTIVE) {
+        handleOpen()
+      }
+    },
+    [handleOpen]
+  )
 
   useEffect(() => {
     const bibles = bibleData as IBook[]
@@ -145,7 +158,8 @@ export const useBookController = () => {
       bookChapters,
       handleOnScrollFailed,
       scrollY,
-      HEADER_APP_MAX_HEIGHT
+      HEADER_APP_MAX_HEIGHT,
+      handleDoubleTap
     }),
     [
       bookChapters,
@@ -156,7 +170,8 @@ export const useBookController = () => {
       scrollY,
       titleOpacity,
       translateY,
-      window
+      window,
+      handleDoubleTap
     ]
   )
 

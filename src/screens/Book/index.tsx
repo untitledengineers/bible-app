@@ -1,6 +1,7 @@
 import React from 'react'
 import { FlatList, Animated, ListRenderItem } from 'react-native'
 import DrawerLayout from 'react-native-gesture-handler/DrawerLayout'
+import { TapGestureHandler } from 'react-native-gesture-handler'
 
 import DrawerNavigation from './components/DrawerNavigation'
 
@@ -36,7 +37,8 @@ const Book = () => {
     bookChapters,
     handleOnScrollFailed,
     scrollY,
-    HEADER_APP_MAX_HEIGHT
+    HEADER_APP_MAX_HEIGHT,
+    handleDoubleTap
   } = useBookController()
 
   const renderChapterItem: ListRenderItem<string[]> = ({ item, index }) => (
@@ -99,29 +101,34 @@ const Book = () => {
           <HeaderApp titleOpacity={titleOpacity} title={bookName} />
         </AnimatedHeader>
 
-        <AnimatedFlatList
-          ref={listRef}
-          data={bookChapters}
-          keyExtractor={(chapter: string[]) => chapter[1].toString()}
-          renderItem={renderChapterItem}
-          ListHeaderComponent={renderHeader}
-          ItemSeparatorComponent={() => <ItemSeparator />}
-          initialNumToRender={2}
-          scrollEventThrottle={16}
-          nestedScrollEnabled
-          contentContainerStyle={{
-            paddingHorizontal: 18,
-            paddingTop: HEADER_APP_MAX_HEIGHT
-          }}
-          onScrollToIndexFailed={handleOnScrollFailed}
-          onScroll={Animated.event(
-            [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-            { useNativeDriver: true }
-          )}
-          onViewableItemsChanged={onViewRef.current}
-          viewabilityConfig={viewConfigRef.current}
-          windowSize={50}
-        />
+        <TapGestureHandler
+          onHandlerStateChange={handleDoubleTap}
+          numberOfTaps={2}
+        >
+          <AnimatedFlatList
+            ref={listRef}
+            data={bookChapters}
+            keyExtractor={(chapter: string[]) => chapter[1].toString()}
+            renderItem={renderChapterItem}
+            ListHeaderComponent={renderHeader}
+            ItemSeparatorComponent={() => <ItemSeparator />}
+            initialNumToRender={2}
+            scrollEventThrottle={16}
+            nestedScrollEnabled
+            contentContainerStyle={{
+              paddingHorizontal: 18,
+              paddingTop: HEADER_APP_MAX_HEIGHT
+            }}
+            onScrollToIndexFailed={handleOnScrollFailed}
+            onScroll={Animated.event(
+              [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+              { useNativeDriver: true }
+            )}
+            onViewableItemsChanged={onViewRef.current}
+            viewabilityConfig={viewConfigRef.current}
+            windowSize={50}
+          />
+        </TapGestureHandler>
       </DrawerLayout>
     </Container>
   )
