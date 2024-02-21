@@ -1,10 +1,9 @@
-import { Platform, StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native'
 import styled from 'styled-components/native'
-import Constants from 'expo-constants'
 
 export const Container = styled.SafeAreaView`
   flex: 1;
-  padding-top: ${Platform.OS === 'android' ? Constants.statusBarHeight : 10}px;
+  flex-direction: row;
 `
 
 export const Separator = styled.View`

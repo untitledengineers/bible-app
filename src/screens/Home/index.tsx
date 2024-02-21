@@ -1,8 +1,10 @@
 import React from 'react'
 import { ListRenderItem } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
+import Constants from 'expo-constants'
 
 import BookItem from '../../components/BookItem'
+import SidebarMenu from '../../components/SidebarMenu'
 
 import bibleData from '../../data/lite_bible_acf.json'
 import { useBackHandler } from '../../hooks'
@@ -25,6 +27,7 @@ const Home = () => {
 
   return (
     <Container>
+      <SidebarMenu />
       <FlatList
         data={bibleData as IBook[]}
         keyExtractor={book => book.name}
@@ -33,6 +36,7 @@ const Home = () => {
         showsVerticalScrollIndicator={false}
         nestedScrollEnabled
         initialNumToRender={15}
+        contentContainerStyle={{ paddingTop: Constants.statusBarHeight }}
       />
     </Container>
   )

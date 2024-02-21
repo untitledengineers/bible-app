@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useNavigation } from '@react-navigation/native'
 import Checkbox from 'expo-checkbox'
 
-import { ChapterImg, ChapterMenuImg, MenuImg } from '../../assets/images'
+import { ChapterImg, ChapterMenuImg } from '../../assets/images'
 
 import * as S from './styles'
 
@@ -27,21 +27,14 @@ function Onboard() {
         onDone={onDone}
         pages={[
           {
-            backgroundColor: '#fff',
+            backgroundColor: '#ffffff',
             image: <S.Image source={ChapterImg} />,
             title: 'Início',
             subtitle:
               'Em qualquer livro, arraste para a esquerda para acessar seus capítulos.'
           },
           {
-            backgroundColor: '#fff',
-            image: <S.Image source={MenuImg} />,
-            title: 'Menu Lateral',
-            subtitle:
-              'Em qualquer tela, arraste para a direita para abrir o menu lateral.'
-          },
-          {
-            backgroundColor: '#fff',
+            backgroundColor: '#ffffff',
             image: <S.Image source={ChapterMenuImg} />,
             title: 'Livro',
             subtitle:
@@ -53,7 +46,7 @@ function Onboard() {
         showSkip={false}
         pageIndexCallback={setPageIndexCallback}
       />
-      {pageIndexCallback === 2 && (
+      {pageIndexCallback === 1 && (
         <S.NotShowAgainWrapper>
           <Checkbox
             value={isChecked}
@@ -61,7 +54,9 @@ function Onboard() {
             color={isChecked ? '#cabca4' : undefined}
             style={{ borderColor: '#000000' }}
           />
-          <S.NotShowAgainText>Não mostrar novamente</S.NotShowAgainText>
+          <S.NotShowAgainText onPress={() => setChecked(!isChecked)}>
+            Não mostrar novamente
+          </S.NotShowAgainText>
         </S.NotShowAgainWrapper>
       )}
     </>
