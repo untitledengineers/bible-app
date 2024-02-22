@@ -1,6 +1,12 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useRef, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { Animated, ListRenderItem, useWindowDimensions } from 'react-native'
+import {
+  Animated,
+  ListRenderItem,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+  useWindowDimensions
+} from 'react-native'
 import { FlatList, Swipeable } from 'react-native-gesture-handler'
 import { Entypo } from '@expo/vector-icons'
 
@@ -12,8 +18,13 @@ type BookItemProps = {
   book: IBook
 }
 
+const INITIAL_ACTIVE_OFFSET_X = [-10, 0]
+const FINAL_ACTIVE_OFFSET_X = [-10, 10]
+
 const BookItem = ({ book }: BookItemProps) => {
   const [rightActionsIsOpen, setRightActionsIsOpen] = useState(false)
+  const [activeOffsetX, setActiveOffsetX] = useState(INITIAL_ACTIVE_OFFSET_X)
+  const flatListRef = useRef<FlatList<number>>(null)
   const window = useWindowDimensions()
   const navigation = useNavigation()
 
@@ -35,6 +46,19 @@ const BookItem = ({ book }: BookItemProps) => {
       })
     },
     [book.name, navigation]
+  )
+
+  const handleScroll = useCallback(
+    (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+      const offsetX = event.nativeEvent.contentOffset.x
+
+      if (offsetX < 10) {
+        setActiveOffsetX(INITIAL_ACTIVE_OFFSET_X)
+      } else if (activeOffsetX[1] === 0) {
+        setActiveOffsetX(FINAL_ACTIVE_OFFSET_X)
+      }
+    },
+    [activeOffsetX, setActiveOffsetX]
   )
 
   const renderChapterItem: ListRenderItem<number> = useCallback(
@@ -64,24 +88,31 @@ const BookItem = ({ book }: BookItemProps) => {
         >
           {rightActionsIsOpen && (
             <FlatList
+              ref={flatListRef}
               horizontal
               nestedScrollEnabled
               data={book.chaptersNumber}
               keyExtractor={item => item.toString()}
               renderItem={renderChapterItem}
               style={{
-                marginLeft: 40,
                 backgroundColor: 'rgba(0, 0, 0, 0.1)'
               }}
               contentContainerStyle={{
                 paddingVertical: 4
               }}
+              onScroll={handleScroll}
             />
           )}
         </S.Container>
       )
     },
-    [book.chaptersNumber, renderChapterItem, rightActionsIsOpen, window.width]
+    [
+      book.chaptersNumber,
+      handleScroll,
+      renderChapterItem,
+      rightActionsIsOpen,
+      window.width
+    ]
   )
 
   return (
@@ -89,6 +120,7 @@ const BookItem = ({ book }: BookItemProps) => {
       renderRightActions={renderRightActions}
       onBegan={() => handleActionVisibility(true)}
       onSwipeableClose={() => handleActionVisibility(false)}
+      activeOffsetX={activeOffsetX}
     >
       <S.Button onPress={handleBookNavigation}>
         <S.Content>
