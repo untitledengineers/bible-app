@@ -1,5 +1,6 @@
 import React, { createContext, useState, useContext, useCallback } from 'react'
 import { ThemeProvider as StyledThemeProvider } from 'styled-components/native'
+import { StatusBar } from 'expo-status-bar'
 
 import { darkTheme, lightTheme, ThemeType } from '../styles'
 
@@ -21,7 +22,10 @@ export const ThemeProvider = ({
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      <StyledThemeProvider theme={theme}>{children}</StyledThemeProvider>
+      <StyledThemeProvider theme={theme}>
+        <StatusBar style={theme.name === ThemeType.light ? 'dark' : 'light'} />
+        {children}
+      </StyledThemeProvider>
     </ThemeContext.Provider>
   )
 }
