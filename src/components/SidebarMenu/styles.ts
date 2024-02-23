@@ -5,5 +5,4 @@ export const Container = styled(LinearGradient)`
   justify-content: flex-end;
   align-items: center;
   width: 56px;
-  padding-bottom: 16px;
 `
