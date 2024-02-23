@@ -1,15 +1,10 @@
 import React, { createContext, useState, useContext, useCallback } from 'react'
 import { ThemeProvider as StyledThemeProvider } from 'styled-components/native'
 
-import { darkTheme, lightTheme } from '../theme'
-
-enum ThemeType {
-  dark = 'dark',
-  light = 'light'
-}
+import { darkTheme, lightTheme, ThemeType } from '../styles'
 
 interface ThemeContextData {
-  theme: ThemeType
+  theme: typeof lightTheme
   toggleTheme(): void
 }
 
@@ -18,19 +13,15 @@ export const ThemeContext = createContext({} as ThemeContextData)
 export const ThemeProvider = ({
   children
 }: React.PropsWithChildren<unknown>) => {
-  const [theme, setTheme] = useState(ThemeType.light)
+  const [theme, setTheme] = useState(lightTheme)
 
   const toggleTheme = useCallback(() => {
-    setTheme(theme === ThemeType.light ? ThemeType.dark : ThemeType.light)
+    setTheme(theme.name === ThemeType.light ? darkTheme : lightTheme)
   }, [theme])
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      <StyledThemeProvider
-        theme={theme === ThemeType.light ? lightTheme : darkTheme}
-      >
-        {children}
-      </StyledThemeProvider>
+      <StyledThemeProvider theme={theme}>{children}</StyledThemeProvider>
     </ThemeContext.Provider>
   )
 }
