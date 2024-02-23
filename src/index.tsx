@@ -9,9 +9,7 @@ import * as SplashScreen from 'expo-splash-screen'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import * as Font from 'expo-font'
 
-import { LoadingProvider } from './context/loading'
-import { SearchProvider } from './context/search'
-import { ThemeProvider } from './context/theme'
+import { useTheme } from './context/theme'
 
 import { setNavigator } from './utils/navigation'
 
@@ -25,6 +23,7 @@ SplashScreen.preventAutoHideAsync().catch(() => {
 const App = () => {
   const [appIsReady, setAppIsReady] = useState(false)
   const [hasOnboarded, setHasOnboarded] = useState(false)
+  const { setTheme } = useTheme()
 
   useEffect(() => {
     async function prepare() {
@@ -35,9 +34,13 @@ const App = () => {
           Cardo_700Bold
         })
 
-        const value = await AsyncStorage.getItem('@hasOnboarded')
+        const theme = await AsyncStorage.getItem('@theme')
+        if (theme) {
+          setTheme(JSON.parse(theme))
+        }
 
-        setHasOnboarded(!!value)
+        const hasOnboarded = await AsyncStorage.getItem('@hasOnboarded')
+        setHasOnboarded(!!hasOnboarded)
       } catch (e) {
         console.error(e)
       } finally {
@@ -46,7 +49,7 @@ const App = () => {
     }
 
     prepare()
-  }, [])
+  }, [setTheme])
 
   const onLayoutRootView = useCallback(async () => {
     if (appIsReady) {
@@ -59,15 +62,9 @@ const App = () => {
   }
 
   return (
-    <ThemeProvider>
-      <LoadingProvider>
-        <SearchProvider>
-          <NavigationContainer ref={setNavigator} onReady={onLayoutRootView}>
-            <Navigation hasOnboarded={hasOnboarded} />
-          </NavigationContainer>
-        </SearchProvider>
-      </LoadingProvider>
-    </ThemeProvider>
+    <NavigationContainer ref={setNavigator} onReady={onLayoutRootView}>
+      <Navigation hasOnboarded={hasOnboarded} />
+    </NavigationContainer>
   )
 }
 
