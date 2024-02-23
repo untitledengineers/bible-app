@@ -9,8 +9,8 @@ export const Container = styled.View`
   background-color: #ffffff;
 `
 
-export const Header = styled(LinearGradient).attrs(() => ({
-  colors: ['#cabca4', '#b7a584'],
+export const Header = styled(LinearGradient).attrs(({ theme }) => ({
+  colors: theme.colors.gradient,
   start: [1, 0.2]
 }))`
   position: absolute;
@@ -49,11 +49,11 @@ export const SectionHeader = styled.Text`
   font-family: 'Cardo_400Regular_Italic';
   font-size: 20px;
   margin-top: 8px;
-  color: #3d3424;
+  color: ${({ theme }) => theme.colors.primary};
 `
 
 export const SectionSeparator = styled.View`
-  border-bottom-color: #3d3424;
+  border-bottom-color: ${({ theme }) => theme.colors.primary};
   border-bottom-width: ${StyleSheet.hairlineWidth}px;
 `
 
@@ -63,7 +63,7 @@ export const BookName = styled.Text`
   font-family: 'Cardo_400Regular';
   font-size: 20px;
   margin-top: 8px;
-  color: #3d3424;
+  color: ${({ theme }) => theme.colors.primary};
 `
 
 export const VerseWrapper = styled.TouchableOpacity`
@@ -76,13 +76,13 @@ export const Verse = styled.Text.attrs(() => ({
   font-family: 'Cardo_400Regular';
   font-size: 18px;
   margin-bottom: 4px;
-  color: #3d3424;
+  color: ${({ theme }) => theme.colors.primary};
 `
 
 export const VerseLocation = styled.Text`
   font-family: 'Cardo_400Regular_Italic';
   font-size: 12px;
-  color: #3d3424;
+  color: ${({ theme }) => theme.colors.primary};
 `
 
 export const SectionFooter = styled.View`

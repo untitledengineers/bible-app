@@ -5,6 +5,8 @@ import Home from './screens/Home'
 import Book from './screens/Book'
 import Onboarding from './screens/Onboarding'
 
+import { useTheme } from './context/theme'
+
 const AppStack = createStackNavigator()
 
 type NavigationProps = {
@@ -12,11 +14,13 @@ type NavigationProps = {
 }
 
 const Navigation = ({ hasOnboarded }: NavigationProps) => {
+  const { theme } = useTheme()
+
   return (
     <AppStack.Navigator
       headerMode="none"
       screenOptions={{
-        cardStyle: { backgroundColor: '#efebe4' }
+        cardStyle: { backgroundColor: theme.colors.background }
       }}
       initialRouteName={hasOnboarded ? 'Home' : 'Onboarding'}
     >

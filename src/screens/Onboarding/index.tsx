@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native'
 import Checkbox from 'expo-checkbox'
 
 import { ChapterImg, ChapterMenuImg } from '../../assets/images'
+import { useTheme } from '../../context/theme'
 
 import * as S from './styles'
 
@@ -12,6 +13,7 @@ function Onboard() {
   const [pageIndexCallback, setPageIndexCallback] = useState(0)
   const [isChecked, setChecked] = useState(false)
   const navigation = useNavigation()
+  const { theme } = useTheme()
 
   const onDone = () => {
     if (isChecked) {
@@ -42,7 +44,7 @@ function Onboard() {
           }
         ]}
         nextLabel="Próximo"
-        bottomBarColor="#efebe4"
+        bottomBarColor={theme.colors.background}
         showSkip={false}
         pageIndexCallback={setPageIndexCallback}
       />
@@ -51,7 +53,7 @@ function Onboard() {
           <Checkbox
             value={isChecked}
             onValueChange={setChecked}
-            color={isChecked ? '#cabca4' : undefined}
+            color={isChecked ? theme.colors.secondary : undefined}
             style={{ borderColor: '#000000' }}
           />
           <S.NotShowAgainText onPress={() => setChecked(!isChecked)}>

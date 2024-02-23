@@ -16,7 +16,7 @@ export const Item = styled.TouchableOpacity`
 export const ItemContent = styled.Text`
   font-size: 28px;
   font-family: 'Cardo_400Regular_Italic';
-  color: #3d3424;
+  color: ${({ theme }) => theme.colors.primary};
 `
 
 export const Content = styled.View`
@@ -26,14 +26,14 @@ export const Content = styled.View`
 export const Button = styled(RectButton)`
   padding: 10px 0px;
   justify-content: center;
-  background-color: #efebe4;
+  background-color: ${({ theme }) => theme.colors.background};
 `
 
 export const Title = styled.Text`
   font-size: 22px;
   margin-bottom: 4px;
   font-family: 'Cardo_700Bold';
-  color: #3d3424;
+  color: ${({ theme }) => theme.colors.primary};
 `
 
 export const Chapter = styled.View`
@@ -44,5 +44,5 @@ export const Chapter = styled.View`
 export const ChapterText = styled.Text`
   font-size: 16px;
   font-family: 'Cardo_400Regular_Italic';
-  color: #999;
+  color: ${({ theme }) => theme.colors.border};
 `

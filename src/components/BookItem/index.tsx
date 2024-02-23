@@ -11,6 +11,7 @@ import { FlatList, Swipeable } from 'react-native-gesture-handler'
 import { Entypo } from '@expo/vector-icons'
 
 import { IBook } from '../../screens/Home'
+import { useTheme } from '../../context/theme'
 
 import * as S from './styles'
 
@@ -27,6 +28,7 @@ const BookItem = ({ book }: BookItemProps) => {
   const flatListRef = useRef<FlatList<number>>(null)
   const window = useWindowDimensions()
   const navigation = useNavigation()
+  const { theme } = useTheme()
 
   const handleActionVisibility = (state: boolean) => {
     setRightActionsIsOpen(state)
@@ -127,7 +129,7 @@ const BookItem = ({ book }: BookItemProps) => {
           <S.Title>{book.name}</S.Title>
 
           <S.Chapter>
-            <Entypo name="open-book" size={18} color="#999" />
+            <Entypo name="open-book" size={18} color={theme.colors.border} />
             <S.ChapterText>
               {' '}
               {book.chaptersNumber.length} Capítulos

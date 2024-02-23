@@ -37,7 +37,8 @@ const Book = () => {
     handleOnScrollFailed,
     scrollY,
     HEADER_APP_MAX_HEIGHT,
-    handleDoubleTap
+    handleDoubleTap,
+    theme
   } = useBookController()
 
   const renderHeader = (text: string) => (
@@ -75,7 +76,7 @@ const Book = () => {
         drawerPosition="right"
         drawerType="slide"
         overlayColor="transparent"
-        drawerBackgroundColor="#efebe4"
+        drawerBackgroundColor={theme.colors.background}
         renderNavigationView={() => (
           <DrawerNavigation
             handleScroll={handleScrollToIndex}

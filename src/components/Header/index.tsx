@@ -3,15 +3,18 @@ import { Animated } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { AntDesign } from '@expo/vector-icons'
 
+import { useTheme } from '../../context/theme'
+
 import { Container, Button, AnimatedTitle } from './styles'
 
 type Props = {
   title?: string
-  titleOpacity?: number | Animated.AnimatedInterpolation
+  titleOpacity?: number | Animated.AnimatedInterpolation<string | number>
 }
 
 const Header = ({ title, titleOpacity = 1 }: Props) => {
   const { goBack } = useNavigation()
+  const { theme } = useTheme()
 
   const handleGoBack = () => {
     goBack()
@@ -20,7 +23,7 @@ const Header = ({ title, titleOpacity = 1 }: Props) => {
   return (
     <Container>
       <Button onPress={handleGoBack}>
-        <AntDesign name="arrowleft" size={24} color="#3d3424" />
+        <AntDesign name="arrowleft" size={24} color={theme.colors.primary} />
       </Button>
 
       {!!title && (

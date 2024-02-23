@@ -12,7 +12,7 @@ export const Container = styled.SafeAreaView`
 
 const Text = css`
   font-family: 'Cardo_400Regular';
-  color: #3d3424;
+  color: ${({ theme }) => theme.colors.primary};
   text-align: justify;
 `
 
@@ -35,7 +35,7 @@ export const ListHeaderText = styled.Text`
 `
 
 export const ListHeaderSeparator = styled.View`
-  border-bottom-color: #999;
+  border-bottom-color: ${({ theme }) => theme.colors.border};
   border-bottom-width: ${StyleSheet.hairlineWidth + 0.5}px;
   width: 50px;
 `

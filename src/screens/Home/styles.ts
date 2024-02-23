@@ -7,6 +7,6 @@ export const Container = styled.SafeAreaView`
 `
 
 export const Separator = styled.View`
-  border-bottom-color: #999;
+  border-bottom-color: ${({ theme }) => theme.colors.border};
   border-bottom-width: ${StyleSheet.hairlineWidth}px;
 `
