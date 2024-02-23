@@ -12,6 +12,7 @@ import * as Font from 'expo-font'
 
 import { LoadingProvider } from './context/loading'
 import { SearchProvider } from './context/search'
+import { ThemeProvider } from './context/theme'
 
 import { setNavigator } from './utils/navigation'
 
@@ -59,14 +60,16 @@ const App = () => {
   }
 
   return (
-    <LoadingProvider>
-      <SearchProvider>
-        <NavigationContainer ref={setNavigator} onReady={onLayoutRootView}>
-          <StatusBar style="dark" />
-          <Navigation hasOnboarded={hasOnboarded} />
-        </NavigationContainer>
-      </SearchProvider>
-    </LoadingProvider>
+    <ThemeProvider>
+      <LoadingProvider>
+        <SearchProvider>
+          <NavigationContainer ref={setNavigator} onReady={onLayoutRootView}>
+            <StatusBar style="dark" />
+            <Navigation hasOnboarded={hasOnboarded} />
+          </NavigationContainer>
+        </SearchProvider>
+      </LoadingProvider>
+    </ThemeProvider>
   )
 }
 
