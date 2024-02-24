@@ -18,6 +18,7 @@ import bibleData from '../../../data/bible_acf.json'
 import { useLoading } from '../../../context/loading'
 import { useSearch } from '../../../context/search'
 import { useTheme } from '../../../context/theme'
+import { useFont } from '../../../context/font'
 
 import { LIST_HEADER_HEIGHT } from '../styles'
 
@@ -48,6 +49,7 @@ export const useBookController = () => {
   const window = useWindowDimensions()
   const { handleOpen } = useSearch()
   const { theme } = useTheme()
+  const { fontScale } = useFont()
 
   const scrollY = useRef(new Animated.Value(0)).current
   const diffClamp = Animated.diffClamp(
@@ -162,7 +164,8 @@ export const useBookController = () => {
       scrollY,
       HEADER_APP_MAX_HEIGHT,
       handleDoubleTap,
-      theme
+      theme,
+      fontScale
     }),
     [
       bookChapters,
@@ -175,7 +178,8 @@ export const useBookController = () => {
       translateY,
       window,
       handleDoubleTap,
-      theme
+      theme,
+      fontScale
     ]
   )
 

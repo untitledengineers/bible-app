@@ -30,7 +30,7 @@ export const ListHeaderText = styled.Text`
   ${Text}
   text-align: center;
   margin: 12px 0px;
-  font-size: 24px;
+  font-size: 28px;
   font-family: 'Cardo_700Bold';
 `
 
@@ -40,22 +40,16 @@ export const ListHeaderSeparator = styled.View`
   width: 50px;
 `
 
-export const Item = styled.View`
-  margin: 2px 0px;
-  flex-direction: row;
-`
-
 export const ItemSeparator = styled.View`
   height: ${ITEM_SEPARATOR_HEIGHT}px;
 `
 
 export const VerseNumber = styled.Text`
   ${Text}
-  font-size: 14px;
 `
 
 export const Verse = styled.Text`
   ${Text}
   flex-shrink: 1;
-  font-size: 20px;
+  margin: 2px 0px;
 `

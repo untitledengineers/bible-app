@@ -10,6 +10,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import * as Font from 'expo-font'
 
 import { useTheme } from './context/theme'
+import { useFont } from './context/font'
 
 import { setNavigator } from './utils/navigation'
 
@@ -24,6 +25,7 @@ const App = () => {
   const [appIsReady, setAppIsReady] = useState(false)
   const [hasOnboarded, setHasOnboarded] = useState(false)
   const { setTheme } = useTheme()
+  const { setFontScale } = useFont()
 
   useEffect(() => {
     async function prepare() {
@@ -39,6 +41,11 @@ const App = () => {
           setTheme(JSON.parse(theme))
         }
 
+        const fontScale = await AsyncStorage.getItem('@fontScale')
+        if (fontScale) {
+          setFontScale(Number(fontScale))
+        }
+
         const hasOnboarded = await AsyncStorage.getItem('@hasOnboarded')
         setHasOnboarded(!!hasOnboarded)
       } catch (e) {
@@ -49,7 +56,7 @@ const App = () => {
     }
 
     prepare()
-  }, [setTheme])
+  }, [setFontScale, setTheme])
 
   const onLayoutRootView = useCallback(async () => {
     if (appIsReady) {

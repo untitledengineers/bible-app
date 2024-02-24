@@ -1,11 +1,18 @@
 import React from 'react'
 import { Animated } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import { AntDesign } from '@expo/vector-icons'
+import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons'
 
 import { useTheme } from '../../context/theme'
 
-import { Container, Button, AnimatedTitle } from './styles'
+import {
+  Container,
+  BackButton,
+  AnimatedTitle,
+  FontScaleWrapper,
+  FontScaleButton
+} from './styles'
+import { useFont } from '../../context/font'
 
 type Props = {
   title?: string
@@ -15,6 +22,7 @@ type Props = {
 const Header = ({ title, titleOpacity = 1 }: Props) => {
   const { goBack } = useNavigation()
   const { theme } = useTheme()
+  const { increaseFontScale, decreaseFontScale } = useFont()
 
   const handleGoBack = () => {
     goBack()
@@ -22,9 +30,9 @@ const Header = ({ title, titleOpacity = 1 }: Props) => {
 
   return (
     <Container>
-      <Button onPress={handleGoBack}>
+      <BackButton onPress={handleGoBack}>
         <AntDesign name="arrowleft" size={24} color={theme.colors.primary} />
-      </Button>
+      </BackButton>
 
       {!!title && (
         <AnimatedTitle
@@ -35,6 +43,23 @@ const Header = ({ title, titleOpacity = 1 }: Props) => {
           {title}
         </AnimatedTitle>
       )}
+
+      <FontScaleWrapper>
+        <FontScaleButton onPress={decreaseFontScale}>
+          <MaterialCommunityIcons
+            name="format-font-size-decrease"
+            size={24}
+            color={theme.colors.primary}
+          />
+        </FontScaleButton>
+        <FontScaleButton onPress={increaseFontScale}>
+          <MaterialCommunityIcons
+            name="format-font-size-increase"
+            size={24}
+            color={theme.colors.primary}
+          />
+        </FontScaleButton>
+      </FontScaleWrapper>
     </Container>
   )
 }

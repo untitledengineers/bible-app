@@ -15,7 +15,7 @@ export const Container = styled.View`
   background-color: ${({ theme }) => theme.colors.background};
 `
 
-export const Button = styled(BorderlessButton)`
+export const BackButton = styled(BorderlessButton)`
   position: absolute;
   left: 16px;
 `
@@ -24,4 +24,14 @@ export const AnimatedTitle = styled(Animated.Text)`
   color: ${({ theme }) => theme.colors.primary};
   font-size: 20px;
   font-family: 'Cardo_700Bold';
+`
+
+export const FontScaleWrapper = styled.View`
+  flex-direction: row;
+  position: absolute;
+  right: 16px;
+`
+
+export const FontScaleButton = styled(BorderlessButton)`
+  margin-left: 16px;
 `

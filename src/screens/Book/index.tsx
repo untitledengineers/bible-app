@@ -8,7 +8,6 @@ import DrawerNavigation from './components/DrawerNavigation'
 import HeaderApp from '../../components/Header'
 import {
   Container,
-  Item,
   VerseNumber,
   Verse,
   ItemSeparator,
@@ -38,7 +37,8 @@ const Book = () => {
     scrollY,
     HEADER_APP_MAX_HEIGHT,
     handleDoubleTap,
-    theme
+    theme,
+    fontScale
   } = useBookController()
 
   const renderHeader = (text: string) => (
@@ -57,11 +57,15 @@ const Book = () => {
 
       {item.map((verse, vIndex) => {
         return (
-          <Item key={`${index}-${vIndex}`}>
-            <Verse>
-              <VerseNumber>{vIndex + 1}</VerseNumber> {verse}
-            </Verse>
-          </Item>
+          <Verse
+            key={`${index}-${vIndex}`}
+            style={{ fontSize: 20 * fontScale, lineHeight: 30 * fontScale }}
+          >
+            <VerseNumber style={{ fontSize: 14 * fontScale }}>
+              {vIndex + 1}
+            </VerseNumber>{' '}
+            {verse}
+          </Verse>
         )
       })}
     </>
