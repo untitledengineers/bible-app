@@ -97,7 +97,7 @@ const BookItem = ({ book }: BookItemProps) => {
               keyExtractor={item => item.toString()}
               renderItem={renderChapterItem}
               style={{
-                backgroundColor: 'rgba(0, 0, 0, 0.1)'
+                backgroundColor: theme.colors.overlay10
               }}
               contentContainerStyle={{
                 paddingVertical: 4
@@ -113,6 +113,7 @@ const BookItem = ({ book }: BookItemProps) => {
       handleScroll,
       renderChapterItem,
       rightActionsIsOpen,
+      theme.colors.overlay10,
       window.width
     ]
   )

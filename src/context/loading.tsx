@@ -14,7 +14,7 @@ export const LoadingProvider = ({
 }: React.PropsWithChildren<unknown>) => {
   const [isVisible, setIsVisible] = useState(false)
 
-  const handleVisible = useCallback(state => {
+  const handleVisible = useCallback((state: boolean) => {
     setIsVisible(state)
   }, [])
 
