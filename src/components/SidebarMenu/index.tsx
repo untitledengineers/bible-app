@@ -16,17 +16,17 @@ const SidebarMenu = () => {
   }
 
   return (
-    <Container colors={theme.colors.gradient} start={[1, 0.2]}>
+    <Container colors={theme.colors.gradient}>
       <Feather
         name={theme.name === ThemeType.light ? 'moon' : 'sun'}
         size={30}
-        color={theme.colors.background}
+        color={theme.colors.white}
         onPress={toggleTheme}
       />
       <Feather
         name="search"
         size={30}
-        color={theme.colors.background}
+        color={theme.colors.white}
         onPress={handleSearchButton}
         style={{ marginTop: 32, marginBottom: 24 }}
       />

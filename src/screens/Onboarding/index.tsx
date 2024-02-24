@@ -29,14 +29,14 @@ function Onboard() {
         onDone={onDone}
         pages={[
           {
-            backgroundColor: '#ffffff',
+            backgroundColor: theme.colors.background,
             image: <S.Image source={ChapterImg} />,
             title: 'Início',
             subtitle:
               'Em qualquer livro, arraste para a esquerda para acessar seus capítulos.'
           },
           {
-            backgroundColor: '#ffffff',
+            backgroundColor: theme.colors.background,
             image: <S.Image source={ChapterMenuImg} />,
             title: 'Livro',
             subtitle:
@@ -54,7 +54,7 @@ function Onboard() {
             value={isChecked}
             onValueChange={setChecked}
             color={isChecked ? theme.colors.secondary : undefined}
-            style={{ borderColor: '#000000' }}
+            style={{ borderColor: theme.colors.primary }}
           />
           <S.NotShowAgainText onPress={() => setChecked(!isChecked)}>
             Não mostrar novamente

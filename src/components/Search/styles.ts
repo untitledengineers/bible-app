@@ -6,12 +6,11 @@ import { Feather } from '@expo/vector-icons'
 
 export const Container = styled.View`
   flex: 1;
-  background-color: #ffffff;
+  background-color: ${({ theme }) => theme.colors.background};
 `
 
 export const Header = styled(LinearGradient).attrs(({ theme }) => ({
-  colors: theme.colors.gradient,
-  start: [1, 0.2]
+  colors: theme.colors.gradient
 }))`
   position: absolute;
   right: 0;
@@ -26,18 +25,17 @@ export const Input = styled(TextInput).attrs(() => ({
   placeholder: 'Digite uma palavra-chave',
   padding: 16,
   returnKeyType: 'search',
-  underlineColorAndroid: 'transparent',
-  selectionColor: '#ffffff'
+  underlineColorAndroid: 'transparent'
 }))`
   font-size: 22px;
-  color: #ffffff;
+  color: ${({ theme }) => theme.colors.white};
   font-family: 'Cardo_700Bold';
 `
 
-export const CloseButton = styled(Feather).attrs(() => ({
+export const CloseButton = styled(Feather).attrs(({ theme }) => ({
   name: 'x',
   size: 24,
-  color: '#ffffff'
+  color: theme.colors.white
 }))`
   align-self: flex-end;
   margin-right: 20px;

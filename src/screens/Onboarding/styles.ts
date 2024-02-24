@@ -15,4 +15,5 @@ export const NotShowAgainWrapper = styled.View`
 
 export const NotShowAgainText = styled.Text`
   margin-left: 8px;
+  color: ${({ theme }) => theme.colors.primary};
 `
