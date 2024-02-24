@@ -18,9 +18,9 @@ const Navigation = ({ hasOnboarded }: NavigationProps) => {
 
   return (
     <AppStack.Navigator
-      headerMode="none"
       screenOptions={{
-        cardStyle: { backgroundColor: theme.colors.background }
+        cardStyle: { backgroundColor: theme.colors.background },
+        headerShown: false
       }}
       initialRouteName={hasOnboarded ? 'Home' : 'Onboarding'}
     >
