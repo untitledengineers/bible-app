@@ -1,6 +1,6 @@
 import Constants from 'expo-constants'
 import { StyleSheet, Platform, Animated } from 'react-native'
-import styled, { css } from 'styled-components/native'
+import styled from 'styled-components/native'
 
 export const ITEM_SEPARATOR_HEIGHT = 10
 export const LIST_HEADER_HEIGHT = 112
@@ -8,12 +8,6 @@ export const LIST_HEADER_HEIGHT = 112
 export const Container = styled.SafeAreaView`
   flex: 1;
   padding-top: ${Platform.OS === 'android' ? Constants.statusBarHeight : 10}px;
-`
-
-const Text = css`
-  font-family: 'Cardo_400Regular';
-  color: ${({ theme }) => theme.colors.primary};
-  text-align: justify;
 `
 
 export const AnimatedHeader = styled(Animated.View)`
@@ -27,7 +21,7 @@ export const ListHeader = styled.View`
 `
 
 export const ListHeaderText = styled.Text`
-  ${Text}
+  color: ${({ theme }) => theme.colors.primary};
   text-align: center;
   margin: 12px 0px;
   font-size: 28px;
@@ -42,14 +36,4 @@ export const ListHeaderSeparator = styled.View`
 
 export const ItemSeparator = styled.View`
   height: ${ITEM_SEPARATOR_HEIGHT}px;
-`
-
-export const VerseNumber = styled.Text`
-  ${Text}
-`
-
-export const Verse = styled.Text`
-  ${Text}
-  flex-shrink: 1;
-  margin: 2px 0px;
 `

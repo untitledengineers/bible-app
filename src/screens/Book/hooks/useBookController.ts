@@ -13,7 +13,6 @@ import {
 } from 'react-native-gesture-handler'
 import DrawerLayout from 'react-native-gesture-handler/DrawerLayout'
 
-import { useFont } from '../../../context/font'
 import { useLoading } from '../../../context/loading'
 import { useSearch } from '../../../context/search'
 import { useTheme } from '../../../context/theme'
@@ -47,7 +46,6 @@ export const useBookController = () => {
   const window = useWindowDimensions()
   const { handleOpen } = useSearch()
   const { theme } = useTheme()
-  const { fontScale } = useFont()
 
   const scrollY = useRef(new Animated.Value(0)).current
   const diffClamp = Animated.diffClamp(
@@ -161,8 +159,7 @@ export const useBookController = () => {
       scrollY,
       HEADER_APP_MAX_HEIGHT,
       handleDoubleTap,
-      theme,
-      fontScale
+      theme
     }),
     [
       bookChapters,
@@ -175,8 +172,7 @@ export const useBookController = () => {
       translateY,
       window,
       handleDoubleTap,
-      theme,
-      fontScale
+      theme
     ]
   )
 

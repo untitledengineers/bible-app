@@ -4,11 +4,10 @@ import { TapGestureHandler } from 'react-native-gesture-handler'
 import DrawerLayout from 'react-native-gesture-handler/DrawerLayout'
 
 import DrawerNavigation from './components/DrawerNavigation'
+import Verse from './components/Verse'
 import { useBookController } from './hooks/useBookController'
 import {
   Container,
-  VerseNumber,
-  Verse,
   ItemSeparator,
   ListHeader,
   ListHeaderSeparator,
@@ -36,8 +35,7 @@ const Book = () => {
     scrollY,
     HEADER_APP_MAX_HEIGHT,
     handleDoubleTap,
-    theme,
-    fontScale
+    theme
   } = useBookController()
 
   const renderHeader = (text: string) => (
@@ -50,21 +48,21 @@ const Book = () => {
     </ListHeader>
   )
 
-  const renderChapterItem: ListRenderItem<string[]> = ({ item, index }) => (
+  const renderChapterItem: ListRenderItem<string[]> = ({
+    item,
+    index: chapterIndex
+  }) => (
     <>
-      {index !== 0 && renderHeader(String(index + 1))}
+      {chapterIndex !== 0 && renderHeader(String(chapterIndex + 1))}
 
-      {item.map((verse, vIndex) => {
+      {item.map((verse, verseIndex) => {
         return (
           <Verse
-            key={`${index}-${vIndex}`}
-            style={{ fontSize: 20 * fontScale, lineHeight: 30 * fontScale }}
-          >
-            <VerseNumber style={{ fontSize: 14 * fontScale }}>
-              {vIndex + 1}
-            </VerseNumber>{' '}
-            {verse}
-          </Verse>
+            key={`${chapterIndex}-${verseIndex}`}
+            chapter={chapterIndex + 1}
+            number={verseIndex + 1}
+            text={verse}
+          />
         )
       })}
     </>
