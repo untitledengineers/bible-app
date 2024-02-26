@@ -1,11 +1,10 @@
 import React from 'react'
 import { FlatList, Animated, ListRenderItem } from 'react-native'
-import DrawerLayout from 'react-native-gesture-handler/DrawerLayout'
 import { TapGestureHandler } from 'react-native-gesture-handler'
+import DrawerLayout from 'react-native-gesture-handler/DrawerLayout'
 
 import DrawerNavigation from './components/DrawerNavigation'
-
-import HeaderApp from '../../components/Header'
+import { useBookController } from './hooks/useBookController'
 import {
   Container,
   VerseNumber,
@@ -16,7 +15,7 @@ import {
   ListHeaderText,
   AnimatedHeader
 } from './styles'
-import { useBookController } from './hooks/useBookController'
+import HeaderApp from '../../components/Header'
 
 const AnimatedFlatList = Animated.createAnimatedComponent<any>(FlatList)
 

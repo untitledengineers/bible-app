@@ -7,11 +7,10 @@ import {
 } from 'react-native'
 import { createFilter } from 'react-native-search-filter'
 
+import * as S from './styles'
 import bibleData from '../../data/bible_acf.json'
 import { IBook } from '../../screens/Home'
 import { navigate } from '../../utils/navigation'
-
-import * as S from './styles'
 
 interface Verse {
   bookName: string

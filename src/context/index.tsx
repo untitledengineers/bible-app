@@ -1,8 +1,9 @@
 import React from 'react'
-import { ThemeProvider } from './theme'
+
+import { FontProvider } from './font'
 import { LoadingProvider } from './loading'
 import { SearchProvider } from './search'
-import { FontProvider } from './font'
+import { ThemeProvider } from './theme'
 
 type AppProvidersProps = {
   children: React.ReactNode

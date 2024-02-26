@@ -1,13 +1,12 @@
-import React, { useState } from 'react'
-import Onboarding from 'react-native-onboarding-swiper'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useNavigation } from '@react-navigation/native'
 import Checkbox from 'expo-checkbox'
-
-import { ChapterImg, ChapterMenuImg } from '../../assets/images'
-import { useTheme } from '../../context/theme'
+import React, { useState } from 'react'
+import Onboarding from 'react-native-onboarding-swiper'
 
 import * as S from './styles'
+import { ChapterImg, ChapterMenuImg } from '../../assets/images'
+import { useTheme } from '../../context/theme'
 
 function Onboard() {
   const [pageIndexCallback, setPageIndexCallback] = useState(0)

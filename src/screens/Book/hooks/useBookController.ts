@@ -1,3 +1,4 @@
+import { useRoute } from '@react-navigation/native'
 import React, { useEffect, useState, useRef, useCallback, useMemo } from 'react'
 import {
   FlatList,
@@ -5,21 +6,18 @@ import {
   ViewToken,
   useWindowDimensions
 } from 'react-native'
-import { useRoute } from '@react-navigation/native'
-import DrawerLayout from 'react-native-gesture-handler/DrawerLayout'
 import {
   HandlerStateChangeEvent,
   State,
   TapGestureHandlerEventPayload
 } from 'react-native-gesture-handler'
+import DrawerLayout from 'react-native-gesture-handler/DrawerLayout'
 
-import bibleData from '../../../data/bible_acf.json'
-
+import { useFont } from '../../../context/font'
 import { useLoading } from '../../../context/loading'
 import { useSearch } from '../../../context/search'
 import { useTheme } from '../../../context/theme'
-import { useFont } from '../../../context/font'
-
+import bibleData from '../../../data/bible_acf.json'
 import { LIST_HEADER_HEIGHT } from '../styles'
 
 type IParams = {
@@ -57,13 +55,12 @@ export const useBookController = () => {
     HEADER_APP_MIN_HEIGHT,
     HEADER_APP_MAX_HEIGHT
   )
-  const translateY: Animated.AnimatedInterpolation<
-    string | number
-  > = diffClamp.interpolate({
-    inputRange: [HEADER_APP_MIN_HEIGHT, HEADER_APP_MAX_HEIGHT],
-    outputRange: [HEADER_APP_MIN_HEIGHT, -HEADER_APP_MAX_HEIGHT],
-    extrapolate: 'clamp'
-  })
+  const translateY: Animated.AnimatedInterpolation<string | number> =
+    diffClamp.interpolate({
+      inputRange: [HEADER_APP_MIN_HEIGHT, HEADER_APP_MAX_HEIGHT],
+      outputRange: [HEADER_APP_MIN_HEIGHT, -HEADER_APP_MAX_HEIGHT],
+      extrapolate: 'clamp'
+    })
   const titleOpacity = scrollY.interpolate({
     inputRange: [
       0,

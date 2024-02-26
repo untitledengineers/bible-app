@@ -1,8 +1,8 @@
-import { Platform, StyleSheet, TextInput } from 'react-native'
+import { Feather } from '@expo/vector-icons'
 import Constants from 'expo-constants'
 import { LinearGradient } from 'expo-linear-gradient'
+import { Platform, StyleSheet, TextInput } from 'react-native'
 import styled from 'styled-components/native'
-import { Feather } from '@expo/vector-icons'
 
 export const Container = styled.View`
   flex: 1;

@@ -1,9 +1,7 @@
+import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons'
+import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { Animated } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
-import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons'
-
-import { useTheme } from '../../context/theme'
 
 import {
   Container,
@@ -13,6 +11,7 @@ import {
   FontScaleButton
 } from './styles'
 import { useFont } from '../../context/font'
+import { useTheme } from '../../context/theme'
 
 type Props = {
   title?: string

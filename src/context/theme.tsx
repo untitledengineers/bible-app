@@ -1,7 +1,7 @@
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { StatusBar } from 'expo-status-bar'
 import React, { createContext, useState, useContext, useCallback } from 'react'
 import { ThemeProvider as StyledThemeProvider } from 'styled-components/native'
-import { StatusBar } from 'expo-status-bar'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import { darkTheme, lightTheme, ThemeType } from '../styles'
 

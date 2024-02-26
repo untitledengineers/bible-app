@@ -1,11 +1,10 @@
-import React from 'react'
 import { Feather } from '@expo/vector-icons'
+import React from 'react'
 
+import { Container } from './styles'
 import { useSearch } from '../../context/search'
 import { useTheme } from '../../context/theme'
-
 import { ThemeType } from '../../styles'
-import { Container } from './styles'
 
 const SidebarMenu = () => {
   const { handleOpen } = useSearch()

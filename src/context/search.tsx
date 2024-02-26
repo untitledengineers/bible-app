@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useCallback } from 'react'
 
-import Search from '../components/Search'
 import ModalView from '../components/ModalView'
+import Search from '../components/Search'
 
 interface SearchContextData {
   handleOpen(): void

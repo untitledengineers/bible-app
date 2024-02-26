@@ -1,11 +1,10 @@
-import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
-
-import Home from './screens/Home'
-import Book from './screens/Book'
-import Onboarding from './screens/Onboarding'
+import React from 'react'
 
 import { useTheme } from './context/theme'
+import Book from './screens/Book'
+import Home from './screens/Home'
+import Onboarding from './screens/Onboarding'
 
 const AppStack = createStackNavigator()
 

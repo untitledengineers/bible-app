@@ -1,5 +1,6 @@
-import React, { useCallback, useRef, useState } from 'react'
+import { Entypo } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
+import React, { useCallback, useRef, useState } from 'react'
 import {
   Animated,
   ListRenderItem,
@@ -8,12 +9,10 @@ import {
   useWindowDimensions
 } from 'react-native'
 import { FlatList, Swipeable } from 'react-native-gesture-handler'
-import { Entypo } from '@expo/vector-icons'
-
-import { IBook } from '../../screens/Home'
-import { useTheme } from '../../context/theme'
 
 import * as S from './styles'
+import { useTheme } from '../../context/theme'
+import { IBook } from '../../screens/Home'
 
 type BookItemProps = {
   book: IBook

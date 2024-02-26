@@ -1,6 +1,6 @@
+import Constants from 'expo-constants'
 import { StyleSheet, Platform, Animated } from 'react-native'
 import styled, { css } from 'styled-components/native'
-import Constants from 'expo-constants'
 
 export const ITEM_SEPARATOR_HEIGHT = 10
 export const LIST_HEADER_HEIGHT = 112

@@ -1,4 +1,5 @@
 import { CommonActions, NavigationContainerRef } from '@react-navigation/native'
+
 import { RootStackParamList } from '../@types/navigation'
 
 let navigator: NavigationContainerRef<RootStackParamList>

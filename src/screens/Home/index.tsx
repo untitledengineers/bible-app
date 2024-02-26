@@ -1,15 +1,13 @@
+import Constants from 'expo-constants'
 import React from 'react'
 import { ListRenderItem } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
-import Constants from 'expo-constants'
-
-import BookItem from '../../components/BookItem'
-import SidebarMenu from '../../components/SidebarMenu'
-
-import bibleData from '../../data/lite_bible_acf.json'
-import { useBackHandler } from '../../hooks'
 
 import { Container, Separator } from './styles'
+import BookItem from '../../components/BookItem'
+import SidebarMenu from '../../components/SidebarMenu'
+import bibleData from '../../data/lite_bible_acf.json'
+import { useBackHandler } from '../../hooks'
 
 export interface IBook {
   name: string

@@ -1,20 +1,18 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import { NavigationContainer } from '@react-navigation/native'
 import {
   Cardo_400Regular,
   Cardo_400Regular_Italic,
   Cardo_700Bold
 } from '@expo-google-fonts/cardo'
-import * as SplashScreen from 'expo-splash-screen'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { NavigationContainer } from '@react-navigation/native'
 import * as Font from 'expo-font'
-
-import { useTheme } from './context/theme'
-import { useFont } from './context/font'
-
-import { setNavigator } from './utils/navigation'
+import * as SplashScreen from 'expo-splash-screen'
+import React, { useCallback, useEffect, useState } from 'react'
 
 import Navigation from './Navigation'
+import { useFont } from './context/font'
+import { useTheme } from './context/theme'
+import { setNavigator } from './utils/navigation'
 
 // Instruct SplashScreen not to hide yet, we want to do this manually
 SplashScreen.preventAutoHideAsync().catch(() => {
