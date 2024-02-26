@@ -1,4 +1,4 @@
-import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons'
+import { AntDesign, MaterialIcons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { Animated } from 'react-native'
@@ -45,15 +45,15 @@ const Header = ({ title, titleOpacity = 1 }: Props) => {
 
       <FontScaleWrapper>
         <FontScaleButton onPress={decreaseFontScale}>
-          <MaterialCommunityIcons
-            name="format-font-size-decrease"
+          <MaterialIcons
+            name="text-decrease"
             size={24}
             color={theme.colors.primary}
           />
         </FontScaleButton>
         <FontScaleButton onPress={increaseFontScale}>
-          <MaterialCommunityIcons
-            name="format-font-size-increase"
+          <MaterialIcons
+            name="text-increase"
             size={24}
             color={theme.colors.primary}
           />
