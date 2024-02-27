@@ -25,13 +25,9 @@ const Header = ({ title, titleOpacity = 1 }: Props) => {
   const { theme } = useTheme()
   const { increaseFontScale, decreaseFontScale } = useFont()
 
-  const handleGoBack = () => {
-    goBack()
-  }
-
   return (
     <Container>
-      <BackButton onPress={handleGoBack}>
+      <BackButton onPress={goBack}>
         <AntDesign
           name="arrowleft"
           size={ICON_SIZE}
@@ -42,7 +38,8 @@ const Header = ({ title, titleOpacity = 1 }: Props) => {
       {!!title && (
         <AnimatedTitle
           style={{
-            opacity: titleOpacity
+            opacity: titleOpacity,
+            fontSize: title.length > 20 ? 18 : 22
           }}
         >
           {title}

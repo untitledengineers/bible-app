@@ -24,7 +24,6 @@ export const BackButton = styled(BorderlessButton)`
 
 export const AnimatedTitle = styled(Animated.Text)`
   color: ${({ theme }) => theme.colors.primary};
-  font-size: 22px;
   font-family: 'Cardo_700Bold';
 `
 
