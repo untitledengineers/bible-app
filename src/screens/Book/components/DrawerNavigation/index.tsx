@@ -1,16 +1,17 @@
-/* eslint-disable no-plusplus */
 import React, { useCallback } from 'react'
 import { ListRenderItem } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
 
 import * as S from './styles'
+import { useBookController } from '../../useBookController'
 
 type DrawerProps = {
-  chaptersNumber: number[]
   handleScroll: (index: number) => void
 }
 
-const DrawerNavigation = ({ chaptersNumber, handleScroll }: DrawerProps) => {
+const DrawerNavigation = ({ handleScroll }: DrawerProps) => {
+  const { chaptersNumber } = useBookController()
+
   const renderItem: ListRenderItem<number> = useCallback(
     ({ index }) => (
       <S.Item onPress={() => handleScroll(index)}>

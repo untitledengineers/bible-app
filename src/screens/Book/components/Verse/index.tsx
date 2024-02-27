@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import {
   UIManager,
   findNodeHandle,
@@ -8,10 +8,9 @@ import {
 } from 'react-native'
 
 import { Verse as VerseStyle, VerseNumber } from './styles'
-import { useBookController } from '../../hooks/useBookController'
+import { useBookController } from '../../useBookController'
 
 import { useFont } from '@/context/font'
-import { useTheme } from '@/context/theme'
 
 type VerseProps = {
   chapter: number
@@ -20,11 +19,10 @@ type VerseProps = {
 }
 
 const Verse = ({ chapter, number, text }: VerseProps) => {
-  const [backgroundColor, setBackgroundColor] = React.useState('transparent')
+  const [backgroundColor, setBackgroundColor] = useState('transparent')
   const pressableRef = useRef(null)
   const { fontScale } = useFont()
-  const { theme } = useTheme()
-  const { bookName } = useBookController()
+  const { bookName, theme } = useBookController()
 
   const handleShowPopupError = () => {
     Alert.alert('Erro ao selecionar versículo')

@@ -13,11 +13,11 @@ import {
 } from 'react-native-gesture-handler'
 import DrawerLayout from 'react-native-gesture-handler/DrawerLayout'
 
-import { useLoading } from '../../../context/loading'
-import { useSearch } from '../../../context/search'
-import { useTheme } from '../../../context/theme'
-import bibleData from '../../../data/bible_acf.json'
-import { LIST_HEADER_HEIGHT } from '../styles'
+import { LIST_HEADER_HEIGHT } from './components/ListHeader/styles'
+import { useLoading } from '../../context/loading'
+import { useSearch } from '../../context/search'
+import { useTheme } from '../../context/theme'
+import bibleData from '../../data/bible_acf.json'
 
 import { HEADER_HEIGHT } from '@/components/Header/styles'
 
@@ -82,6 +82,8 @@ export const useBookController = () => {
   })
 
   const handleScrollToIndex = useCallback((index: number) => {
+    console.log('test', index)
+
     if (drawerRef.current?.state.drawerOpened) {
       drawerRef.current?.closeDrawer()
     }
@@ -114,6 +116,7 @@ export const useBookController = () => {
   }, [bookName, handleScrollToIndex, initialScrollIndex])
 
   useEffect(() => {
+    console.log('indexViewable === indexToScroll', indexViewable, indexToScroll)
     if (indexViewable === indexToScroll && isVisible) {
       handleVisible(false)
     }
