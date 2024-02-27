@@ -2,10 +2,12 @@ import { Animated } from 'react-native'
 import { BorderlessButton } from 'react-native-gesture-handler'
 import styled from 'styled-components/native'
 
+export const HEADER_HEIGHT = 56
+
 export const Container = styled.View`
   justify-content: center;
   align-items: center;
-  height: 40px;
+  height: ${HEADER_HEIGHT}px;
 
   position: absolute;
   top: 0;
@@ -22,7 +24,7 @@ export const BackButton = styled(BorderlessButton)`
 
 export const AnimatedTitle = styled(Animated.Text)`
   color: ${({ theme }) => theme.colors.primary};
-  font-size: 20px;
+  font-size: 22px;
   font-family: 'Cardo_700Bold';
 `
 

@@ -18,6 +18,8 @@ type Props = {
   titleOpacity?: number | Animated.AnimatedInterpolation<string | number>
 }
 
+const ICON_SIZE = 26
+
 const Header = ({ title, titleOpacity = 1 }: Props) => {
   const { goBack } = useNavigation()
   const { theme } = useTheme()
@@ -30,7 +32,11 @@ const Header = ({ title, titleOpacity = 1 }: Props) => {
   return (
     <Container>
       <BackButton onPress={handleGoBack}>
-        <AntDesign name="arrowleft" size={24} color={theme.colors.primary} />
+        <AntDesign
+          name="arrowleft"
+          size={ICON_SIZE}
+          color={theme.colors.primary}
+        />
       </BackButton>
 
       {!!title && (
@@ -47,14 +53,14 @@ const Header = ({ title, titleOpacity = 1 }: Props) => {
         <FontScaleButton onPress={decreaseFontScale}>
           <MaterialIcons
             name="text-decrease"
-            size={24}
+            size={ICON_SIZE}
             color={theme.colors.primary}
           />
         </FontScaleButton>
         <FontScaleButton onPress={increaseFontScale}>
           <MaterialIcons
             name="text-increase"
-            size={24}
+            size={ICON_SIZE}
             color={theme.colors.primary}
           />
         </FontScaleButton>

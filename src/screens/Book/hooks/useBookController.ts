@@ -19,6 +19,8 @@ import { useTheme } from '../../../context/theme'
 import bibleData from '../../../data/bible_acf.json'
 import { LIST_HEADER_HEIGHT } from '../styles'
 
+import { HEADER_HEIGHT } from '@/components/Header/styles'
+
 type IParams = {
   bookName: string
   initialScrollIndex?: number
@@ -30,7 +32,7 @@ type IBook = {
   chaptersNumber: number[]
 }
 
-const HEADER_APP_MAX_HEIGHT = 40
+const HEADER_APP_MAX_HEIGHT = HEADER_HEIGHT
 const HEADER_APP_MIN_HEIGHT = 0
 
 export const useBookController = () => {
