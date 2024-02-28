@@ -21,11 +21,12 @@ export const Header = styled(LinearGradient).attrs(({ theme }) => ({
     : 10}px;
 `
 
-export const Input = styled(TextInput).attrs(() => ({
+export const Input = styled(TextInput).attrs(({ theme }) => ({
   placeholder: 'Digite uma palavra-chave',
   padding: 16,
   returnKeyType: 'search',
-  underlineColorAndroid: 'transparent'
+  underlineColorAndroid: 'transparent',
+  cursorColor: theme.colors.white
 }))`
   font-size: 22px;
   color: ${({ theme }) => theme.colors.white};
