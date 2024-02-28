@@ -16,15 +16,17 @@ import { IBook } from '../../screens/Home'
 
 type BookItemProps = {
   book: IBook
+  handleSwipeableOpen: (swipeableRef: Swipeable | undefined) => void
 }
 
 const INITIAL_ACTIVE_OFFSET_X = [-10, 0]
 const FINAL_ACTIVE_OFFSET_X = [-10, 10]
 
-const BookItem = ({ book }: BookItemProps) => {
+const BookItem = ({ book, handleSwipeableOpen }: BookItemProps) => {
   const [rightActionsIsOpen, setRightActionsIsOpen] = useState(false)
   const [activeOffsetX, setActiveOffsetX] = useState(INITIAL_ACTIVE_OFFSET_X)
   const flatListRef = useRef<FlatList<number>>(null)
+  const swipeableRef = useRef<Swipeable>(null)
   const window = useWindowDimensions()
   const navigation = useNavigation()
   const { theme } = useTheme()
@@ -61,6 +63,12 @@ const BookItem = ({ book }: BookItemProps) => {
     },
     [activeOffsetX, setActiveOffsetX]
   )
+
+  const onSwipeableWillOpen = useCallback(() => {
+    if (!swipeableRef.current) return
+
+    handleSwipeableOpen(swipeableRef.current)
+  }, [handleSwipeableOpen])
 
   const renderChapterItem: ListRenderItem<number> = useCallback(
     ({ index }) => {
@@ -119,9 +127,11 @@ const BookItem = ({ book }: BookItemProps) => {
 
   return (
     <Swipeable
+      ref={swipeableRef}
       renderRightActions={renderRightActions}
       onBegan={() => handleActionVisibility(true)}
       onSwipeableClose={() => handleActionVisibility(false)}
+      onSwipeableWillOpen={onSwipeableWillOpen}
       activeOffsetX={activeOffsetX}
     >
       <S.Button onPress={handleBookNavigation}>

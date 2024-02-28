@@ -1,7 +1,7 @@
 import Constants from 'expo-constants'
-import React from 'react'
+import React, { useCallback, useRef } from 'react'
 import { ListRenderItem } from 'react-native'
-import { FlatList } from 'react-native-gesture-handler'
+import { FlatList, Swipeable } from 'react-native-gesture-handler'
 
 import { Container, Separator } from './styles'
 import BookItem from '../../components/BookItem'
@@ -17,10 +17,21 @@ export interface IBook {
 }
 
 const Home = () => {
+  const currentSwipeableOpened = useRef<Swipeable>()
   useBackHandler()
 
+  const handleSwipeableOpen = useCallback(
+    (swipeableRef: Swipeable | undefined) => {
+      if (currentSwipeableOpened.current === swipeableRef) return
+
+      currentSwipeableOpened.current?.close()
+      currentSwipeableOpened.current = swipeableRef
+    },
+    []
+  )
+
   const renderBookItem: ListRenderItem<IBook> = ({ item }) => (
-    <BookItem book={item} />
+    <BookItem book={item} handleSwipeableOpen={handleSwipeableOpen} />
   )
 
   return (
@@ -35,6 +46,7 @@ const Home = () => {
         nestedScrollEnabled
         initialNumToRender={15}
         contentContainerStyle={{ paddingTop: Constants.statusBarHeight }}
+        onScroll={() => currentSwipeableOpened.current?.close()}
       />
     </Container>
   )
