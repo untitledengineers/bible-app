@@ -1,5 +1,5 @@
 import { useRoute } from '@react-navigation/native'
-import React, { useEffect, useState, useRef, useCallback, useMemo } from 'react'
+import { useEffect, useState, useRef, useCallback, useMemo } from 'react'
 import {
   FlatList,
   Animated,
@@ -14,7 +14,6 @@ import {
 import DrawerLayout from 'react-native-gesture-handler/DrawerLayout'
 
 import { LIST_HEADER_HEIGHT } from './components/ListHeader/styles'
-import { useLoading } from '../../context/loading'
 import { useSearch } from '../../context/search'
 import { useTheme } from '../../context/theme'
 import bibleData from '../../data/bible_acf.json'
@@ -40,11 +39,10 @@ export const useBookController = () => {
   const { bookName, initialScrollIndex } = route.params as IParams
   const [bookChapters, setBookChapters] = useState<string[][]>([])
   const [chaptersNumber, setChaptersNumber] = useState<number[]>([])
-  const [indexViewable, setIndexViewable] = useState<number | null>(0)
   const [indexToScroll, setIndexToScroll] = useState(0)
+  const [isLoading, setIsLoading] = useState(false)
   const listRef = useRef<FlatList>(null)
   const drawerRef = useRef<DrawerLayout>(null)
-  const { isVisible, handleVisible } = useLoading()
   const window = useWindowDimensions()
   const { handleOpen } = useSearch()
   const { theme } = useTheme()
@@ -71,19 +69,24 @@ export const useBookController = () => {
     extrapolate: 'clamp'
   })
 
-  const viewConfigRef = React.useRef({
-    itemVisiblePercentThreshold: 5,
-    minimumViewTime: 150
-  })
+  const viewabilityConfig = useMemo(
+    () => ({
+      itemVisiblePercentThreshold: 5,
+      minimumViewTime: 150
+    }),
+    []
+  )
 
-  // This useRef is necessary to fix a bug on the flatlist.
-  const onViewRef = React.useRef((info: { viewableItems: ViewToken[] }) => {
-    setIndexViewable(info.viewableItems[0]?.index)
-  })
+  const onViewableItemsChanged = useCallback(
+    (info: { viewableItems: ViewToken[] }) => {
+      if (info.viewableItems[0]?.index === indexToScroll) {
+        setIsLoading(false)
+      }
+    },
+    [indexToScroll]
+  )
 
   const handleScrollToIndex = useCallback((index: number) => {
-    console.log('test', index)
-
     if (drawerRef.current?.state.drawerOpened) {
       drawerRef.current?.closeDrawer()
     }
@@ -115,25 +118,10 @@ export const useBookController = () => {
     }
   }, [bookName, handleScrollToIndex, initialScrollIndex])
 
-  useEffect(() => {
-    console.log('indexViewable === indexToScroll', indexViewable, indexToScroll)
-    if (indexViewable === indexToScroll && isVisible) {
-      handleVisible(false)
-    }
-  }, [handleVisible, indexToScroll, indexViewable, isVisible])
-
-  useEffect(() => {
-    return () => {
-      if (isVisible) {
-        handleVisible(false)
-      }
-    }
-  }, [handleVisible, isVisible])
-
   const handleOnScrollFailed = useCallback(
     (info: { index: number; averageItemLength: number }) => {
-      if (!isVisible) {
-        handleVisible(true)
+      if (!isLoading) {
+        setIsLoading(true)
       }
 
       listRef.current?.scrollToOffset({
@@ -144,14 +132,14 @@ export const useBookController = () => {
         listRef.current?.scrollToIndex({ index: info.index, animated: true })
       }, 100)
     },
-    [handleVisible, isVisible]
+    [isLoading]
   )
 
   const values = useMemo(
     () => ({
       drawerRef,
-      onViewRef,
-      viewConfigRef,
+      onViewableItemsChanged,
+      viewabilityConfig,
       bookName,
       window,
       handleScrollToIndex,
@@ -164,20 +152,24 @@ export const useBookController = () => {
       scrollY,
       HEADER_APP_MAX_HEIGHT,
       handleDoubleTap,
-      theme
+      theme,
+      isLoading
     }),
     [
-      bookChapters,
+      onViewableItemsChanged,
+      viewabilityConfig,
       bookName,
-      chaptersNumber,
-      handleOnScrollFailed,
-      handleScrollToIndex,
-      scrollY,
-      titleOpacity,
-      translateY,
       window,
+      handleScrollToIndex,
+      chaptersNumber,
+      translateY,
+      titleOpacity,
+      bookChapters,
+      handleOnScrollFailed,
+      scrollY,
       handleDoubleTap,
-      theme
+      theme,
+      isLoading
     ]
   )
 

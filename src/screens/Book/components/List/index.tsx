@@ -10,13 +10,7 @@ import Chapter from '../Chapter'
 type ListProps = {
   scrollY: Animated.Value
   listRef: React.RefObject<FlatList>
-  viewConfigRef: React.MutableRefObject<{
-    itemVisiblePercentThreshold: number
-    minimumViewTime: number
-  }>
-  onViewRef: React.MutableRefObject<
-    (info: { viewableItems: ViewToken[] }) => void
-  >
+  onViewableItemsChanged: (info: { viewableItems: ViewToken[] }) => void
   handleOnScrollFailed: (info: {
     index: number
     averageItemLength: number
@@ -29,11 +23,15 @@ const List = ({
   scrollY,
   handleOnScrollFailed,
   listRef,
-  viewConfigRef,
-  onViewRef
+  onViewableItemsChanged
 }: ListProps) => {
-  const { bookName, bookChapters, HEADER_APP_MAX_HEIGHT, handleDoubleTap } =
-    useBookController()
+  const {
+    bookName,
+    bookChapters,
+    HEADER_APP_MAX_HEIGHT,
+    handleDoubleTap,
+    viewabilityConfig
+  } = useBookController()
 
   const renderChapterItem: ListRenderItem<string[]> = ({
     item,
@@ -61,8 +59,8 @@ const List = ({
           [{ nativeEvent: { contentOffset: { y: scrollY } } }],
           { useNativeDriver: true }
         )}
-        onViewableItemsChanged={onViewRef.current}
-        viewabilityConfig={viewConfigRef.current}
+        onViewableItemsChanged={onViewableItemsChanged}
+        viewabilityConfig={viewabilityConfig}
         windowSize={50}
       />
     </TapGestureHandler>

@@ -6,17 +6,19 @@ import List from './components/List'
 import { Container } from './styles'
 import { useBookController } from './useBookController'
 
+import Loading from '@/components/Loading'
+
 const Book = () => {
   const {
-    onViewRef,
-    viewConfigRef,
+    onViewableItemsChanged,
     handleScrollToIndex,
     translateY,
     titleOpacity,
     listRef,
     handleOnScrollFailed,
     scrollY,
-    drawerRef
+    drawerRef,
+    isLoading
   } = useBookController()
 
   return (
@@ -26,12 +28,13 @@ const Book = () => {
 
         <List
           listRef={listRef}
-          onViewRef={onViewRef}
-          viewConfigRef={viewConfigRef}
+          onViewableItemsChanged={onViewableItemsChanged}
           scrollY={scrollY}
           handleOnScrollFailed={handleOnScrollFailed}
         />
       </Drawer>
+
+      {isLoading && <Loading />}
     </Container>
   )
 }

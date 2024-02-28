@@ -1,7 +1,6 @@
 import React from 'react'
 
 import { FontProvider } from './font'
-import { LoadingProvider } from './loading'
 import { SearchProvider } from './search'
 import { ThemeProvider } from './theme'
 
@@ -12,11 +11,9 @@ type AppProvidersProps = {
 const AppProviders = ({ children }: AppProvidersProps): JSX.Element => {
   return (
     <ThemeProvider>
-      <LoadingProvider>
-        <SearchProvider>
-          <FontProvider>{children}</FontProvider>
-        </SearchProvider>
-      </LoadingProvider>
+      <SearchProvider>
+        <FontProvider>{children}</FontProvider>
+      </SearchProvider>
     </ThemeProvider>
   )
 }
