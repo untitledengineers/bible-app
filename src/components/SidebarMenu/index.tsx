@@ -17,6 +17,7 @@ const SidebarMenu = () => {
   return (
     <Container colors={theme.colors.gradient}>
       <Feather
+        testID="theme-button"
         name={theme.name === ThemeType.light ? 'moon' : 'sun'}
         size={30}
         color={theme.colors.white}
