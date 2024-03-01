@@ -1,5 +1,6 @@
 import React from 'react'
 import DrawerLayout from 'react-native-gesture-handler/DrawerLayout'
+import { useStyles } from 'react-native-unistyles'
 
 import { useBookController } from '../../useBookController'
 import DrawerNavigation from '../DrawerNavigation'
@@ -11,7 +12,8 @@ type DrawerProps = {
 }
 
 const Drawer = ({ handleScrollToIndex, children, drawerRef }: DrawerProps) => {
-  const { window, theme } = useBookController()
+  const { window } = useBookController()
+  const { theme } = useStyles()
 
   return (
     <DrawerLayout

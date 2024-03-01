@@ -1,20 +1,22 @@
 import React from 'react'
+import { Text, View } from 'react-native'
+import { useStyles } from 'react-native-unistyles'
 
-import { Container, Separator, Text } from './styles'
+import { stylesheet } from './styles'
 
 type ListHeaderProps = {
   text: string
 }
 
 const ListHeader = ({ text }: ListHeaderProps) => {
+  const { styles } = useStyles(stylesheet)
+
   return (
-    <Container>
-      <Separator />
-
-      <Text>{text}</Text>
-
-      <Separator />
-    </Container>
+    <View style={styles.container}>
+      <View style={styles.separator} />
+      <Text style={styles.text}>{text}</Text>
+      <View style={styles.separator} />
+    </View>
   )
 }
 

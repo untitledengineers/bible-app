@@ -6,7 +6,6 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "primaryColor": "#FFFFFF",
-    "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -15,9 +14,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
@@ -46,13 +43,16 @@
     },
     "plugins": [
       "expo-font",
-      ["expo-build-properties", {
-        "android": {
-          "enableProguardInReleaseBuilds": true,
-          "extraProguardRules": "-keep public class com.horcrux.svg.** {*;}",
-          "allowBackup": false
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "enableProguardInReleaseBuilds": true,
+            "extraProguardRules": "-keep public class com.horcrux.svg.** {*;}",
+            "allowBackup": false
+          }
         }
-      }]
+      ]
     ]
   }
 }

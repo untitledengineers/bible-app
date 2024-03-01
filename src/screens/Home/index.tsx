@@ -1,9 +1,10 @@
 import Constants from 'expo-constants'
 import React, { useCallback, useRef } from 'react'
-import { ListRenderItem } from 'react-native'
+import { ListRenderItem, View } from 'react-native'
 import { FlatList, Swipeable } from 'react-native-gesture-handler'
+import { useStyles } from 'react-native-unistyles'
 
-import { Container, Separator } from './styles'
+import { stylesheet } from './styles'
 import BookItem from '../../components/BookItem'
 import SidebarMenu from '../../components/SidebarMenu'
 import bibleData from '../../data/lite_bible_acf.json'
@@ -18,6 +19,7 @@ export interface IBook {
 
 const Home = () => {
   const currentSwipeableOpened = useRef<Swipeable>()
+  const { styles } = useStyles(stylesheet)
   useBackHandler()
 
   const handleSwipeableOpen = useCallback(
@@ -35,20 +37,20 @@ const Home = () => {
   )
 
   return (
-    <Container>
+    <View style={styles.container}>
       <SidebarMenu />
       <FlatList
         data={bibleData as IBook[]}
         keyExtractor={book => book.name}
         renderItem={renderBookItem}
-        ItemSeparatorComponent={() => <Separator />}
+        ItemSeparatorComponent={() => <View style={styles.separator} />}
         showsVerticalScrollIndicator={false}
         nestedScrollEnabled
         initialNumToRender={15}
         contentContainerStyle={{ paddingTop: Constants.statusBarHeight }}
         onScroll={() => currentSwipeableOpened.current?.close()}
       />
-    </Container>
+    </View>
   )
 }
 

@@ -6,12 +6,15 @@ import {
   ListRenderItem,
   NativeScrollEvent,
   NativeSyntheticEvent,
+  Text,
+  TouchableOpacity,
+  View,
   useWindowDimensions
 } from 'react-native'
-import { FlatList, Swipeable } from 'react-native-gesture-handler'
+import { FlatList, RectButton, Swipeable } from 'react-native-gesture-handler'
+import { useStyles } from 'react-native-unistyles'
 
-import * as S from './styles'
-import { useTheme } from '../../context/theme'
+import { stylesheet } from './styles'
 import { IBook } from '../../screens/Home'
 
 type BookItemProps = {
@@ -29,7 +32,7 @@ const BookItem = ({ book, handleSwipeableOpen }: BookItemProps) => {
   const swipeableRef = useRef<Swipeable>(null)
   const window = useWindowDimensions()
   const navigation = useNavigation()
-  const { theme } = useTheme()
+  const { styles, theme } = useStyles(stylesheet)
 
   const handleActionVisibility = (state: boolean) => {
     setRightActionsIsOpen(state)
@@ -73,12 +76,16 @@ const BookItem = ({ book, handleSwipeableOpen }: BookItemProps) => {
   const renderChapterItem: ListRenderItem<number> = useCallback(
     ({ index }) => {
       return (
-        <S.Item key={index} onPress={() => handleChapterNavigation(index)}>
-          <S.ItemContent>{index + 1}</S.ItemContent>
-        </S.Item>
+        <TouchableOpacity
+          key={index}
+          style={styles.item}
+          onPress={() => handleChapterNavigation(index)}
+        >
+          <Text style={styles.itemContent}>{index + 1}</Text>
+        </TouchableOpacity>
       )
     },
-    [handleChapterNavigation]
+    [handleChapterNavigation, styles]
   )
 
   const renderRightActions = useCallback(
@@ -90,7 +97,7 @@ const BookItem = ({ book, handleSwipeableOpen }: BookItemProps) => {
       })
 
       return (
-        <S.Container
+        <Animated.View
           style={{
             transform: [{ translateX }]
           }}
@@ -112,7 +119,7 @@ const BookItem = ({ book, handleSwipeableOpen }: BookItemProps) => {
               onScroll={handleScroll}
             />
           )}
-        </S.Container>
+        </Animated.View>
       )
     },
     [
@@ -134,19 +141,19 @@ const BookItem = ({ book, handleSwipeableOpen }: BookItemProps) => {
       onSwipeableWillOpen={onSwipeableWillOpen}
       activeOffsetX={activeOffsetX}
     >
-      <S.Button onPress={handleBookNavigation}>
-        <S.Content>
-          <S.Title>{book.name}</S.Title>
+      <RectButton style={styles.button} onPress={handleBookNavigation}>
+        <View style={styles.content}>
+          <Text style={styles.title}>{book.name}</Text>
 
-          <S.Chapter>
+          <View style={styles.chapter}>
             <Entypo name="open-book" size={18} color={theme.colors.border} />
-            <S.ChapterText>
+            <Text style={styles.chapterText}>
               {' '}
               {book.chaptersNumber.length} Capítulos
-            </S.ChapterText>
-          </S.Chapter>
-        </S.Content>
-      </S.Button>
+            </Text>
+          </View>
+        </View>
+      </RectButton>
     </Swipeable>
   )
 }

@@ -1,8 +1,13 @@
-import { LinearGradient } from 'expo-linear-gradient'
-import styled from 'styled-components/native'
+import { createStyleSheet } from 'react-native-unistyles'
 
-export const Container = styled(LinearGradient)`
-  justify-content: flex-end;
-  align-items: center;
-  width: 56px;
-`
+export const stylesheet = createStyleSheet(theme => ({
+  container: {
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    width: 56
+  },
+  searchIcon: {
+    marginTop: theme.spacing.large,
+    marginBottom: theme.spacing.mediumPlus
+  }
+}))

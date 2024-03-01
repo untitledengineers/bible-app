@@ -1,8 +1,13 @@
 import React from 'react'
-import { FlatList, Animated, ListRenderItem, ViewToken } from 'react-native'
+import {
+  FlatList,
+  Animated,
+  ListRenderItem,
+  ViewToken,
+  View
+} from 'react-native'
 import { TapGestureHandler } from 'react-native-gesture-handler'
 
-import { ItemSeparator } from './styles'
 import ListHeader from '../../components/ListHeader'
 import { useBookController } from '../../useBookController'
 import Chapter from '../Chapter'
@@ -46,7 +51,7 @@ const List = ({
         keyExtractor={(chapter: string[]) => chapter[1]}
         renderItem={renderChapterItem}
         ListHeaderComponent={<ListHeader text={bookName} />}
-        ItemSeparatorComponent={<ItemSeparator />}
+        ItemSeparatorComponent={<View style={{ height: 10 }} />}
         initialNumToRender={2}
         scrollEventThrottle={16}
         nestedScrollEnabled

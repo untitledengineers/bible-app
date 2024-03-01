@@ -2,17 +2,18 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useNavigation } from '@react-navigation/native'
 import Checkbox from 'expo-checkbox'
 import React, { useState } from 'react'
+import { Image, Text, View } from 'react-native'
 import Onboarding from 'react-native-onboarding-swiper'
+import { useStyles } from 'react-native-unistyles'
 
-import * as S from './styles'
+import { stylesheet } from './styles'
 import { ChapterImg, ChapterMenuImg } from '../../assets/images'
-import { useTheme } from '../../context/theme'
 
 function Onboard() {
   const [pageIndexCallback, setPageIndexCallback] = useState(0)
   const [isChecked, setChecked] = useState(false)
   const navigation = useNavigation()
-  const { theme } = useTheme()
+  const { styles, theme } = useStyles(stylesheet)
 
   const onDone = () => {
     if (isChecked) {
@@ -29,14 +30,26 @@ function Onboard() {
         pages={[
           {
             backgroundColor: theme.colors.background,
-            image: <S.Image source={ChapterImg} />,
+            image: (
+              <Image
+                source={ChapterImg}
+                style={styles.image}
+                resizeMode="contain"
+              />
+            ),
             title: 'Início',
             subtitle:
               'Em qualquer livro, arraste para a esquerda para acessar seus capítulos.'
           },
           {
             backgroundColor: theme.colors.background,
-            image: <S.Image source={ChapterMenuImg} />,
+            image: (
+              <Image
+                source={ChapterMenuImg}
+                style={styles.image}
+                resizeMode="contain"
+              />
+            ),
             title: 'Livro',
             subtitle:
               'Na tela de livro, arraste para a esquerda para acessar a lista de capítulos.'
@@ -48,17 +61,20 @@ function Onboard() {
         pageIndexCallback={setPageIndexCallback}
       />
       {pageIndexCallback === 1 && (
-        <S.NotShowAgainWrapper>
+        <View style={styles.notShowAgainWrapper}>
           <Checkbox
             value={isChecked}
             onValueChange={setChecked}
             color={isChecked ? theme.colors.secondary : undefined}
             style={{ borderColor: theme.colors.primary }}
           />
-          <S.NotShowAgainText onPress={() => setChecked(!isChecked)}>
+          <Text
+            style={styles.notShowAgainText}
+            onPress={() => setChecked(!isChecked)}
+          >
             Não mostrar novamente
-          </S.NotShowAgainText>
-        </S.NotShowAgainWrapper>
+          </Text>
+        </View>
       )}
     </>
   )

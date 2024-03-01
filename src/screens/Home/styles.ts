@@ -1,12 +1,13 @@
 import { StyleSheet } from 'react-native'
-import styled from 'styled-components/native'
+import { createStyleSheet } from 'react-native-unistyles'
 
-export const Container = styled.SafeAreaView`
-  flex: 1;
-  flex-direction: row;
-`
-
-export const Separator = styled.View`
-  border-bottom-color: ${({ theme }) => theme.colors.border};
-  border-bottom-width: ${StyleSheet.hairlineWidth}px;
-`
+export const stylesheet = createStyleSheet(theme => ({
+  container: {
+    flex: 1,
+    flexDirection: 'row'
+  },
+  separator: {
+    borderBottomColor: theme.colors.border,
+    borderBottomWidth: StyleSheet.hairlineWidth
+  }
+}))

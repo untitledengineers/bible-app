@@ -1,19 +1,17 @@
-import styled from 'styled-components/native'
+import { createStyleSheet } from 'react-native-unistyles'
 
-export const Image = styled.Image.attrs({
-  resizeMode: 'contain'
-})`
-  width: 98%;
-`
-
-export const NotShowAgainWrapper = styled.View`
-  position: absolute;
-  bottom: 80px;
-  align-self: center;
-  flex-direction: row;
-`
-
-export const NotShowAgainText = styled.Text`
-  margin-left: 8px;
-  color: ${({ theme }) => theme.colors.primary};
-`
+export const stylesheet = createStyleSheet(theme => ({
+  image: {
+    width: '98%'
+  },
+  notShowAgainWrapper: {
+    position: 'absolute',
+    bottom: 80,
+    alignSelf: 'center',
+    flexDirection: 'row'
+  },
+  notShowAgainText: {
+    marginLeft: theme.spacing.smaller,
+    color: theme.colors.primary
+  }
+}))

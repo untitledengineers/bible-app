@@ -1,38 +1,32 @@
-import { Animated } from 'react-native'
-import { BorderlessButton } from 'react-native-gesture-handler'
-import styled from 'styled-components/native'
+import { createStyleSheet } from 'react-native-unistyles'
 
 export const HEADER_HEIGHT = 56
 
-export const Container = styled.View`
-  justify-content: center;
-  align-items: center;
-  height: ${HEADER_HEIGHT}px;
-
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-
-  background-color: ${({ theme }) => theme.colors.background};
-`
-
-export const BackButton = styled(BorderlessButton)`
-  position: absolute;
-  left: 16px;
-`
-
-export const AnimatedTitle = styled(Animated.Text)`
-  color: ${({ theme }) => theme.colors.primary};
-  font-family: 'Cardo_700Bold';
-`
-
-export const FontScaleWrapper = styled.View`
-  flex-direction: row;
-  position: absolute;
-  right: 16px;
-`
-
-export const FontScaleButton = styled(BorderlessButton)`
-  margin-left: 16px;
-`
+export const stylesheet = createStyleSheet(theme => ({
+  container: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: HEADER_HEIGHT,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: theme.colors.background
+  },
+  backButton: {
+    position: 'absolute',
+    left: theme.spacing.medium
+  },
+  animatedTitle: {
+    color: theme.colors.primary,
+    fontFamily: 'Cardo_700Bold'
+  },
+  fontScaleWrapper: {
+    flexDirection: 'row',
+    position: 'absolute',
+    right: theme.spacing.medium
+  },
+  fontScaleButton: {
+    marginLeft: theme.spacing.medium
+  }
+}))

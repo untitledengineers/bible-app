@@ -1,20 +1,20 @@
-import styled from 'styled-components/native'
+import { createStyleSheet } from 'react-native-unistyles'
 
-export const Item = styled.TouchableOpacity`
-  justify-content: center;
-  align-items: center;
-  padding: 8px 0px;
-`
-
-export const ItemContent = styled.Text`
-  font-size: 16px;
-  font-family: 'Cardo_700Bold';
-  color: ${({ theme }) => theme.colors.primary};
-`
-
-export const ItemSeparator = styled.Text`
-  font-size: 12px;
-  text-align: center;
-  font-family: 'Cardo_400Regular';
-  color: ${({ theme }) => theme.colors.primary};
-`
+export const stylesheet = createStyleSheet(theme => ({
+  item: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: theme.spacing.smaller
+  },
+  itemContent: {
+    fontSize: 16,
+    fontFamily: 'Cardo_700Bold',
+    color: theme.colors.primary
+  },
+  itemSeparator: {
+    fontSize: 12,
+    textAlign: 'center',
+    fontFamily: 'Cardo_400Regular',
+    color: theme.colors.primary
+  }
+}))

@@ -1,13 +1,19 @@
+import { Feather } from '@expo/vector-icons'
+import { LinearGradient } from 'expo-linear-gradient'
 import React, { useEffect, createRef, useCallback } from 'react'
 import {
   SectionList,
   SectionListData,
   SectionListRenderItem,
-  TextInput
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View
 } from 'react-native'
 import { createFilter } from 'react-native-search-filter'
+import { useStyles } from 'react-native-unistyles'
 
-import * as S from './styles'
+import { stylesheet } from './styles'
 import bibleData from '../../data/bible_acf.json'
 import { IBook } from '../../screens/Home'
 import { navigate } from '../../utils/navigation'
@@ -34,6 +40,7 @@ function filterTerms(searchTerm: string, keys: string[]) {
 
 function Search({ closeModal, searchTerm, setSearchTerm }: Props): JSX.Element {
   const inputRef = createRef<TextInput>()
+  const { styles, theme } = useStyles(stylesheet)
 
   useEffect(() => {
     if (!searchTerm) {
@@ -97,30 +104,33 @@ function Search({ closeModal, searchTerm, setSearchTerm }: Props): JSX.Element {
 
   const renderBook: SectionListRenderItem<IBook> = useCallback(
     ({ item }) => (
-      <S.BookNameWrapper
+      <TouchableOpacity
         onPress={handleNavigationToBook({ bookName: item.name })}
       >
-        <S.BookName>{item.name}</S.BookName>
-      </S.BookNameWrapper>
+        <Text style={styles.bookName}>{item.name}</Text>
+      </TouchableOpacity>
     ),
-    [handleNavigationToBook]
+    [handleNavigationToBook, styles]
   )
 
   const renderVerse: SectionListRenderItem<Verse> = useCallback(
     ({ item }) => (
-      <S.VerseWrapper
+      <TouchableOpacity
+        style={styles.verseWrapper}
         onPress={handleNavigationToBook({
           bookName: item.bookName,
           chapterNumber: item.bookChapterNumber
         })}
       >
-        <S.Verse>{item.bookVerseText}</S.Verse>
-        <S.VerseLocation>
+        <Text style={styles.verse} numberOfLines={2}>
+          {item.bookVerseText}
+        </Text>
+        <Text style={styles.verseLocation}>
           {item.bookName} {item.bookChapterNumber}:{item.bookVerseNumber}
-        </S.VerseLocation>
-      </S.VerseWrapper>
+        </Text>
+      </TouchableOpacity>
     ),
-    [handleNavigationToBook]
+    [handleNavigationToBook, styles]
   )
 
   const renderSectionHeader = (info: {
@@ -128,15 +138,15 @@ function Search({ closeModal, searchTerm, setSearchTerm }: Props): JSX.Element {
   }) => (
     <>
       {info.section.data.length > 0 && (
-        <S.SectionWrapper>
-          <S.SectionHeader>{info.section.title}</S.SectionHeader>
-          <S.SectionSeparator />
-        </S.SectionWrapper>
+        <View>
+          <Text style={styles.sectionHeader}>{info.section.title}</Text>
+          <View style={styles.sectionSeparator} />
+        </View>
       )}
     </>
   )
 
-  const renderSectionFooter = () => <S.SectionFooter />
+  const renderSectionFooter = () => <View style={styles.sectionFooter} />
 
   const sections = React.useMemo(() => {
     return [
@@ -157,16 +167,29 @@ function Search({ closeModal, searchTerm, setSearchTerm }: Props): JSX.Element {
   }, [filteredBooks, parsedVerses, renderBook, renderVerse])
 
   return (
-    <S.Container>
-      <S.Header>
-        <S.CloseButton onPress={closeModal} />
+    <View style={styles.container}>
+      <LinearGradient style={styles.header} colors={theme.colors.gradient}>
+        <Feather
+          name="x"
+          size={24}
+          color={theme.colors.white}
+          style={styles.closeIcon}
+          onPress={closeModal}
+        />
 
-        <S.Input
+        <TextInput
+          style={styles.input}
           ref={inputRef}
           value={searchTerm}
           onChangeText={setSearchTerm}
+          placeholder="Digite uma palavra-chave"
+          returnKeyType="search"
+          onSubmitEditing={closeModal}
+          blurOnSubmit
+          underlineColorAndroid="transparent"
+          cursorColor={theme.colors.white}
         />
-      </S.Header>
+      </LinearGradient>
 
       <SectionList
         sections={sections as any}
@@ -176,7 +199,7 @@ function Search({ closeModal, searchTerm, setSearchTerm }: Props): JSX.Element {
         renderSectionFooter={renderSectionFooter}
         keyboardShouldPersistTaps="handled"
       />
-    </S.Container>
+    </View>
   )
 }
 

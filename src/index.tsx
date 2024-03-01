@@ -11,7 +11,6 @@ import React, { useCallback, useEffect, useState } from 'react'
 
 import Navigation from './Navigation'
 import { useFont } from './context/font'
-import { useTheme } from './context/theme'
 import { setNavigator } from './utils/navigation'
 
 // Instruct SplashScreen not to hide yet, we want to do this manually
@@ -22,7 +21,6 @@ SplashScreen.preventAutoHideAsync().catch(() => {
 const App = () => {
   const [appIsReady, setAppIsReady] = useState(false)
   const [hasOnboarded, setHasOnboarded] = useState(false)
-  const { setTheme } = useTheme()
   const { setFontScale } = useFont()
 
   useEffect(() => {
@@ -33,11 +31,6 @@ const App = () => {
           Cardo_400Regular_Italic,
           Cardo_700Bold
         })
-
-        const theme = await AsyncStorage.getItem('@theme')
-        if (theme) {
-          setTheme(JSON.parse(theme))
-        }
 
         const fontScale = await AsyncStorage.getItem('@fontScale')
         if (fontScale) {
@@ -54,7 +47,7 @@ const App = () => {
     }
 
     prepare()
-  }, [setFontScale, setTheme])
+  }, [setFontScale])
 
   const onLayoutRootView = useCallback(async () => {
     if (appIsReady) {
