@@ -76,7 +76,6 @@ const BookItem = ({ book, handleSwipeableOpen }: BookItemProps) => {
     ({ index }) => {
       return (
         <TouchableOpacity
-          key={index}
           style={styles.item}
           onPress={() => handleChapterNavigation(index)}
         >
