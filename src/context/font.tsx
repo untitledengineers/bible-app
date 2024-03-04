@@ -27,8 +27,9 @@ export const FontProvider = ({
       return
     }
 
-    setFontScale(prevFontScale => prevFontScale + 0.1)
-    AsyncStorage.setItem('@fontScale', JSON.stringify(fontScale))
+    const newFontScale = fontScale + 0.1
+    setFontScale(newFontScale)
+    AsyncStorage.setItem('@fontScale', JSON.stringify(newFontScale))
   }, [fontScale])
 
   const decreaseFontScale = useCallback(() => {
@@ -36,8 +37,9 @@ export const FontProvider = ({
       return
     }
 
-    setFontScale(prevFontScale => prevFontScale - 0.1)
-    AsyncStorage.setItem('@fontScale', JSON.stringify(fontScale))
+    const newFontScale = fontScale - 0.1
+    setFontScale(newFontScale)
+    AsyncStorage.setItem('@fontScale', JSON.stringify(newFontScale))
   }, [fontScale])
 
   return (
