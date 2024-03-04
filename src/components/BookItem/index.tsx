@@ -98,6 +98,7 @@ const BookItem = ({ book, handleSwipeableOpen }: BookItemProps) => {
       return (
         <Animated.View
           style={{
+            ...styles.container,
             transform: [{ translateX }]
           }}
         >
@@ -126,6 +127,7 @@ const BookItem = ({ book, handleSwipeableOpen }: BookItemProps) => {
       handleScroll,
       renderChapterItem,
       rightActionsIsOpen,
+      styles.container,
       window.width
     ]
   )
