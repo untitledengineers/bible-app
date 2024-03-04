@@ -20,7 +20,10 @@ function Onboard() {
       AsyncStorage.setItem('@hasOnboarded', 'true')
     }
 
-    navigation.navigate('Home')
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'Home' }]
+    })
   }
 
   return (

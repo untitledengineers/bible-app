@@ -9,7 +9,6 @@ import { stylesheet } from './styles'
 import BookItem from '../../components/BookItem'
 import SidebarMenu from '../../components/SidebarMenu'
 import bibleData from '../../data/lite_bible_acf.json'
-import { useBackHandler } from '../../hooks'
 
 export interface IBook {
   name: string
@@ -21,7 +20,6 @@ export interface IBook {
 const Home = () => {
   const currentSwipeableOpened = useRef<Swipeable>()
   const { styles } = useStyles(stylesheet)
-  useBackHandler()
 
   const handleSwipeableOpen = useCallback(
     (swipeableRef: Swipeable | undefined) => {
