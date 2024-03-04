@@ -1,4 +1,5 @@
 import { Feather } from '@expo/vector-icons'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { LinearGradient } from 'expo-linear-gradient'
 import React from 'react'
 import { UnistylesRuntime, useStyles } from 'react-native-unistyles'
@@ -13,7 +14,9 @@ const SidebarMenu = () => {
   const isLightTheme = UnistylesRuntime.themeName === ThemeType.light
 
   const toggleTheme = () => {
-    UnistylesRuntime.setTheme(isLightTheme ? ThemeType.dark : ThemeType.light)
+    const newTheme = isLightTheme ? ThemeType.dark : ThemeType.light
+    UnistylesRuntime.setTheme(newTheme)
+    AsyncStorage.setItem('@theme', newTheme)
   }
 
   return (

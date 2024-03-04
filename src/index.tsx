@@ -8,9 +8,11 @@ import { NavigationContainer } from '@react-navigation/native'
 import * as Font from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen'
 import React, { useCallback, useEffect, useState } from 'react'
+import { UnistylesRuntime } from 'react-native-unistyles'
 
 import Navigation from './Navigation'
 import { useFont } from './context/font'
+import { ThemeType } from './styles'
 import { setNavigator } from './utils/navigation'
 
 // Instruct SplashScreen not to hide yet, we want to do this manually
@@ -23,22 +25,39 @@ const App = () => {
   const [hasOnboarded, setHasOnboarded] = useState(false)
   const { setFontScale } = useFont()
 
+  const getFont = useCallback(async () => {
+    await Font.loadAsync({
+      Cardo_400Regular,
+      Cardo_400Regular_Italic,
+      Cardo_700Bold
+    })
+
+    const fontScale = await AsyncStorage.getItem('@fontScale')
+    if (fontScale) {
+      setFontScale(Number(fontScale))
+    }
+  }, [setFontScale])
+
+  const getOnboarded = useCallback(async () => {
+    const hasOnboarded = await AsyncStorage.getItem('@hasOnboarded')
+    if (hasOnboarded) {
+      setHasOnboarded(true)
+    }
+  }, [])
+
+  const getTheme = useCallback(async () => {
+    const theme = await AsyncStorage.getItem('@theme')
+    if (theme) {
+      UnistylesRuntime.setTheme(theme as ThemeType)
+    }
+  }, [])
+
   useEffect(() => {
     async function prepare() {
       try {
-        await Font.loadAsync({
-          Cardo_400Regular,
-          Cardo_400Regular_Italic,
-          Cardo_700Bold
-        })
-
-        const fontScale = await AsyncStorage.getItem('@fontScale')
-        if (fontScale) {
-          setFontScale(Number(fontScale))
-        }
-
-        const hasOnboarded = await AsyncStorage.getItem('@hasOnboarded')
-        setHasOnboarded(!!hasOnboarded)
+        await getFont()
+        await getOnboarded()
+        await getTheme()
       } catch (e) {
         console.error(e)
       } finally {
@@ -47,7 +66,7 @@ const App = () => {
     }
 
     prepare()
-  }, [setFontScale])
+  }, [getFont, getOnboarded, getTheme, setFontScale])
 
   const onLayoutRootView = useCallback(async () => {
     if (appIsReady) {
