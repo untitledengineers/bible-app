@@ -36,7 +36,7 @@
     "react-native-safe-area-context": "4.8.2",
     "react-native-screens": "~3.29.0",
     "react-native-search-filter": "^0.1.5",
-    "react-native-unistyles": "2.3.0",
+    "react-native-unistyles": "^2.4.0",
     "react-native-web": "~0.19.6"
   },
   "devDependencies": {

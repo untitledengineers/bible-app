@@ -5,7 +5,6 @@
     "version": "1.1.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "primaryColor": "#FFFFFF",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -21,7 +20,6 @@
     "android": {
       "package": "com.untitledengineers.bible",
       "versionCode": 6,
-      "userInterfaceStyle": "light",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
@@ -29,8 +27,7 @@
     },
     "androidNavigationBar": {
       "barStyle": "dark-content",
-      "backgroundColor": "#FFFFFF",
-      "visible": "sticky-immersive"
+      "backgroundColor": "#FFFFFF"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -48,7 +45,7 @@
         {
           "android": {
             "enableProguardInReleaseBuilds": true,
-            "extraProguardRules": "-keep public class com.horcrux.svg.** {*;}",
+            "extraProguardRules": "-keep public class com.horcrux.svg.** {*;} -keep class com.unistyles.** {*;}",
             "allowBackup": false
           }
         }
