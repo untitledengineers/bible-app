@@ -1,10 +1,6 @@
+import { FlashList } from '@shopify/flash-list'
 import React, { useEffect, createRef, useCallback } from 'react'
-import {
-  SectionList,
-  SectionListData,
-  SectionListRenderItem,
-  TextInput
-} from 'react-native'
+import { TextInput } from 'react-native'
 import { createFilter } from 'react-native-search-filter'
 
 import * as S from './styles'
@@ -34,13 +30,6 @@ function filterTerms(searchTerm: string, keys: string[]) {
 
 function Search({ closeModal, searchTerm, setSearchTerm }: Props): JSX.Element {
   const inputRef = createRef<TextInput>()
-
-  useEffect(() => {
-    if (!searchTerm) {
-      setTimeout(() => inputRef.current?.focus(), 200)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [inputRef])
 
   const filteredBooks = React.useMemo(() => {
     if (searchTerm === '') return []
@@ -81,6 +70,14 @@ function Search({ closeModal, searchTerm, setSearchTerm }: Props): JSX.Element {
     [filteredVerses]
   )
 
+  const data = React.useMemo(() => {
+    return ['Livros', ...filteredBooks, 'Versos', ...parsedVerses]
+  }, [filteredBooks, parsedVerses])
+
+  const getItemType = (item: Verse | IBook | string) => {
+    return typeof item === 'string' ? 'sectionHeader' : 'row'
+  }
+
   const handleNavigationToBook = useCallback(
     (item: { bookName: string; chapterNumber?: number }) => {
       return () => {
@@ -95,8 +92,8 @@ function Search({ closeModal, searchTerm, setSearchTerm }: Props): JSX.Element {
     [closeModal]
   )
 
-  const renderBook: SectionListRenderItem<IBook> = useCallback(
-    ({ item }) => (
+  const renderBook = useCallback(
+    (item: IBook) => (
       <S.BookNameWrapper
         onPress={handleNavigationToBook({ bookName: item.name })}
       >
@@ -106,8 +103,8 @@ function Search({ closeModal, searchTerm, setSearchTerm }: Props): JSX.Element {
     [handleNavigationToBook]
   )
 
-  const renderVerse: SectionListRenderItem<Verse> = useCallback(
-    ({ item }) => (
+  const renderVerse = useCallback(
+    (item: Verse) => (
       <S.VerseWrapper
         onPress={handleNavigationToBook({
           bookName: item.bookName,
@@ -123,38 +120,34 @@ function Search({ closeModal, searchTerm, setSearchTerm }: Props): JSX.Element {
     [handleNavigationToBook]
   )
 
-  const renderSectionHeader = (info: {
-    section: SectionListData<IBook | Verse>
-  }) => (
-    <>
-      {info.section.data.length > 0 && (
-        <S.SectionWrapper>
-          <S.SectionHeader>{info.section.title}</S.SectionHeader>
-          <S.SectionSeparator />
-        </S.SectionWrapper>
-      )}
-    </>
+  const renderSectionHeader = (title: string) => (
+    <S.SectionWrapper>
+      <S.SectionHeader>{title}</S.SectionHeader>
+      <S.SectionSeparator />
+    </S.SectionWrapper>
   )
 
-  const renderSectionFooter = () => <S.SectionFooter />
+  const renderItem = ({ item }: { item: IBook | Verse | string }) => {
+    // Section header
+    if (typeof item === 'string') {
+      return renderSectionHeader(item)
+    }
 
-  const sections = React.useMemo(() => {
-    return [
-      {
-        title: 'Livros',
-        data: filteredBooks,
-        renderItem: renderBook,
-        keyExtractor: (item: IBook) => item.name
-      },
-      {
-        title: 'Versos',
-        data: parsedVerses,
-        renderItem: renderVerse,
-        keyExtractor: (item: Verse) =>
-          item.bookChapterNumber + item.bookVerseNumber + item.bookVerseText
-      }
-    ]
-  }, [filteredBooks, parsedVerses, renderBook, renderVerse])
+    // Book item
+    if ('name' in item) {
+      return renderBook(item)
+    }
+
+    // Verse item
+    return renderVerse(item)
+  }
+
+  useEffect(() => {
+    if (!searchTerm) {
+      setTimeout(() => inputRef.current?.focus(), 200)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inputRef])
 
   return (
     <S.Container>
@@ -168,12 +161,12 @@ function Search({ closeModal, searchTerm, setSearchTerm }: Props): JSX.Element {
         />
       </S.Header>
 
-      <SectionList
-        sections={sections as any}
-        style={{ marginTop: 120 }}
+      <FlashList
+        data={data}
+        renderItem={renderItem}
+        estimatedItemSize={56}
+        getItemType={getItemType}
         contentContainerStyle={{ paddingHorizontal: 8 }}
-        renderSectionHeader={renderSectionHeader}
-        renderSectionFooter={renderSectionFooter}
         keyboardShouldPersistTaps="handled"
       />
     </S.Container>

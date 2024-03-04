@@ -1,6 +1,5 @@
+import { FlashList, ListRenderItem } from '@shopify/flash-list'
 import React, { useCallback } from 'react'
-import { ListRenderItem } from 'react-native'
-import { FlatList } from 'react-native-gesture-handler'
 
 import * as S from './styles'
 import { useBookController } from '../../useBookController'
@@ -27,11 +26,11 @@ const DrawerNavigation = ({ handleScroll }: DrawerProps) => {
   )
 
   return (
-    <FlatList
+    <FlashList
       data={chaptersNumber}
       keyExtractor={item => item.toString()}
       renderItem={renderItem}
-      initialNumToRender={21}
+      estimatedItemSize={58}
       scrollEventThrottle={16}
       ItemSeparatorComponent={renderItemSeparator}
       contentContainerStyle={{

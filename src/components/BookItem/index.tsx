@@ -1,14 +1,14 @@
 import { Entypo } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
-import React, { useCallback, useRef, useState } from 'react'
+import { FlashList, ListRenderItem } from '@shopify/flash-list'
+import React, { memo, useCallback, useRef, useState } from 'react'
 import {
   Animated,
-  ListRenderItem,
   NativeScrollEvent,
   NativeSyntheticEvent,
   useWindowDimensions
 } from 'react-native'
-import { FlatList, Swipeable } from 'react-native-gesture-handler'
+import { ScrollView, Swipeable } from 'react-native-gesture-handler'
 
 import * as S from './styles'
 import { useTheme } from '../../context/theme'
@@ -25,7 +25,6 @@ const FINAL_ACTIVE_OFFSET_X = [-10, 10]
 const BookItem = ({ book, handleSwipeableOpen }: BookItemProps) => {
   const [rightActionsIsOpen, setRightActionsIsOpen] = useState(false)
   const [activeOffsetX, setActiveOffsetX] = useState(INITIAL_ACTIVE_OFFSET_X)
-  const flatListRef = useRef<FlatList<number>>(null)
   const swipeableRef = useRef<Swipeable>(null)
   const window = useWindowDimensions()
   const navigation = useNavigation()
@@ -96,20 +95,20 @@ const BookItem = ({ book, handleSwipeableOpen }: BookItemProps) => {
           }}
         >
           {rightActionsIsOpen && (
-            <FlatList
-              ref={flatListRef}
+            <FlashList
+              estimatedItemSize={62}
               horizontal
               nestedScrollEnabled
               data={book.chaptersNumber}
               keyExtractor={item => item.toString()}
+              overrideProps={{
+                contentContainerStyle: {
+                  flexGrow: 1
+                }
+              }}
               renderItem={renderChapterItem}
-              style={{
-                backgroundColor: theme.colors.overlay10
-              }}
-              contentContainerStyle={{
-                paddingVertical: 4
-              }}
               onScroll={handleScroll}
+              renderScrollComponent={ScrollView}
             />
           )}
         </S.Container>
@@ -120,7 +119,6 @@ const BookItem = ({ book, handleSwipeableOpen }: BookItemProps) => {
       handleScroll,
       renderChapterItem,
       rightActionsIsOpen,
-      theme.colors.overlay10,
       window.width
     ]
   )
@@ -151,4 +149,4 @@ const BookItem = ({ book, handleSwipeableOpen }: BookItemProps) => {
   )
 }
 
-export default BookItem
+export default memo(BookItem)

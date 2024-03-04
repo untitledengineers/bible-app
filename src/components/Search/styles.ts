@@ -12,9 +12,6 @@ export const Container = styled.View`
 export const Header = styled(LinearGradient).attrs(({ theme }) => ({
   colors: theme.colors.gradient
 }))`
-  position: absolute;
-  right: 0;
-  left: 0;
   height: 120px;
   padding-top: ${Platform.OS === 'android'
     ? Constants.statusBarHeight + 10

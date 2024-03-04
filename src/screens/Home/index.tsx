@@ -1,7 +1,7 @@
+import { FlashList, ListRenderItem } from '@shopify/flash-list'
 import Constants from 'expo-constants'
 import React, { useCallback, useRef } from 'react'
-import { ListRenderItem } from 'react-native'
-import { FlatList, Swipeable } from 'react-native-gesture-handler'
+import { ScrollView, Swipeable } from 'react-native-gesture-handler'
 
 import { Container, Separator } from './styles'
 import BookItem from '../../components/BookItem'
@@ -37,16 +37,17 @@ const Home = () => {
   return (
     <Container>
       <SidebarMenu />
-      <FlatList
+      <FlashList
         data={bibleData as IBook[]}
+        estimatedItemSize={84}
         keyExtractor={book => book.name}
         renderItem={renderBookItem}
         ItemSeparatorComponent={() => <Separator />}
         showsVerticalScrollIndicator={false}
         nestedScrollEnabled
-        initialNumToRender={15}
         contentContainerStyle={{ paddingTop: Constants.statusBarHeight }}
         onScroll={() => currentSwipeableOpened.current?.close()}
+        renderScrollComponent={ScrollView}
       />
     </Container>
   )

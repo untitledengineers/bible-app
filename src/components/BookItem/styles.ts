@@ -4,10 +4,11 @@ import styled from 'styled-components/native'
 
 export const Container = styled(Animated.View)`
   flex: 1;
-  flex-direction: row;
+  background-color: ${({ theme }) => theme.colors.overlay10};
 `
 
 export const Item = styled.TouchableOpacity`
+  height: 100%;
   justify-content: center;
   align-items: center;
   padding: 0px 24px;

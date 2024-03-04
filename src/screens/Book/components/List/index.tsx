@@ -49,7 +49,6 @@ const List = ({
         ItemSeparatorComponent={<ItemSeparator />}
         initialNumToRender={2}
         scrollEventThrottle={16}
-        nestedScrollEnabled
         contentContainerStyle={{
           paddingHorizontal: 18,
           paddingTop: HEADER_APP_MAX_HEIGHT
@@ -61,7 +60,6 @@ const List = ({
         )}
         onViewableItemsChanged={onViewableItemsChanged}
         viewabilityConfig={viewabilityConfig}
-        windowSize={50}
       />
     </TapGestureHandler>
   )
