@@ -7,6 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { NavigationContainer } from '@react-navigation/native'
 import * as Font from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen'
+import { StatusBar, setStatusBarStyle } from 'expo-status-bar'
 import React, { useCallback, useEffect, useState } from 'react'
 import { UnistylesRuntime } from 'react-native-unistyles'
 
@@ -49,6 +50,7 @@ const App = () => {
     const theme = await AsyncStorage.getItem('@theme')
     if (theme) {
       UnistylesRuntime.setTheme(theme as ThemeType)
+      setStatusBarStyle(theme === ThemeType.dark ? 'light' : 'dark')
     }
   }, [])
 
@@ -80,6 +82,7 @@ const App = () => {
 
   return (
     <NavigationContainer ref={setNavigator} onReady={onLayoutRootView}>
+      <StatusBar style="auto" />
       <Navigation hasOnboarded={hasOnboarded} />
     </NavigationContainer>
   )
