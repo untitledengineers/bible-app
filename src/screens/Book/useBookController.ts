@@ -15,7 +15,6 @@ import DrawerLayout from 'react-native-gesture-handler/DrawerLayout'
 
 import { LIST_HEADER_HEIGHT } from './components/ListHeader/styles'
 import { useSearch } from '../../context/search'
-import { useTheme } from '../../context/theme'
 import bibleData from '../../data/bible_acf.json'
 
 import { HEADER_HEIGHT } from '@/components/Header/styles'
@@ -45,7 +44,6 @@ export const useBookController = () => {
   const drawerRef = useRef<DrawerLayout>(null)
   const window = useWindowDimensions()
   const { handleOpen } = useSearch()
-  const { theme } = useTheme()
 
   const scrollY = useRef(new Animated.Value(0)).current
   const diffClamp = Animated.diffClamp(
@@ -152,7 +150,6 @@ export const useBookController = () => {
       scrollY,
       HEADER_APP_MAX_HEIGHT,
       handleDoubleTap,
-      theme,
       isLoading
     }),
     [
@@ -168,7 +165,6 @@ export const useBookController = () => {
       handleOnScrollFailed,
       scrollY,
       handleDoubleTap,
-      theme,
       isLoading
     ]
   )

@@ -1,9 +1,12 @@
+import { Feather } from '@expo/vector-icons'
 import { FlashList } from '@shopify/flash-list'
+import { LinearGradient } from 'expo-linear-gradient'
 import React, { useEffect, createRef, useCallback } from 'react'
-import { TextInput } from 'react-native'
+import { Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { createFilter } from 'react-native-search-filter'
+import { useStyles } from 'react-native-unistyles'
 
-import * as S from './styles'
+import { stylesheet } from './styles'
 import bibleData from '../../data/bible_acf.json'
 import { IBook } from '../../screens/Home'
 import { navigate } from '../../utils/navigation'
@@ -30,6 +33,7 @@ function filterTerms(searchTerm: string, keys: string[]) {
 
 function Search({ closeModal, searchTerm, setSearchTerm }: Props): JSX.Element {
   const inputRef = createRef<TextInput>()
+  const { styles, theme } = useStyles(stylesheet)
 
   const filteredBooks = React.useMemo(() => {
     if (searchTerm === '') return []
@@ -94,37 +98,40 @@ function Search({ closeModal, searchTerm, setSearchTerm }: Props): JSX.Element {
 
   const renderBook = useCallback(
     (item: IBook) => (
-      <S.BookNameWrapper
+      <TouchableOpacity
         onPress={handleNavigationToBook({ bookName: item.name })}
       >
-        <S.BookName>{item.name}</S.BookName>
-      </S.BookNameWrapper>
+        <Text style={styles.bookName}>{item.name}</Text>
+      </TouchableOpacity>
     ),
-    [handleNavigationToBook]
+    [handleNavigationToBook, styles]
   )
 
   const renderVerse = useCallback(
     (item: Verse) => (
-      <S.VerseWrapper
+      <TouchableOpacity
+        style={styles.verseWrapper}
         onPress={handleNavigationToBook({
           bookName: item.bookName,
           chapterNumber: item.bookChapterNumber
         })}
       >
-        <S.Verse>{item.bookVerseText}</S.Verse>
-        <S.VerseLocation>
+        <Text style={styles.verse} numberOfLines={2}>
+          {item.bookVerseText}
+        </Text>
+        <Text style={styles.verseLocation}>
           {item.bookName} {item.bookChapterNumber}:{item.bookVerseNumber}
-        </S.VerseLocation>
-      </S.VerseWrapper>
+        </Text>
+      </TouchableOpacity>
     ),
-    [handleNavigationToBook]
+    [handleNavigationToBook, styles]
   )
 
   const renderSectionHeader = (title: string) => (
-    <S.SectionWrapper>
-      <S.SectionHeader>{title}</S.SectionHeader>
-      <S.SectionSeparator />
-    </S.SectionWrapper>
+    <View>
+      <Text style={styles.sectionHeader}>{title}</Text>
+      <View style={styles.sectionSeparator} />
+    </View>
   )
 
   const renderItem = ({ item }: { item: IBook | Verse | string }) => {
@@ -150,16 +157,29 @@ function Search({ closeModal, searchTerm, setSearchTerm }: Props): JSX.Element {
   }, [inputRef])
 
   return (
-    <S.Container>
-      <S.Header>
-        <S.CloseButton onPress={closeModal} />
+    <View style={styles.container}>
+      <LinearGradient style={styles.header} colors={theme.colors.gradient}>
+        <Feather
+          name="x"
+          size={24}
+          color={theme.colors.white}
+          style={styles.closeIcon}
+          onPress={closeModal}
+        />
 
-        <S.Input
+        <TextInput
+          style={styles.input}
           ref={inputRef}
           value={searchTerm}
           onChangeText={setSearchTerm}
+          placeholder="Digite uma palavra-chave"
+          returnKeyType="search"
+          onSubmitEditing={closeModal}
+          blurOnSubmit
+          underlineColorAndroid="transparent"
+          cursorColor={theme.colors.white}
         />
-      </S.Header>
+      </LinearGradient>
 
       <FlashList
         data={data}
@@ -169,7 +189,7 @@ function Search({ closeModal, searchTerm, setSearchTerm }: Props): JSX.Element {
         contentContainerStyle={{ paddingHorizontal: 8 }}
         keyboardShouldPersistTaps="handled"
       />
-    </S.Container>
+    </View>
   )
 }
 

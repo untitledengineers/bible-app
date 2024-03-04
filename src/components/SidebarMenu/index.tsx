@@ -1,24 +1,26 @@
 import { Feather } from '@expo/vector-icons'
+import { LinearGradient } from 'expo-linear-gradient'
 import React from 'react'
+import { UnistylesRuntime, useStyles } from 'react-native-unistyles'
 
-import { Container } from './styles'
+import { stylesheet } from './styles'
 import { useSearch } from '../../context/search'
-import { useTheme } from '../../context/theme'
 import { ThemeType } from '../../styles'
 
 const SidebarMenu = () => {
   const { handleOpen } = useSearch()
-  const { theme, toggleTheme } = useTheme()
+  const { styles, theme } = useStyles(stylesheet)
+  const isLightTheme = UnistylesRuntime.themeName === ThemeType.light
 
-  const handleSearchButton = () => {
-    handleOpen()
+  const toggleTheme = () => {
+    UnistylesRuntime.setTheme(isLightTheme ? ThemeType.dark : ThemeType.light)
   }
 
   return (
-    <Container colors={theme.colors.gradient}>
+    <LinearGradient style={styles.container} colors={theme.colors.gradient}>
       <Feather
         testID="theme-button"
-        name={theme.name === ThemeType.light ? 'moon' : 'sun'}
+        name={isLightTheme ? 'moon' : 'sun'}
         size={30}
         color={theme.colors.white}
         onPress={toggleTheme}
@@ -27,10 +29,10 @@ const SidebarMenu = () => {
         name="search"
         size={30}
         color={theme.colors.white}
-        onPress={handleSearchButton}
-        style={{ marginTop: 32, marginBottom: 24 }}
+        style={styles.searchIcon}
+        onPress={handleOpen}
       />
-    </Container>
+    </LinearGradient>
   )
 }
 

@@ -12,3 +12,4 @@ npm-debug.*
 *.orig.*
 *.lock
 *.apk
+android

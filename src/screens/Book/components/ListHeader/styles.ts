@@ -1,24 +1,24 @@
 import { StyleSheet } from 'react-native'
-import styled from 'styled-components/native'
+import { createStyleSheet } from 'react-native-unistyles'
 
 export const LIST_HEADER_HEIGHT = 112
 
-export const Container = styled.View`
-  height: ${LIST_HEADER_HEIGHT}px;
-  align-items: center;
-  justify-content: center;
-`
-
-export const Text = styled.Text`
-  color: ${({ theme }) => theme.colors.primary};
-  text-align: center;
-  margin: 12px 0px;
-  font-size: 28px;
-  font-family: 'Cardo_700Bold';
-`
-
-export const Separator = styled.View`
-  border-bottom-color: ${({ theme }) => theme.colors.border};
-  border-bottom-width: ${StyleSheet.hairlineWidth + 0.5}px;
-  width: 50px;
-`
+export const stylesheet = createStyleSheet(theme => ({
+  container: {
+    height: LIST_HEADER_HEIGHT,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  text: {
+    color: theme.colors.primary,
+    textAlign: 'center',
+    fontSize: 28,
+    fontFamily: 'Cardo_700Bold',
+    marginVertical: theme.spacing.small
+  },
+  separator: {
+    borderBottomColor: theme.colors.border,
+    borderBottomWidth: StyleSheet.hairlineWidth + 0.5,
+    width: 50
+  }
+}))

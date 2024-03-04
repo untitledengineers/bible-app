@@ -1,7 +1,9 @@
 import { FlashList, ListRenderItem } from '@shopify/flash-list'
 import React, { useCallback } from 'react'
+import { Text, TouchableOpacity } from 'react-native'
+import { useStyles } from 'react-native-unistyles'
 
-import * as S from './styles'
+import { stylesheet } from './styles'
 import { useBookController } from '../../useBookController'
 
 type DrawerProps = {
@@ -10,19 +12,20 @@ type DrawerProps = {
 
 const DrawerNavigation = ({ handleScroll }: DrawerProps) => {
   const { chaptersNumber } = useBookController()
+  const { styles, theme } = useStyles(stylesheet)
 
   const renderItem: ListRenderItem<number> = useCallback(
     ({ index }) => (
-      <S.Item onPress={() => handleScroll(index)}>
-        <S.ItemContent>{index + 1}</S.ItemContent>
-      </S.Item>
+      <TouchableOpacity style={styles.item} onPress={() => handleScroll(index)}>
+        <Text style={styles.itemContent}>{index + 1}</Text>
+      </TouchableOpacity>
     ),
-    [handleScroll]
+    [handleScroll, styles]
   )
 
   const renderItemSeparator = useCallback(
-    () => <S.ItemSeparator>{'\u2B24'}</S.ItemSeparator>,
-    []
+    () => <Text style={styles.itemSeparator}>{'\u2B24'}</Text>,
+    [styles]
   )
 
   return (
@@ -34,7 +37,7 @@ const DrawerNavigation = ({ handleScroll }: DrawerProps) => {
       scrollEventThrottle={16}
       ItemSeparatorComponent={renderItemSeparator}
       contentContainerStyle={{
-        paddingVertical: 4
+        paddingVertical: theme.spacing.tiny
       }}
     />
   )

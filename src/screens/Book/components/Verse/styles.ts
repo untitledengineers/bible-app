@@ -1,16 +1,14 @@
-import styled, { css } from 'styled-components/native'
+import { createStyleSheet } from 'react-native-unistyles'
 
-const Text = css`
-  font-family: 'Cardo_400Regular';
-  color: ${({ theme }) => theme.colors.primary};
-`
-
-export const VerseNumber = styled.Text`
-  ${Text}
-`
-
-export const Verse = styled.Text`
-  ${Text}
-  flex-shrink: 1;
-  margin: 2px 0px;
-`
+export const stylesheet = createStyleSheet(theme => ({
+  verseNumber: {
+    fontFamily: 'Cardo_400Regular',
+    color: theme.colors.primary
+  },
+  verse: {
+    fontFamily: 'Cardo_400Regular',
+    color: theme.colors.primary,
+    flexShrink: 1,
+    marginVertical: 2
+  }
+}))

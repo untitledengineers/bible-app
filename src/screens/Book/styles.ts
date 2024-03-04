@@ -1,8 +1,10 @@
 import Constants from 'expo-constants'
 import { Platform } from 'react-native'
-import styled from 'styled-components/native'
+import { createStyleSheet } from 'react-native-unistyles'
 
-export const Container = styled.SafeAreaView`
-  flex: 1;
-  padding-top: ${Platform.OS === 'android' ? Constants.statusBarHeight : 10}px;
-`
+export const stylesheet = createStyleSheet({
+  container: {
+    flex: 1,
+    paddingTop: Platform.OS === 'android' ? Constants.statusBarHeight : 10
+  }
+})

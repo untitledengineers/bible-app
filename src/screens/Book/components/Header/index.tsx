@@ -1,7 +1,6 @@
 import React from 'react'
 import { Animated } from 'react-native'
 
-import { AnimatedHeader } from './styles'
 import { useBookController } from '../../useBookController'
 
 import HeaderApp from '@/components/Header'
@@ -15,13 +14,14 @@ const Header = ({ translateY, titleOpacity }: HeaderProps) => {
   const { bookName } = useBookController()
 
   return (
-    <AnimatedHeader
+    <Animated.View
       style={{
+        zIndex: 99,
         transform: [{ translateY }]
       }}
     >
       <HeaderApp titleOpacity={titleOpacity} title={bookName} />
-    </AnimatedHeader>
+    </Animated.View>
   )
 }
 

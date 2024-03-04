@@ -1,49 +1,42 @@
-import { Animated } from 'react-native'
-import { RectButton } from 'react-native-gesture-handler'
-import styled from 'styled-components/native'
+import { createStyleSheet } from 'react-native-unistyles'
 
-export const Container = styled(Animated.View)`
-  flex: 1;
-  background-color: ${({ theme }) => theme.colors.overlay10};
-`
-
-export const Item = styled.TouchableOpacity`
-  height: 100%;
-  justify-content: center;
-  align-items: center;
-  padding: 0px 24px;
-`
-
-export const ItemContent = styled.Text`
-  font-size: 28px;
-  font-family: 'Cardo_400Regular_Italic';
-  color: ${({ theme }) => theme.colors.primary};
-`
-
-export const Content = styled.View`
-  margin-left: 40px;
-`
-
-export const Button = styled(RectButton)`
-  padding: 10px 0px;
-  justify-content: center;
-  background-color: ${({ theme }) => theme.colors.background};
-`
-
-export const Title = styled.Text`
-  font-size: 22px;
-  margin-bottom: 4px;
-  font-family: 'Cardo_700Bold';
-  color: ${({ theme }) => theme.colors.primary};
-`
-
-export const Chapter = styled.View`
-  flex-direction: row;
-  align-items: center;
-`
-
-export const ChapterText = styled.Text`
-  font-size: 16px;
-  font-family: 'Cardo_400Regular_Italic';
-  color: ${({ theme }) => theme.colors.border};
-`
+export const stylesheet = createStyleSheet(theme => ({
+  container: {
+    flex: 1,
+    backgroundColor: theme.colors.overlay10
+  },
+  item: {
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: theme.spacing.mediumPlus
+  },
+  itemContent: {
+    fontSize: 28,
+    fontFamily: 'Cardo_400Regular_Italic',
+    color: theme.colors.primary
+  },
+  content: {
+    marginLeft: theme.spacing.largePlus
+  },
+  button: {
+    paddingVertical: theme.spacing.small,
+    justifyContent: 'center',
+    backgroundColor: theme.colors.background
+  },
+  title: {
+    fontSize: 22,
+    marginBottom: theme.spacing.tiny,
+    fontFamily: 'Cardo_700Bold',
+    color: theme.colors.primary
+  },
+  chapter: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  chapterText: {
+    fontSize: 16,
+    fontFamily: 'Cardo_400Regular_Italic',
+    color: theme.colors.border
+  }
+}))
