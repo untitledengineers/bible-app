@@ -127,12 +127,35 @@ function Search({ closeModal, searchTerm, setSearchTerm }: Props): JSX.Element {
     [handleNavigationToBook, styles]
   )
 
-  const renderSectionHeader = (title: string) => (
-    <View>
-      <Text style={styles.sectionHeader}>{title}</Text>
-      <View style={styles.sectionSeparator} />
-    </View>
-  )
+  const renderBookHeader = () => {
+    if (filteredBooks?.length === 0) return null
+
+    return (
+      <View style={styles.bookHeader}>
+        <Text style={styles.sectionHeader}>Livros</Text>
+        <View style={styles.sectionSeparator} />
+      </View>
+    )
+  }
+
+  const renderVerseHeader = () => {
+    if (parsedVerses?.length === 0) return null
+
+    return (
+      <View style={styles.verseHeader(filteredBooks?.length)}>
+        <Text style={styles.sectionHeader}>Versos</Text>
+        <View style={styles.sectionSeparator} />
+      </View>
+    )
+  }
+
+  const renderSectionHeader = (title: string) => {
+    if (title === 'Livros') {
+      return renderBookHeader()
+    }
+
+    return renderVerseHeader()
+  }
 
   const renderItem = ({ item }: { item: IBook | Verse | string }) => {
     // Section header
@@ -174,7 +197,6 @@ function Search({ closeModal, searchTerm, setSearchTerm }: Props): JSX.Element {
           onChangeText={setSearchTerm}
           placeholder="Digite uma palavra-chave"
           returnKeyType="search"
-          onSubmitEditing={closeModal}
           blurOnSubmit
           underlineColorAndroid="transparent"
           cursorColor={theme.colors.white}
@@ -184,9 +206,9 @@ function Search({ closeModal, searchTerm, setSearchTerm }: Props): JSX.Element {
       <FlashList
         data={data}
         renderItem={renderItem}
-        estimatedItemSize={56}
+        estimatedItemSize={92}
         getItemType={getItemType}
-        contentContainerStyle={{ paddingHorizontal: 8 }}
+        contentContainerStyle={{ paddingHorizontal: 16 }}
         keyboardShouldPersistTaps="handled"
       />
     </View>

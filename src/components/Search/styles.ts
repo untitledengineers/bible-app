@@ -21,6 +21,13 @@ export const stylesheet = createStyleSheet(theme => ({
     alignSelf: 'flex-end',
     marginRight: theme.spacing.medium
   },
+  bookHeader: {
+    marginTop: theme.spacing.smaller
+  },
+  verseHeader: (bookDataLength: number) => ({
+    marginTop:
+      bookDataLength === 0 ? theme.spacing.smaller : theme.spacing.medium
+  }),
   sectionHeader: {
     fontFamily: 'Cardo_400Regular_Italic',
     fontSize: 20,
