@@ -4,15 +4,13 @@ A Bible application.
 
 ## Prerequisites
 
-- [Node.js >=12.16.0](https://nodejs.org/en)
-- [Yarn >=1.22.0](https://classic.yarnpkg.com)
+- [Expo](https://docs.expo.dev/get-started/installation/)
 
 ## Installation
 
 Install dependencies:
 
 ```
-yarn global add expo-cli
 yarn install
 ```
 
@@ -21,11 +19,11 @@ yarn install
 Test application:
 
 ```
-yarn start
+yarn android
 ```
 
 ## Copyright and license
 
-Copyright (c) 2021, Danilo Peixoto and Willer Silva. All rights reserved.
+Copyright (c) 2024, Danilo Peixoto and Willer Silva. All rights reserved.
 
 Project developed under a [Proprietary License](LICENSE.md).

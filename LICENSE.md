@@ -1,4 +1,4 @@
-Copyright (c) 2021, Danilo Peixoto and Willer Silva. All rights reserved.
+Copyright (c) 2024, Danilo Peixoto and Willer Silva. All rights reserved.
 
 Authors and its licensors retain all intellectual property
 and proprietary rights in and to this software, related documentation

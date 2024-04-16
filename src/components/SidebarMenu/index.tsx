@@ -1,7 +1,6 @@
 import { Feather } from '@expo/vector-icons'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { LinearGradient } from 'expo-linear-gradient'
-import { setStatusBarStyle } from 'expo-status-bar'
 import React from 'react'
 import { UnistylesRuntime, useStyles } from 'react-native-unistyles'
 
@@ -18,7 +17,6 @@ const SidebarMenu = () => {
     const newTheme = isLightTheme ? ThemeType.dark : ThemeType.light
     UnistylesRuntime.setTheme(newTheme)
     AsyncStorage.setItem('@theme', newTheme)
-    setStatusBarStyle(newTheme === ThemeType.dark ? 'light' : 'dark')
   }
 
   return (
