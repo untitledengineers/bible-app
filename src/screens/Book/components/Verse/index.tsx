@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { memo, useRef, useState } from 'react'
 import {
   UIManager,
   findNodeHandle,
@@ -20,7 +20,7 @@ type VerseProps = {
   text: string
 }
 
-const Verse = ({ chapter, number, text }: VerseProps) => {
+const Verse = memo(({ chapter, number, text }: VerseProps) => {
   const [backgroundColor, setBackgroundColor] = useState('transparent')
   const pressableRef = useRef(null)
   const { fontScale } = useFont()
@@ -75,6 +75,6 @@ const Verse = ({ chapter, number, text }: VerseProps) => {
       </Text>
     </Pressable>
   )
-}
+})
 
 export default Verse
