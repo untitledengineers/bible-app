@@ -21,19 +21,34 @@ const Book = () => {
     handleOnScrollFailed,
     scrollY,
     drawerRef,
-    isLoading
+    isLoading,
+    bookName,
+    bookChapters,
+    handleDoubleTap,
+    chaptersNumber
   } = useBookController()
 
   return (
     <View style={styles.container}>
-      <Drawer drawerRef={drawerRef} handleScrollToIndex={handleScrollToIndex}>
-        <Header titleOpacity={titleOpacity} translateY={translateY} />
+      <Drawer
+        drawerRef={drawerRef}
+        chaptersNumber={chaptersNumber}
+        handleScrollToIndex={handleScrollToIndex}
+      >
+        <Header
+          bookName={bookName}
+          titleOpacity={titleOpacity}
+          translateY={translateY}
+        />
 
         <List
           listRef={listRef}
           onViewableItemsChanged={onViewableItemsChanged}
           scrollY={scrollY}
           handleOnScrollFailed={handleOnScrollFailed}
+          bookName={bookName}
+          bookChapters={bookChapters}
+          handleDoubleTap={handleDoubleTap}
         />
       </Drawer>
 

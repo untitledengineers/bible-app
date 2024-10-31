@@ -4,14 +4,13 @@ import { Text, TouchableOpacity } from 'react-native'
 import { useStyles } from 'react-native-unistyles'
 
 import { stylesheet } from './styles'
-import { useBookController } from '../../useBookController'
 
 type DrawerProps = {
+  chaptersNumber: number[]
   handleScroll: (index: number) => void
 }
 
-const DrawerNavigation = ({ handleScroll }: DrawerProps) => {
-  const { chaptersNumber } = useBookController()
+const DrawerNavigation = ({ chaptersNumber, handleScroll }: DrawerProps) => {
   const { styles, theme } = useStyles(stylesheet)
 
   const renderItem: ListRenderItem<number> = useCallback(

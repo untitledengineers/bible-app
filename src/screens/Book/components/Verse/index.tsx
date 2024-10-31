@@ -10,21 +10,20 @@ import {
 import { useStyles } from 'react-native-unistyles'
 
 import { stylesheet } from './styles'
-import { useBookController } from '../../useBookController'
 
 import { useFont } from '@/context/font'
 
 type VerseProps = {
+  bookName: string
   chapter: number
   number: number
   text: string
 }
 
-const Verse = memo(({ chapter, number, text }: VerseProps) => {
+const Verse = memo(({ bookName, chapter, number, text }: VerseProps) => {
   const [backgroundColor, setBackgroundColor] = useState('transparent')
   const pressableRef = useRef(null)
   const { fontScale } = useFont()
-  const { bookName } = useBookController()
   const { styles, theme } = useStyles(stylesheet)
 
   const handleShowPopupError = () => {

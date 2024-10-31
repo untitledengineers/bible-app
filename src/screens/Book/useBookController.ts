@@ -1,11 +1,6 @@
 import { useRoute } from '@react-navigation/native'
 import { useEffect, useState, useRef, useCallback, useMemo } from 'react'
-import {
-  Animated,
-  ViewToken,
-  useWindowDimensions,
-  SectionList
-} from 'react-native'
+import { Animated, ViewToken, SectionList } from 'react-native'
 import {
   HandlerStateChangeEvent,
   State,
@@ -35,8 +30,13 @@ export type BookChapter = {
   data: string[]
 }
 
-const HEADER_APP_MAX_HEIGHT = HEADER_HEIGHT
-const HEADER_APP_MIN_HEIGHT = 0
+export const HEADER_APP_MAX_HEIGHT = HEADER_HEIGHT
+export const HEADER_APP_MIN_HEIGHT = 0
+
+export const VIEWABILITY_CONFIG = {
+  itemVisiblePercentThreshold: 5,
+  minimumViewTime: 150
+}
 
 export const useBookController = () => {
   const route = useRoute()
@@ -47,7 +47,6 @@ export const useBookController = () => {
   const [isLoading, setIsLoading] = useState(false)
   const listRef = useRef<SectionList>(null)
   const drawerRef = useRef<DrawerLayout>(null)
-  const window = useWindowDimensions()
   const { handleOpen } = useSearch()
   const timeout = useRef<ReturnType<typeof setTimeout>>()
 
@@ -72,14 +71,6 @@ export const useBookController = () => {
     outputRange: [0, 0, 1],
     extrapolate: 'clamp'
   })
-
-  const viewabilityConfig = useMemo(
-    () => ({
-      itemVisiblePercentThreshold: 5,
-      minimumViewTime: 150
-    }),
-    []
-  )
 
   const onViewableItemsChanged = useCallback(
     (info: { viewableItems: ViewToken[] }) => {
@@ -170,9 +161,7 @@ export const useBookController = () => {
     () => ({
       drawerRef,
       onViewableItemsChanged,
-      viewabilityConfig,
       bookName,
-      window,
       handleScrollToIndex,
       chaptersNumber,
       translateY,
@@ -187,9 +176,7 @@ export const useBookController = () => {
     }),
     [
       onViewableItemsChanged,
-      viewabilityConfig,
       bookName,
-      window,
       handleScrollToIndex,
       chaptersNumber,
       translateY,

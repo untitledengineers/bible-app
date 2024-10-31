@@ -1,18 +1,15 @@
 import React from 'react'
 import { Animated } from 'react-native'
 
-import { useBookController } from '../../useBookController'
-
 import HeaderApp from '@/components/Header'
 
 type HeaderProps = {
+  bookName: string
   translateY: Animated.AnimatedInterpolation<string | number>
   titleOpacity: Animated.AnimatedInterpolation<string | number>
 }
 
-const Header = ({ translateY, titleOpacity }: HeaderProps) => {
-  const { bookName } = useBookController()
-
+const Header = ({ bookName, translateY, titleOpacity }: HeaderProps) => {
   return (
     <Animated.View
       style={{
