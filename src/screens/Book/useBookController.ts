@@ -1,11 +1,6 @@
 import { useRoute } from '@react-navigation/native'
 import { useEffect, useState, useRef, useCallback, useMemo } from 'react'
-import {
-  FlatList,
-  Animated,
-  ViewToken,
-  useWindowDimensions
-} from 'react-native'
+import { Animated, ViewToken, SectionList } from 'react-native'
 import {
   HandlerStateChangeEvent,
   State,
@@ -30,20 +25,30 @@ type IBook = {
   chaptersNumber: number[]
 }
 
-const HEADER_APP_MAX_HEIGHT = HEADER_HEIGHT
-const HEADER_APP_MIN_HEIGHT = 0
+export type BookChapter = {
+  title: string
+  data: string[]
+}
+
+export const HEADER_APP_MAX_HEIGHT = HEADER_HEIGHT
+export const HEADER_APP_MIN_HEIGHT = 0
+
+export const VIEWABILITY_CONFIG = {
+  itemVisiblePercentThreshold: 5,
+  minimumViewTime: 150
+}
 
 export const useBookController = () => {
   const route = useRoute()
   const { bookName, initialScrollIndex } = route.params as IParams
-  const [bookChapters, setBookChapters] = useState<string[][]>([])
+  const [bookChapters, setBookChapters] = useState<BookChapter[]>([])
   const [chaptersNumber, setChaptersNumber] = useState<number[]>([])
   const [indexToScroll, setIndexToScroll] = useState(0)
   const [isLoading, setIsLoading] = useState(false)
-  const listRef = useRef<FlatList>(null)
+  const listRef = useRef<SectionList>(null)
   const drawerRef = useRef<DrawerLayout>(null)
-  const window = useWindowDimensions()
   const { handleOpen } = useSearch()
+  const timeout = useRef<ReturnType<typeof setTimeout>>()
 
   const scrollY = useRef(new Animated.Value(0)).current
   const diffClamp = Animated.diffClamp(
@@ -67,32 +72,55 @@ export const useBookController = () => {
     extrapolate: 'clamp'
   })
 
-  const viewabilityConfig = useMemo(
-    () => ({
-      itemVisiblePercentThreshold: 5,
-      minimumViewTime: 150
-    }),
-    []
-  )
-
   const onViewableItemsChanged = useCallback(
     (info: { viewableItems: ViewToken[] }) => {
-      if (info.viewableItems[0]?.index === indexToScroll) {
+      // eslint-disable-next-line eqeqeq
+      if (info.viewableItems[0]?.section?.title == indexToScroll + 1) {
         setIsLoading(false)
       }
     },
     [indexToScroll]
   )
 
-  const handleScrollToIndex = useCallback((index: number) => {
+  const handleScrollToIndex = useCallback((sectionIndex: number) => {
     if (drawerRef.current?.state.drawerOpened) {
       drawerRef.current?.closeDrawer()
     }
 
-    listRef.current?.scrollToIndex({ animated: true, index })
+    setIndexToScroll(sectionIndex)
 
-    setIndexToScroll(index)
+    timeout.current = setTimeout(() => {
+      listRef.current?.scrollToLocation({
+        sectionIndex,
+        itemIndex: 0,
+        animated: true
+      })
+    }, 100)
   }, [])
+
+  const handleOnScrollFailed = useCallback(
+    (info: { index: number; averageItemLength: number }) => {
+      if (!isLoading) {
+        setIsLoading(true)
+      }
+
+      const offset = info.averageItemLength * info.index
+      listRef.current
+        ?.getScrollResponder()
+        ?.scrollTo({ x: 0, y: offset, animated: true })
+
+      if (indexToScroll) {
+        timeout.current = setTimeout(() => {
+          listRef.current?.scrollToLocation({
+            sectionIndex: indexToScroll,
+            itemIndex: 0,
+            animated: true
+          })
+        }, 100)
+      }
+    },
+    [indexToScroll, isLoading]
+  )
 
   const handleDoubleTap = useCallback(
     (event: HandlerStateChangeEvent<TapGestureHandlerEventPayload>) => {
@@ -104,42 +132,36 @@ export const useBookController = () => {
   )
 
   useEffect(() => {
+    return () => timeout.current && clearTimeout(timeout.current)
+  }, [])
+
+  useEffect(() => {
     const bibles = bibleData as IBook[]
+    const bookFound = bibles.find(bible => bible.name === bookName)
 
-    const booksFound = bibles.filter(bible => bible.name === bookName)
+    if (!bookFound) return
 
-    setBookChapters(booksFound[0].chapters)
-    setChaptersNumber(booksFound[0].chaptersNumber)
+    const sections = bookFound.chapters.map((chapter, index) => ({
+      title: `${index + 1}`,
+      data: chapter
+    }))
+
+    setBookChapters(sections)
+    setChaptersNumber(bookFound.chaptersNumber)
 
     if (initialScrollIndex) {
-      setTimeout(() => handleScrollToIndex(initialScrollIndex), 100)
+      timeout.current = setTimeout(
+        () => handleScrollToIndex(initialScrollIndex),
+        100
+      )
     }
   }, [bookName, handleScrollToIndex, initialScrollIndex])
-
-  const handleOnScrollFailed = useCallback(
-    (info: { index: number; averageItemLength: number }) => {
-      if (!isLoading) {
-        setIsLoading(true)
-      }
-
-      listRef.current?.scrollToOffset({
-        offset: info.averageItemLength * info.index
-      })
-
-      setTimeout(() => {
-        listRef.current?.scrollToIndex({ index: info.index, animated: true })
-      }, 100)
-    },
-    [isLoading]
-  )
 
   const values = useMemo(
     () => ({
       drawerRef,
       onViewableItemsChanged,
-      viewabilityConfig,
       bookName,
-      window,
       handleScrollToIndex,
       chaptersNumber,
       translateY,
@@ -154,9 +176,7 @@ export const useBookController = () => {
     }),
     [
       onViewableItemsChanged,
-      viewabilityConfig,
       bookName,
-      window,
       handleScrollToIndex,
       chaptersNumber,
       translateY,

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { Text, View } from 'react-native'
 import { useStyles } from 'react-native-unistyles'
 
@@ -8,7 +8,7 @@ type ListHeaderProps = {
   text: string
 }
 
-const ListHeader = ({ text }: ListHeaderProps) => {
+const ListHeader = memo(({ text }: ListHeaderProps) => {
   const { styles } = useStyles(stylesheet)
 
   return (
@@ -18,6 +18,6 @@ const ListHeader = ({ text }: ListHeaderProps) => {
       <View style={styles.separator} />
     </View>
   )
-}
+})
 
 export default ListHeader

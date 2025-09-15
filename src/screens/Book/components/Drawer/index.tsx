@@ -1,18 +1,24 @@
 import React from 'react'
+import { useWindowDimensions } from 'react-native'
 import DrawerLayout from 'react-native-gesture-handler/DrawerLayout'
 import { useStyles } from 'react-native-unistyles'
 
-import { useBookController } from '../../useBookController'
 import DrawerNavigation from '../DrawerNavigation'
 
 type DrawerProps = {
   children: React.ReactNode
   drawerRef: React.RefObject<DrawerLayout>
+  chaptersNumber: number[]
   handleScrollToIndex: (index: number) => void
 }
 
-const Drawer = ({ handleScrollToIndex, children, drawerRef }: DrawerProps) => {
-  const { window } = useBookController()
+const Drawer = ({
+  handleScrollToIndex,
+  children,
+  drawerRef,
+  chaptersNumber
+}: DrawerProps) => {
+  const window = useWindowDimensions()
   const { theme } = useStyles()
 
   return (
@@ -25,7 +31,10 @@ const Drawer = ({ handleScrollToIndex, children, drawerRef }: DrawerProps) => {
       overlayColor="transparent"
       drawerBackgroundColor={theme.colors.background}
       renderNavigationView={() => (
-        <DrawerNavigation handleScroll={handleScrollToIndex} />
+        <DrawerNavigation
+          chaptersNumber={chaptersNumber}
+          handleScroll={handleScrollToIndex}
+        />
       )}
       useNativeAnimations={false}
     >
