@@ -21,15 +21,12 @@ const Home = () => {
   const currentSwipeableOpened = useRef<Swipeable>(null)
   const { styles, theme } = useStyles(stylesheet)
 
-  const handleSwipeableOpen = useCallback(
-    (swipeableRef: Swipeable) => {
-      if (currentSwipeableOpened.current === swipeableRef) return
+  const handleSwipeableOpen = useCallback((swipeableRef: Swipeable) => {
+    if (currentSwipeableOpened.current === swipeableRef) return
 
-      currentSwipeableOpened.current?.close()
-      currentSwipeableOpened.current = swipeableRef
-    },
-    []
-  )
+    currentSwipeableOpened.current?.close()
+    currentSwipeableOpened.current = swipeableRef
+  }, [])
 
   const renderBookItem: ListRenderItem<IBook> = ({ item }) => (
     <BookItem book={item} handleSwipeableOpen={handleSwipeableOpen} />

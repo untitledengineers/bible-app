@@ -1,7 +1,7 @@
 import React from 'react'
 import { SectionList, View } from 'react-native'
-import { useStyles } from 'react-native-unistyles'
 import DrawerLayout from 'react-native-gesture-handler/DrawerLayout'
+import { useStyles } from 'react-native-unistyles'
 
 import Drawer from './components/Drawer'
 import Header from './components/Header'

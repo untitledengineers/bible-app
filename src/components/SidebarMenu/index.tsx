@@ -20,7 +20,10 @@ const SidebarMenu = () => {
   }
 
   return (
-    <LinearGradient style={styles.container} colors={theme.colors.gradient as [string, string, string, string]}>
+    <LinearGradient
+      style={styles.container}
+      colors={theme.colors.gradient as [string, string, string, string]}
+    >
       <Feather
         testID="theme-button"
         name={isLightTheme ? 'moon' : 'sun'}

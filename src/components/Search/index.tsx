@@ -181,7 +181,10 @@ function Search({ closeModal, searchTerm, setSearchTerm }: Props): JSX.Element {
 
   return (
     <View style={styles.container}>
-      <LinearGradient style={styles.header} colors={theme.colors.gradient as [string, string, string, string]}>
+      <LinearGradient
+        style={styles.header}
+        colors={theme.colors.gradient as [string, string, string, string]}
+      >
         <Feather
           name="x"
           size={24}

@@ -14,9 +14,7 @@
       "fallbackToCacheTimeout": 0,
       "url": "https://u.expo.dev/ecb8681c-e311-4291-88ed-89275c84316c"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },

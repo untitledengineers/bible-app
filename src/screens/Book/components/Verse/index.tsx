@@ -1,10 +1,5 @@
 import React, { memo, useState } from 'react'
-import {
-  Pressable,
-  Share,
-  Alert,
-  Text
-} from 'react-native'
+import { Pressable, Share, Alert, Text } from 'react-native'
 import { useStyles } from 'react-native-unistyles'
 
 import { stylesheet } from './styles'
@@ -43,16 +38,16 @@ const Verse = memo(({ bookName, chapter, number, text }: VerseProps) => {
       'Deseja compartilhar este versículo?',
       [
         { text: 'Cancelar', style: 'cancel' },
-        { text: 'Compartilhar', onPress: () => handleShareVerse('itemSelected') }
+        {
+          text: 'Compartilhar',
+          onPress: () => handleShareVerse('itemSelected')
+        }
       ]
     )
   }
 
   return (
-    <Pressable
-      onLongPress={handleMenuPress}
-      delayLongPress={200}
-    >
+    <Pressable onLongPress={handleMenuPress} delayLongPress={200}>
       <Text
         style={{
           ...styles.verse,
