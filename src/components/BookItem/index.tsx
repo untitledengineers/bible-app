@@ -1,5 +1,4 @@
 import { Entypo } from '@expo/vector-icons'
-import { useNavigation } from '@react-navigation/native'
 import { FlashList, ListRenderItem } from '@shopify/flash-list'
 import React, { memo, useCallback, useRef, useState } from 'react'
 import {
@@ -17,6 +16,8 @@ import { useStyles } from 'react-native-unistyles'
 import { stylesheet } from './styles'
 import { IBook } from '../../screens/Home'
 
+import { navigate } from '@/utils/navigation'
+
 type BookItemProps = {
   book: IBook
   handleSwipeableOpen: (swipeableRef: Swipeable) => void
@@ -30,7 +31,6 @@ const BookItem = ({ book, handleSwipeableOpen }: BookItemProps) => {
   const [activeOffsetX, setActiveOffsetX] = useState(INITIAL_ACTIVE_OFFSET_X)
   const swipeableRef = useRef<Swipeable>(null)
   const window = useWindowDimensions()
-  const navigation = useNavigation()
   const { styles, theme } = useStyles(stylesheet)
 
   const handleActionVisibility = (state: boolean) => {
@@ -38,19 +38,19 @@ const BookItem = ({ book, handleSwipeableOpen }: BookItemProps) => {
   }
 
   const handleBookNavigation = useCallback(() => {
-    navigation.navigate('Book', {
+    navigate('Book', {
       bookName: book.name
     })
-  }, [book.name, navigation])
+  }, [book.name])
 
   const handleChapterNavigation = useCallback(
     (index: number) => {
-      navigation.navigate('Book', {
+      navigate('Book', {
         bookName: book.name,
         initialScrollIndex: index
       })
     },
-    [book.name, navigation]
+    [book.name]
   )
 
   const handleScroll = useCallback(

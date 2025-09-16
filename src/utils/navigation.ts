@@ -21,3 +21,12 @@ export function navigate(
     })
   )
 }
+
+export function reset(routeName: string, index = 0): void {
+  navigator?.dispatch(
+    CommonActions.reset({
+      index,
+      routes: [{ name: routeName }]
+    })
+  )
+}

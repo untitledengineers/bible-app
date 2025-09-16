@@ -1,4 +1,4 @@
-import { createStackNavigator } from '@react-navigation/stack'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import React from 'react'
 import { useStyles } from 'react-native-unistyles'
 
@@ -6,7 +6,7 @@ import Book from './screens/Book'
 import Home from './screens/Home'
 import Onboarding from './screens/Onboarding'
 
-const AppStack = createStackNavigator()
+const AppStack = createNativeStackNavigator()
 
 type NavigationProps = {
   hasOnboarded: boolean
@@ -18,7 +18,7 @@ const Navigation = ({ hasOnboarded }: NavigationProps) => {
   return (
     <AppStack.Navigator
       screenOptions={{
-        cardStyle: { backgroundColor: theme.colors.background },
+        contentStyle: { backgroundColor: theme.colors.background },
         headerShown: false
       }}
       initialRouteName={hasOnboarded ? 'Home' : 'Onboarding'}
