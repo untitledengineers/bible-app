@@ -18,11 +18,11 @@ export interface IBook {
 }
 
 const Home = () => {
-  const currentSwipeableOpened = useRef<Swipeable>()
+  const currentSwipeableOpened = useRef<Swipeable>(null)
   const { styles, theme } = useStyles(stylesheet)
 
   const handleSwipeableOpen = useCallback(
-    (swipeableRef: Swipeable | undefined) => {
+    (swipeableRef: Swipeable) => {
       if (currentSwipeableOpened.current === swipeableRef) return
 
       currentSwipeableOpened.current?.close()
@@ -45,7 +45,6 @@ const Home = () => {
       <SidebarMenu />
       <FlashList
         data={bibleData as IBook[]}
-        estimatedItemSize={84}
         keyExtractor={book => book.name}
         renderItem={renderBookItem}
         ItemSeparatorComponent={() => <View style={styles.separator} />}

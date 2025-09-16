@@ -19,11 +19,11 @@ import { IBook } from '../../screens/Home'
 
 type BookItemProps = {
   book: IBook
-  handleSwipeableOpen: (swipeableRef: Swipeable | undefined) => void
+  handleSwipeableOpen: (swipeableRef: Swipeable) => void
 }
 
-const INITIAL_ACTIVE_OFFSET_X = [-10, 0]
-const FINAL_ACTIVE_OFFSET_X = [-10, 10]
+const INITIAL_ACTIVE_OFFSET_X: [number, number] = [-10, 0]
+const FINAL_ACTIVE_OFFSET_X: [number, number] = [-10, 10]
 
 const BookItem = ({ book, handleSwipeableOpen }: BookItemProps) => {
   const [rightActionsIsOpen, setRightActionsIsOpen] = useState(false)
@@ -103,7 +103,6 @@ const BookItem = ({ book, handleSwipeableOpen }: BookItemProps) => {
         >
           {rightActionsIsOpen && (
             <FlashList
-              estimatedItemSize={62}
               horizontal
               nestedScrollEnabled
               data={book.chaptersNumber}

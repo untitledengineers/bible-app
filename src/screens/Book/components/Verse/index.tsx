@@ -1,7 +1,5 @@
-import React, { memo, useRef, useState } from 'react'
+import React, { memo, useState } from 'react'
 import {
-  UIManager,
-  findNodeHandle,
   Pressable,
   Share,
   Alert,
@@ -22,13 +20,8 @@ type VerseProps = {
 
 const Verse = memo(({ bookName, chapter, number, text }: VerseProps) => {
   const [backgroundColor, setBackgroundColor] = useState('transparent')
-  const pressableRef = useRef(null)
   const { fontScale } = useFont()
   const { styles, theme } = useStyles(stylesheet)
-
-  const handleShowPopupError = () => {
-    Alert.alert('Erro ao selecionar versículo')
-  }
 
   const handleShareVerse = (eventName: string) => {
     try {
@@ -38,24 +31,25 @@ const Verse = memo(({ bookName, chapter, number, text }: VerseProps) => {
       const message = `${text}\n(${bookName} ${chapter}:${number})`
 
       Share.share({ message })
-    } catch (error: any) {
-      Alert.alert(error.message)
+    } catch {
+      Alert.alert('Erro ao compartilhar versículo')
     }
   }
 
   const handleMenuPress = () => {
-    UIManager.showPopupMenu(
-      findNodeHandle(pressableRef.current) as any,
-      ['Compartilhar'],
-      handleShowPopupError,
-      handleShareVerse
-    )
     setBackgroundColor(theme.colors.gradient[1])
+    Alert.alert(
+      'Compartilhar versículo',
+      'Deseja compartilhar este versículo?',
+      [
+        { text: 'Cancelar', style: 'cancel' },
+        { text: 'Compartilhar', onPress: () => handleShareVerse('itemSelected') }
+      ]
+    )
   }
 
   return (
     <Pressable
-      ref={pressableRef}
       onLongPress={handleMenuPress}
       delayLongPress={200}
     >

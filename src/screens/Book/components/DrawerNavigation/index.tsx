@@ -32,7 +32,6 @@ const DrawerNavigation = ({ chaptersNumber, handleScroll }: DrawerProps) => {
       data={chaptersNumber}
       keyExtractor={item => item.toString()}
       renderItem={renderItem}
-      estimatedItemSize={58}
       scrollEventThrottle={16}
       ItemSeparatorComponent={renderItemSeparator}
       contentContainerStyle={{

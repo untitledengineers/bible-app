@@ -48,7 +48,7 @@ export const useBookController = () => {
   const listRef = useRef<SectionList>(null)
   const drawerRef = useRef<DrawerLayout>(null)
   const { handleOpen } = useSearch()
-  const timeout = useRef<ReturnType<typeof setTimeout>>()
+  const timeout = useRef<ReturnType<typeof setTimeout>>(null)
 
   const scrollY = useRef(new Animated.Value(0)).current
   const diffClamp = Animated.diffClamp(
@@ -132,7 +132,9 @@ export const useBookController = () => {
   )
 
   useEffect(() => {
-    return () => timeout.current && clearTimeout(timeout.current)
+    return () => {
+      timeout.current && clearTimeout(timeout.current)
+    }
   }, [])
 
   useEffect(() => {

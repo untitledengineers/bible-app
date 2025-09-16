@@ -24,7 +24,7 @@ const Header = ({ title, titleOpacity = 1 }: Props) => {
     <View style={styles.container}>
       <BorderlessButton style={styles.backButton} onPress={goBack}>
         <AntDesign
-          name="arrowleft"
+          name="arrow-left"
           size={ICON_SIZE}
           color={theme.colors.primary}
         />

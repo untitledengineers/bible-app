@@ -181,7 +181,7 @@ function Search({ closeModal, searchTerm, setSearchTerm }: Props): JSX.Element {
 
   return (
     <View style={styles.container}>
-      <LinearGradient style={styles.header} colors={theme.colors.gradient}>
+      <LinearGradient style={styles.header} colors={theme.colors.gradient as [string, string, string, string]}>
         <Feather
           name="x"
           size={24}
@@ -206,7 +206,6 @@ function Search({ closeModal, searchTerm, setSearchTerm }: Props): JSX.Element {
       <FlashList
         data={data}
         renderItem={renderItem}
-        estimatedItemSize={92}
         getItemType={getItemType}
         contentContainerStyle={{ paddingHorizontal: 16 }}
         keyboardShouldPersistTaps="handled"
