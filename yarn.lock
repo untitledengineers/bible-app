@@ -1732,10 +1732,10 @@
   resolved "https://registry.yarnpkg.com/@eslint/js/-/js-8.57.0.tgz#a5417ae8427873f1dd08b70b3574b453e67b5f7f"
   integrity sha512-Ys+3g2TaW7gADOJzPt83SJtCDhMjndcDMFVQ/Tj9iA1BfJzFKD9mAUXT3OenpuPHbI6P/myECxRJrofUsDx/5g==
 
-"@expo-google-fonts/cardo@^0.2.2":
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/@expo-google-fonts/cardo/-/cardo-0.2.3.tgz#5d30c29ee2049fa9face4b37411d6ec0c894f7a2"
-  integrity sha512-VUxR7cm0LV0VJfiDgV9Duzwy0SAZyY8WEx5QjWAUn8KfSW6UzURru0zcDbFLGb5L/DPM2p45sXFV/e0a1Q3eEw==
+"@expo-google-fonts/cardo@^0.4.1":
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/@expo-google-fonts/cardo/-/cardo-0.4.1.tgz#1f701341d7924ef1cd4f697452ba1eefad8e8c2b"
+  integrity sha512-tIkxZkVtk46WjJmjm17OKGJjKItex4gO93RukaabX2X6042icWKyCBc1SsKQpLS6Fw/JYcr2OOZtL+SXs+5Fbw==
 
 "@expo/cli@54.0.5":
   version "54.0.5"
