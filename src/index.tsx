@@ -27,43 +27,51 @@ const App = () => {
   const { setFontScale } = useFont()
 
   const getFont = useCallback(async () => {
-    await Font.loadAsync({
-      Cardo_400Regular,
-      Cardo_400Regular_Italic,
-      Cardo_700Bold
-    })
+    try {
+      await Font.loadAsync({
+        Cardo_400Regular,
+        Cardo_400Regular_Italic,
+        Cardo_700Bold
+      })
 
-    const fontScale = await AsyncStorage.getItem('@fontScale')
-    if (fontScale) {
-      setFontScale(Number(fontScale))
+      const fontScale = await AsyncStorage.getItem('@fontScale')
+      if (fontScale) {
+        setFontScale(Number(fontScale))
+      }
+    } catch (error) {
+      console.error('Error loading font', error)
     }
   }, [setFontScale])
 
   const getOnboarded = useCallback(async () => {
-    const hasOnboarded = await AsyncStorage.getItem('@hasOnboarded')
-    if (hasOnboarded) {
-      setHasOnboarded(true)
+    try {
+      const hasOnboarded = await AsyncStorage.getItem('@hasOnboarded')
+      if (hasOnboarded) {
+        setHasOnboarded(true)
+      }
+    } catch (error) {
+      console.error('Error loading onboarded', error)
     }
   }, [])
 
   const getTheme = useCallback(async () => {
-    const theme = await AsyncStorage.getItem('@theme')
-    if (theme) {
-      UnistylesRuntime.setTheme(theme as ThemeType)
+    try {
+      const theme = await AsyncStorage.getItem('@theme')
+      if (theme) {
+        UnistylesRuntime.setTheme(theme as ThemeType)
+      }
+    } catch (error) {
+      console.error('Error loading theme', error)
     }
   }, [])
 
   useEffect(() => {
     async function prepare() {
-      try {
-        await getFont()
-        await getOnboarded()
-        await getTheme()
-      } catch (e) {
-        console.error(e)
-      } finally {
-        setAppIsReady(true)
-      }
+      await getFont()
+      await getOnboarded()
+      await getTheme()
+
+      setAppIsReady(true)
     }
 
     prepare()
