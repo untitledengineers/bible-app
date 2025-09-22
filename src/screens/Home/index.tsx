@@ -3,6 +3,7 @@ import React, { useCallback, useRef } from 'react'
 import { View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import { SwipeableMethods } from 'react-native-gesture-handler/ReanimatedSwipeable'
+import { UnistylesRuntime } from 'react-native-unistyles'
 
 import { styles } from './styles'
 import BookItem from '../../components/BookItem'
@@ -34,6 +35,8 @@ const Home = () => {
     <View style={styles.container}>
       <SidebarMenu />
       <FlashList
+        // key reason: book item is not re-rendered correctly when the theme is changed
+        key={UnistylesRuntime.themeName}
         data={bibleData as IBook[]}
         keyExtractor={book => book.name}
         renderItem={renderBookItem}
