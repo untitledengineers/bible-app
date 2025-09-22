@@ -18,10 +18,13 @@ const Verse = memo(({ bookName, chapter, number, text }: VerseProps) => {
   const { fontScale } = useFont()
   const { styles, theme } = useStyles(stylesheet)
 
-  const handleShareVerse = (eventName: string) => {
+  const resetBackgroundColor = () => {
+    setBackgroundColor('transparent')
+  }
+
+  const handleShareVerse = () => {
     try {
-      setBackgroundColor('transparent')
-      if (eventName !== 'itemSelected') return
+      resetBackgroundColor()
 
       const message = `${text}\n(${bookName} ${chapter}:${number})`
 
@@ -37,10 +40,14 @@ const Verse = memo(({ bookName, chapter, number, text }: VerseProps) => {
       'Compartilhar versículo',
       'Deseja compartilhar este versículo?',
       [
-        { text: 'Cancelar', style: 'cancel' },
+        {
+          text: 'Cancelar',
+          style: 'cancel',
+          onPress: resetBackgroundColor
+        },
         {
           text: 'Compartilhar',
-          onPress: () => handleShareVerse('itemSelected')
+          onPress: handleShareVerse
         }
       ]
     )
@@ -48,18 +55,8 @@ const Verse = memo(({ bookName, chapter, number, text }: VerseProps) => {
 
   return (
     <Pressable onLongPress={handleMenuPress} delayLongPress={200}>
-      <Text
-        style={{
-          ...styles.verse,
-          fontSize: 20 * fontScale,
-          lineHeight: 30 * fontScale,
-          backgroundColor
-        }}
-      >
-        <Text style={{ ...styles.verseNumber, fontSize: 14 * fontScale }}>
-          {number}
-        </Text>{' '}
-        {text}
+      <Text style={styles.verse(backgroundColor, fontScale)}>
+        <Text style={styles.verseNumber(fontScale)}>{number}</Text> {text}
       </Text>
     </Pressable>
   )
