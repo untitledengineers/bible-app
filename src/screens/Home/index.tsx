@@ -1,5 +1,4 @@
 import { FlashList, ListRenderItem } from '@shopify/flash-list'
-import Constants from 'expo-constants'
 import React, { useCallback, useRef } from 'react'
 import { View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
@@ -43,7 +42,7 @@ const Home = () => {
         ItemSeparatorComponent={() => <View style={styles.separator} />}
         showsVerticalScrollIndicator={false}
         nestedScrollEnabled
-        contentContainerStyle={{ paddingTop: Constants.statusBarHeight }}
+        contentContainerStyle={styles.listContent}
         onScroll={() => currentSwipeableOpened.current?.close()}
         renderScrollComponent={ScrollView}
       />
