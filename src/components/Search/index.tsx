@@ -200,7 +200,7 @@ function Search({ closeModal, searchTerm, setSearchTerm }: Props): JSX.Element {
           onChangeText={setSearchTerm}
           placeholder="Digite uma palavra-chave"
           returnKeyType="search"
-          blurOnSubmit
+          submitBehavior="blurAndSubmit"
           underlineColorAndroid="transparent"
           cursorColor={theme.colors.white}
         />
@@ -210,7 +210,7 @@ function Search({ closeModal, searchTerm, setSearchTerm }: Props): JSX.Element {
         data={data}
         renderItem={renderItem}
         getItemType={getItemType}
-        contentContainerStyle={{ paddingHorizontal: 16 }}
+        contentContainerStyle={styles.listContent}
         keyboardShouldPersistTaps="handled"
       />
     </View>
