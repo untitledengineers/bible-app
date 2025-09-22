@@ -2,13 +2,10 @@
 import LottieView from 'lottie-react-native'
 import React from 'react'
 import { View } from 'react-native'
-import { useStyles } from 'react-native-unistyles'
 
-import { stylesheet } from './styles'
+import { styles } from './styles'
 
 const Loading = () => {
-  const { styles } = useStyles(stylesheet)
-
   return (
     <View style={styles.container}>
       <LottieView

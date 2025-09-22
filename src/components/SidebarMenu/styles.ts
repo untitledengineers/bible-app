@@ -1,8 +1,8 @@
-import { createStyleSheet } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 export const SIDEBAR_MENU_WIDTH = 56
 
-export const stylesheet = createStyleSheet(theme => ({
+export const styles = StyleSheet.create(theme => ({
   container: {
     justifyContent: 'flex-end',
     alignItems: 'center',

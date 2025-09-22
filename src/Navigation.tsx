@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import React from 'react'
-import { useStyles } from 'react-native-unistyles'
+import { useUnistyles } from 'react-native-unistyles'
 
 import Book from './screens/Book'
 import Home from './screens/Home'
@@ -13,7 +13,7 @@ type NavigationProps = {
 }
 
 const Navigation = ({ hasOnboarded }: NavigationProps) => {
-  const { theme } = useStyles()
+  const { theme } = useUnistyles()
 
   return (
     <AppStack.Navigator

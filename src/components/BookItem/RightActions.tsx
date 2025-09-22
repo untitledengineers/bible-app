@@ -6,9 +6,8 @@ import Reanimated, {
   SharedValue,
   useAnimatedStyle
 } from 'react-native-reanimated'
-import { useStyles } from 'react-native-unistyles'
 
-import { stylesheet } from './styles'
+import { styles } from './styles'
 import { SIDEBAR_MENU_WIDTH } from '../SidebarMenu/styles'
 
 import { navigate } from '@/utils/navigation'
@@ -28,7 +27,6 @@ const RightActions = ({
 }: RightActionsProps) => {
   const window = useWindowDimensions()
   const windowWidth = window.width
-  const { styles } = useStyles(stylesheet)
 
   const handleChapterNavigation = useCallback(
     (index: number) => {
@@ -59,7 +57,7 @@ const RightActions = ({
         </TouchableOpacity>
       )
     },
-    [handleChapterNavigation, styles]
+    [handleChapterNavigation]
   )
 
   return (

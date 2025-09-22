@@ -3,9 +3,9 @@ import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { Animated, View } from 'react-native'
 import { BorderlessButton } from 'react-native-gesture-handler'
-import { useStyles } from 'react-native-unistyles'
+import { useUnistyles } from 'react-native-unistyles'
 
-import { stylesheet } from './styles'
+import { styles } from './styles'
 import { useFont } from '../../context/font'
 
 type Props = {
@@ -17,7 +17,7 @@ const ICON_SIZE = 26
 
 const Header = ({ title, titleOpacity = 1 }: Props) => {
   const { goBack } = useNavigation()
-  const { styles, theme } = useStyles(stylesheet)
+  const { theme } = useUnistyles()
   const { increaseFontScale, decreaseFontScale } = useFont()
 
   return (

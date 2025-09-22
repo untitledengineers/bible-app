@@ -1,8 +1,8 @@
 import React, { memo, useState } from 'react'
 import { Pressable, Share, Alert, Text } from 'react-native'
-import { useStyles } from 'react-native-unistyles'
+import { useUnistyles } from 'react-native-unistyles'
 
-import { stylesheet } from './styles'
+import { styles } from './styles'
 
 import { useFont } from '@/context/font'
 
@@ -16,7 +16,7 @@ type VerseProps = {
 const Verse = memo(({ bookName, chapter, number, text }: VerseProps) => {
   const [backgroundColor, setBackgroundColor] = useState('transparent')
   const { fontScale } = useFont()
-  const { styles, theme } = useStyles(stylesheet)
+  const { theme } = useUnistyles()
 
   const resetBackgroundColor = () => {
     setBackgroundColor('transparent')

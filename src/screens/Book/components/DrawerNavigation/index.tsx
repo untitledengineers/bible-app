@@ -1,9 +1,9 @@
 import { FlashList, ListRenderItem } from '@shopify/flash-list'
 import React, { useCallback } from 'react'
 import { Text, TouchableOpacity } from 'react-native'
-import { useStyles } from 'react-native-unistyles'
+import { useUnistyles } from 'react-native-unistyles'
 
-import { stylesheet } from './styles'
+import { styles } from './styles'
 
 type DrawerProps = {
   chaptersNumber: number[]
@@ -11,7 +11,7 @@ type DrawerProps = {
 }
 
 const DrawerNavigation = ({ chaptersNumber, handleScroll }: DrawerProps) => {
-  const { styles, theme } = useStyles(stylesheet)
+  const { theme } = useUnistyles()
 
   const renderItem: ListRenderItem<number> = useCallback(
     ({ index }) => (
@@ -19,12 +19,12 @@ const DrawerNavigation = ({ chaptersNumber, handleScroll }: DrawerProps) => {
         <Text style={styles.itemContent}>{index + 1}</Text>
       </TouchableOpacity>
     ),
-    [handleScroll, styles]
+    [handleScroll]
   )
 
   const renderItemSeparator = useCallback(
     () => <Text style={styles.itemSeparator}>{'\u2B24'}</Text>,
-    [styles]
+    []
   )
 
   return (

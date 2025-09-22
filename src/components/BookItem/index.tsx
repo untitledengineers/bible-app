@@ -6,10 +6,10 @@ import Swipeable, {
   SwipeableMethods
 } from 'react-native-gesture-handler/ReanimatedSwipeable'
 import { SharedValue } from 'react-native-reanimated'
-import { useStyles } from 'react-native-unistyles'
+import { useUnistyles } from 'react-native-unistyles'
 
 import RightActions from './RightActions'
-import { stylesheet } from './styles'
+import { styles } from './styles'
 import { IBook } from '../../screens/Home'
 
 import { navigate } from '@/utils/navigation'
@@ -22,7 +22,7 @@ type BookItemProps = {
 const BookItem = ({ book, handleSwipeableOpen }: BookItemProps) => {
   const [rightActionsIsOpen, setRightActionsIsOpen] = useState(false)
   const swipeableRef = useRef<SwipeableMethods>(null)
-  const { styles, theme } = useStyles(stylesheet)
+  const { theme } = useUnistyles()
 
   const handleActionVisibility = (state: boolean) => {
     setRightActionsIsOpen(state)

@@ -3,9 +3,8 @@ import React, { useCallback, useRef } from 'react'
 import { View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import { SwipeableMethods } from 'react-native-gesture-handler/ReanimatedSwipeable'
-import { useStyles } from 'react-native-unistyles'
 
-import { stylesheet } from './styles'
+import { styles } from './styles'
 import BookItem from '../../components/BookItem'
 import SidebarMenu from '../../components/SidebarMenu'
 import bibleData from '../../data/lite_bible_acf.json'
@@ -19,7 +18,6 @@ export interface IBook {
 
 const Home = () => {
   const currentSwipeableOpened = useRef<SwipeableMethods>(null)
-  const { styles } = useStyles(stylesheet)
 
   const handleSwipeableOpen = useCallback((swipeableRef: SwipeableMethods) => {
     if (currentSwipeableOpened.current === swipeableRef) return

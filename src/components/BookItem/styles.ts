@@ -1,8 +1,8 @@
-import { createStyleSheet } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 import { SIDEBAR_MENU_WIDTH } from '../SidebarMenu/styles'
 
-export const stylesheet = createStyleSheet(theme => ({
+export const styles = StyleSheet.create(theme => ({
   container: {
     flex: 1,
     backgroundColor: theme.colors.overlay10

@@ -9,7 +9,7 @@ import * as Font from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen'
 import { StatusBar } from 'expo-status-bar'
 import React, { useCallback, useEffect, useState } from 'react'
-import { UnistylesRuntime, useStyles } from 'react-native-unistyles'
+import { UnistylesRuntime } from 'react-native-unistyles'
 
 import Navigation from './Navigation'
 import { useFont } from './context/font'
@@ -25,7 +25,6 @@ const App = () => {
   const [appIsReady, setAppIsReady] = useState(false)
   const [hasOnboarded, setHasOnboarded] = useState(false)
   const { setFontScale } = useFont()
-  const { theme } = useStyles()
 
   const getFont = useCallback(async () => {
     await Font.loadAsync({
@@ -82,7 +81,9 @@ const App = () => {
 
   return (
     <NavigationContainer ref={setNavigator} onReady={onLayoutRootView}>
-      <StatusBar style={theme.name === ThemeType.dark ? 'light' : 'dark'} />
+      <StatusBar
+        style={UnistylesRuntime.themeName === ThemeType.dark ? 'light' : 'dark'}
+      />
       <Navigation hasOnboarded={hasOnboarded} />
     </NavigationContainer>
   )

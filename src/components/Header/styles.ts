@@ -1,8 +1,8 @@
-import { createStyleSheet } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 export const HEADER_HEIGHT = 56
 
-export const stylesheet = createStyleSheet(theme => ({
+export const styles = StyleSheet.create(theme => ({
   container: {
     position: 'absolute',
     top: 0,

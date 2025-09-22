@@ -1,8 +1,8 @@
 import Constants from 'expo-constants'
-import { Platform, StyleSheet } from 'react-native'
-import { createStyleSheet } from 'react-native-unistyles'
+import { Platform } from 'react-native'
+import { StyleSheet } from 'react-native-unistyles'
 
-export const stylesheet = createStyleSheet(theme => ({
+export const styles = StyleSheet.create(theme => ({
   container: {
     flex: 1,
     backgroundColor: theme.colors.background

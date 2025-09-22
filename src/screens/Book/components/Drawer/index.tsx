@@ -1,7 +1,7 @@
 import React from 'react'
 import { useWindowDimensions } from 'react-native'
 import DrawerLayout from 'react-native-gesture-handler/DrawerLayout'
-import { useStyles } from 'react-native-unistyles'
+import { useUnistyles } from 'react-native-unistyles'
 
 import DrawerNavigation from '../DrawerNavigation'
 
@@ -19,7 +19,7 @@ const Drawer = ({
   chaptersNumber
 }: DrawerProps) => {
   const window = useWindowDimensions()
-  const { theme } = useStyles()
+  const { theme } = useUnistyles()
 
   return (
     <DrawerLayout
