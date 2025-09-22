@@ -1,9 +1,9 @@
 import { FlashList, ListRenderItem } from '@shopify/flash-list'
-import React, { useCallback, useRef } from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 import { View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import { SwipeableMethods } from 'react-native-gesture-handler/ReanimatedSwipeable'
-import { UnistylesRuntime } from 'react-native-unistyles'
+import { UnistylesRuntime, useUnistyles } from 'react-native-unistyles'
 
 import { styles } from './styles'
 import BookItem from '../../components/BookItem'
@@ -19,6 +19,7 @@ export interface IBook {
 
 const Home = () => {
   const currentSwipeableOpened = useRef<SwipeableMethods>(null)
+  const { theme } = useUnistyles()
 
   const handleSwipeableOpen = useCallback((swipeableRef: SwipeableMethods) => {
     if (currentSwipeableOpened.current === swipeableRef) return
@@ -30,6 +31,11 @@ const Home = () => {
   const renderBookItem: ListRenderItem<IBook> = ({ item }) => (
     <BookItem book={item} handleSwipeableOpen={handleSwipeableOpen} />
   )
+
+  useEffect(() => {
+    // necessary because of a bug in text color in FlashList when changing theme
+    currentSwipeableOpened.current?.close()
+  }, [theme.colors.background])
 
   return (
     <View style={styles.container}>
