@@ -1,4 +1,4 @@
-import { AntDesign, MaterialIcons } from '@expo/vector-icons'
+import { MaterialIcons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { Animated, View } from 'react-native'
@@ -23,8 +23,8 @@ const Header = ({ title, titleOpacity = 1 }: Props) => {
   return (
     <View style={styles.container}>
       <BorderlessButton style={styles.backButton} onPress={goBack}>
-        <AntDesign
-          name="arrow-left"
+        <MaterialIcons
+          name="arrow-back"
           size={ICON_SIZE}
           color={theme.colors.primary}
         />
