@@ -2,6 +2,7 @@ import { StyleSheet } from 'react-native-unistyles'
 
 export const styles = StyleSheet.create(theme => ({
   image: {
+    height: 400,
     width: '98%'
   },
   notShowAgainWrapper: {
