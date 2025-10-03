@@ -1,21 +1,23 @@
 import Constants from 'expo-constants'
-import { Platform, StyleSheet } from 'react-native'
-import { createStyleSheet } from 'react-native-unistyles'
+import { Platform } from 'react-native'
+import { StyleSheet } from 'react-native-unistyles'
 
-export const stylesheet = createStyleSheet(theme => ({
+export const styles = StyleSheet.create(theme => ({
   container: {
     flex: 1,
     backgroundColor: theme.colors.background
   },
   header: {
-    height: 120,
-    paddingTop: Platform.OS === 'android' ? Constants.statusBarHeight + 10 : 10
+    paddingTop: Platform.OS === 'android' ? Constants.statusBarHeight : 10
   },
   input: {
     padding: theme.spacing.medium,
     fontSize: 22,
     color: theme.colors.white,
     fontFamily: 'Cardo_700Bold'
+  },
+  listContent: {
+    paddingHorizontal: 16
   },
   closeIcon: {
     alignSelf: 'flex-end',

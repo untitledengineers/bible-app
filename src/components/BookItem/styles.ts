@@ -1,14 +1,20 @@
-import { createStyleSheet } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
-export const stylesheet = createStyleSheet(theme => ({
+import { SIDEBAR_MENU_WIDTH } from '../SidebarMenu/styles'
+
+export const styles = StyleSheet.create(theme => ({
   container: {
     flex: 1,
     backgroundColor: theme.colors.overlay10
   },
-  item: {
+  list: (windowWidth: number) => ({
     height: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: windowWidth - SIDEBAR_MENU_WIDTH
+  }),
+  listContent: {
+    alignItems: 'center'
+  },
+  item: {
     paddingHorizontal: theme.spacing.mediumPlus
   },
   itemContent: {
@@ -21,7 +27,6 @@ export const stylesheet = createStyleSheet(theme => ({
   },
   button: {
     paddingVertical: theme.spacing.small,
-    justifyContent: 'center',
     backgroundColor: theme.colors.background
   },
   title: {

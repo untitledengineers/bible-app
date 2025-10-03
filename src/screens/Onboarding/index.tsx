@@ -1,29 +1,26 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { useNavigation } from '@react-navigation/native'
 import Checkbox from 'expo-checkbox'
 import React, { useState } from 'react'
 import { Image, Text, View } from 'react-native'
 import Onboarding from 'react-native-onboarding-swiper'
-import { useStyles } from 'react-native-unistyles'
+import { useUnistyles } from 'react-native-unistyles'
 
-import { stylesheet } from './styles'
+import { styles } from './styles'
 import { ChapterImg, ChapterMenuImg } from '../../assets/images'
+
+import { reset } from '@/utils/navigation'
 
 function Onboard() {
   const [pageIndexCallback, setPageIndexCallback] = useState(0)
   const [isChecked, setChecked] = useState(false)
-  const navigation = useNavigation()
-  const { styles, theme } = useStyles(stylesheet)
+  const { theme } = useUnistyles()
 
   const onDone = () => {
     if (isChecked) {
       AsyncStorage.setItem('@hasOnboarded', 'true')
     }
 
-    navigation.reset({
-      index: 0,
-      routes: [{ name: 'Home' }]
-    })
+    reset('Home')
   }
 
   return (

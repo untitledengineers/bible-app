@@ -1,10 +1,14 @@
-import { StyleSheet } from 'react-native'
-import { createStyleSheet } from 'react-native-unistyles'
+import Constants from 'expo-constants'
+import { StyleSheet } from 'react-native-unistyles'
 
-export const stylesheet = createStyleSheet(theme => ({
+export const styles = StyleSheet.create(theme => ({
   container: {
     flex: 1,
     flexDirection: 'row'
+  },
+  listContent: {
+    paddingTop: Constants.statusBarHeight,
+    paddingBottom: theme.spacing.largePlus
   },
   separator: {
     borderBottomColor: theme.colors.border,

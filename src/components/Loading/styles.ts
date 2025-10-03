@@ -1,6 +1,6 @@
-import { createStyleSheet } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
-export const stylesheet = createStyleSheet(theme => ({
+export const styles = StyleSheet.create(theme => ({
   container: {
     position: 'absolute',
     top: 0,

@@ -1,70 +1,38 @@
 import { Entypo } from '@expo/vector-icons'
-import { useNavigation } from '@react-navigation/native'
-import { FlashList, ListRenderItem } from '@shopify/flash-list'
 import React, { memo, useCallback, useRef, useState } from 'react'
-import {
-  Animated,
-  NativeScrollEvent,
-  NativeSyntheticEvent,
-  Text,
-  TouchableOpacity,
-  View,
-  useWindowDimensions
-} from 'react-native'
-import { RectButton, ScrollView, Swipeable } from 'react-native-gesture-handler'
-import { useStyles } from 'react-native-unistyles'
+import { Text, View } from 'react-native'
+import { RectButton } from 'react-native-gesture-handler'
+import Swipeable, {
+  SwipeableMethods
+} from 'react-native-gesture-handler/ReanimatedSwipeable'
+import { SharedValue } from 'react-native-reanimated'
+import { useUnistyles } from 'react-native-unistyles'
 
-import { stylesheet } from './styles'
+import RightActions from './RightActions'
+import { styles } from './styles'
 import { IBook } from '../../screens/Home'
+
+import { navigate } from '@/utils/navigation'
 
 type BookItemProps = {
   book: IBook
-  handleSwipeableOpen: (swipeableRef: Swipeable | undefined) => void
+  handleSwipeableOpen: (swipeableRef: SwipeableMethods) => void
 }
-
-const INITIAL_ACTIVE_OFFSET_X = [-10, 0]
-const FINAL_ACTIVE_OFFSET_X = [-10, 10]
 
 const BookItem = ({ book, handleSwipeableOpen }: BookItemProps) => {
   const [rightActionsIsOpen, setRightActionsIsOpen] = useState(false)
-  const [activeOffsetX, setActiveOffsetX] = useState(INITIAL_ACTIVE_OFFSET_X)
-  const swipeableRef = useRef<Swipeable>(null)
-  const window = useWindowDimensions()
-  const navigation = useNavigation()
-  const { styles, theme } = useStyles(stylesheet)
+  const swipeableRef = useRef<SwipeableMethods>(null)
+  const { theme } = useUnistyles()
 
   const handleActionVisibility = (state: boolean) => {
     setRightActionsIsOpen(state)
   }
 
   const handleBookNavigation = useCallback(() => {
-    navigation.navigate('Book', {
+    navigate('Book', {
       bookName: book.name
     })
-  }, [book.name, navigation])
-
-  const handleChapterNavigation = useCallback(
-    (index: number) => {
-      navigation.navigate('Book', {
-        bookName: book.name,
-        initialScrollIndex: index
-      })
-    },
-    [book.name, navigation]
-  )
-
-  const handleScroll = useCallback(
-    (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-      const offsetX = event.nativeEvent.contentOffset.x
-
-      if (offsetX < 10) {
-        setActiveOffsetX(INITIAL_ACTIVE_OFFSET_X)
-      } else if (activeOffsetX[1] === 0) {
-        setActiveOffsetX(FINAL_ACTIVE_OFFSET_X)
-      }
-    },
-    [activeOffsetX, setActiveOffsetX]
-  )
+  }, [book.name])
 
   const onSwipeableWillOpen = useCallback(() => {
     if (!swipeableRef.current) return
@@ -72,73 +40,27 @@ const BookItem = ({ book, handleSwipeableOpen }: BookItemProps) => {
     handleSwipeableOpen(swipeableRef.current)
   }, [handleSwipeableOpen])
 
-  const renderChapterItem: ListRenderItem<number> = useCallback(
-    ({ index }) => {
-      return (
-        <TouchableOpacity
-          style={styles.item}
-          onPress={() => handleChapterNavigation(index)}
-        >
-          <Text style={styles.itemContent}>{index + 1}</Text>
-        </TouchableOpacity>
-      )
-    },
-    [handleChapterNavigation, styles]
-  )
-
   const renderRightActions = useCallback(
-    (progress: Animated.AnimatedInterpolation<string | number>) => {
-      const translateX = progress.interpolate({
-        inputRange: [0, 1],
-        outputRange: [window.width, 0],
-        extrapolate: 'clamp'
-      })
-
+    (_: unknown, translation: SharedValue<number>) => {
       return (
-        <Animated.View
-          style={{
-            ...styles.container,
-            transform: [{ translateX }]
-          }}
-        >
-          {rightActionsIsOpen && (
-            <FlashList
-              estimatedItemSize={62}
-              horizontal
-              nestedScrollEnabled
-              data={book.chaptersNumber}
-              keyExtractor={item => item.toString()}
-              overrideProps={{
-                contentContainerStyle: {
-                  flexGrow: 1
-                }
-              }}
-              renderItem={renderChapterItem}
-              onScroll={handleScroll}
-              renderScrollComponent={ScrollView}
-            />
-          )}
-        </Animated.View>
+        <RightActions
+          translation={translation}
+          chaptersNumber={book.chaptersNumber}
+          rightActionsIsOpen={rightActionsIsOpen}
+          bookName={book.name}
+        />
       )
     },
-    [
-      book.chaptersNumber,
-      handleScroll,
-      renderChapterItem,
-      rightActionsIsOpen,
-      styles.container,
-      window.width
-    ]
+    [book.name, book.chaptersNumber, rightActionsIsOpen]
   )
 
   return (
     <Swipeable
       ref={swipeableRef}
       renderRightActions={renderRightActions}
-      onBegan={() => handleActionVisibility(true)}
+      onSwipeableOpenStartDrag={() => handleActionVisibility(true)}
       onSwipeableClose={() => handleActionVisibility(false)}
       onSwipeableWillOpen={onSwipeableWillOpen}
-      activeOffsetX={activeOffsetX}
     >
       <RectButton style={styles.button} onPress={handleBookNavigation}>
         <View style={styles.content}>

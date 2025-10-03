@@ -4,9 +4,9 @@ import { LinearGradient } from 'expo-linear-gradient'
 import React, { useEffect, createRef, useCallback } from 'react'
 import { Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { createFilter } from 'react-native-search-filter'
-import { useStyles } from 'react-native-unistyles'
+import { useUnistyles } from 'react-native-unistyles'
 
-import { stylesheet } from './styles'
+import { styles } from './styles'
 import bibleData from '../../data/bible_acf.json'
 import { IBook } from '../../screens/Home'
 import { navigate } from '../../utils/navigation'
@@ -33,7 +33,7 @@ function filterTerms(searchTerm: string, keys: string[]) {
 
 function Search({ closeModal, searchTerm, setSearchTerm }: Props): JSX.Element {
   const inputRef = createRef<TextInput>()
-  const { styles, theme } = useStyles(stylesheet)
+  const { theme } = useUnistyles()
 
   const filteredBooks = React.useMemo(() => {
     if (searchTerm === '') return []
@@ -104,7 +104,7 @@ function Search({ closeModal, searchTerm, setSearchTerm }: Props): JSX.Element {
         <Text style={styles.bookName}>{item.name}</Text>
       </TouchableOpacity>
     ),
-    [handleNavigationToBook, styles]
+    [handleNavigationToBook]
   )
 
   const renderVerse = useCallback(
@@ -124,7 +124,7 @@ function Search({ closeModal, searchTerm, setSearchTerm }: Props): JSX.Element {
         </Text>
       </TouchableOpacity>
     ),
-    [handleNavigationToBook, styles]
+    [handleNavigationToBook]
   )
 
   const renderBookHeader = () => {
@@ -181,7 +181,10 @@ function Search({ closeModal, searchTerm, setSearchTerm }: Props): JSX.Element {
 
   return (
     <View style={styles.container}>
-      <LinearGradient style={styles.header} colors={theme.colors.gradient}>
+      <LinearGradient
+        style={styles.header}
+        colors={theme.colors.gradient as [string, string, string, string]}
+      >
         <Feather
           name="x"
           size={24}
@@ -197,7 +200,7 @@ function Search({ closeModal, searchTerm, setSearchTerm }: Props): JSX.Element {
           onChangeText={setSearchTerm}
           placeholder="Digite uma palavra-chave"
           returnKeyType="search"
-          blurOnSubmit
+          submitBehavior="blurAndSubmit"
           underlineColorAndroid="transparent"
           cursorColor={theme.colors.white}
         />
@@ -206,9 +209,8 @@ function Search({ closeModal, searchTerm, setSearchTerm }: Props): JSX.Element {
       <FlashList
         data={data}
         renderItem={renderItem}
-        estimatedItemSize={92}
         getItemType={getItemType}
-        contentContainerStyle={{ paddingHorizontal: 16 }}
+        contentContainerStyle={styles.listContent}
         keyboardShouldPersistTaps="handled"
       />
     </View>

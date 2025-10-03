@@ -1,15 +1,8 @@
-import React, { memo, useRef, useState } from 'react'
-import {
-  UIManager,
-  findNodeHandle,
-  Pressable,
-  Share,
-  Alert,
-  Text
-} from 'react-native'
-import { useStyles } from 'react-native-unistyles'
+import React, { memo, useState } from 'react'
+import { Pressable, Share, Alert, Text } from 'react-native'
+import { useUnistyles } from 'react-native-unistyles'
 
-import { stylesheet } from './styles'
+import { styles } from './styles'
 
 import { useFont } from '@/context/font'
 
@@ -22,55 +15,48 @@ type VerseProps = {
 
 const Verse = memo(({ bookName, chapter, number, text }: VerseProps) => {
   const [backgroundColor, setBackgroundColor] = useState('transparent')
-  const pressableRef = useRef(null)
   const { fontScale } = useFont()
-  const { styles, theme } = useStyles(stylesheet)
+  const { theme } = useUnistyles()
 
-  const handleShowPopupError = () => {
-    Alert.alert('Erro ao selecionar versículo')
+  const resetBackgroundColor = () => {
+    setBackgroundColor('transparent')
   }
 
-  const handleShareVerse = (eventName: string) => {
+  const handleShareVerse = () => {
     try {
-      setBackgroundColor('transparent')
-      if (eventName !== 'itemSelected') return
+      resetBackgroundColor()
 
       const message = `${text}\n(${bookName} ${chapter}:${number})`
 
       Share.share({ message })
-    } catch (error: any) {
-      Alert.alert(error.message)
+    } catch {
+      Alert.alert('Erro ao compartilhar versículo')
     }
   }
 
   const handleMenuPress = () => {
-    UIManager.showPopupMenu(
-      findNodeHandle(pressableRef.current) as any,
-      ['Compartilhar'],
-      handleShowPopupError,
-      handleShareVerse
-    )
     setBackgroundColor(theme.colors.gradient[1])
+    Alert.alert(
+      'Compartilhar versículo',
+      'Deseja compartilhar este versículo?',
+      [
+        {
+          text: 'Cancelar',
+          style: 'cancel',
+          onPress: resetBackgroundColor
+        },
+        {
+          text: 'Compartilhar',
+          onPress: handleShareVerse
+        }
+      ]
+    )
   }
 
   return (
-    <Pressable
-      ref={pressableRef}
-      onLongPress={handleMenuPress}
-      delayLongPress={200}
-    >
-      <Text
-        style={{
-          ...styles.verse,
-          fontSize: 20 * fontScale,
-          lineHeight: 30 * fontScale,
-          backgroundColor
-        }}
-      >
-        <Text style={{ ...styles.verseNumber, fontSize: 14 * fontScale }}>
-          {number}
-        </Text>{' '}
-        {text}
+    <Pressable onLongPress={handleMenuPress} delayLongPress={200}>
+      <Text style={styles.verse(backgroundColor, fontScale)}>
+        <Text style={styles.verseNumber(fontScale)}>{number}</Text> {text}
       </Text>
     </Pressable>
   )

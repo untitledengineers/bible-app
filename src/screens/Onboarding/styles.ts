@@ -1,7 +1,8 @@
-import { createStyleSheet } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
-export const stylesheet = createStyleSheet(theme => ({
+export const styles = StyleSheet.create(theme => ({
   image: {
+    height: 400,
     width: '98%'
   },
   notShowAgainWrapper: {

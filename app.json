@@ -2,14 +2,9 @@
   "expo": {
     "name": "Bíblia",
     "slug": "bible",
-    "version": "1.1.1",
+    "version": "1.2.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#FFFFFF"
-    },
     "updates": {
       "fallbackToCacheTimeout": 0,
       "url": "https://u.expo.dev/ecb8681c-e311-4291-88ed-89275c84316c"
@@ -22,7 +17,6 @@
     },
     "android": {
       "package": "com.untitledengineers.bible",
-      "versionCode": 8,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
@@ -51,6 +45,14 @@
             "extraProguardRules": "-keep public class com.horcrux.svg.** {*;} -keep class com.unistyles.** {*;}",
             "allowBackup": false
           }
+        }
+      ],
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#FFFFFF",
+          "image": "./assets/icon.png",
+          "imageWidth": 200
         }
       ]
     ],

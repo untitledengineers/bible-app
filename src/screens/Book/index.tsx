@@ -1,17 +1,16 @@
 import React from 'react'
-import { View } from 'react-native'
-import { useStyles } from 'react-native-unistyles'
+import { SectionList, View } from 'react-native'
+import DrawerLayout from 'react-native-gesture-handler/DrawerLayout'
 
 import Drawer from './components/Drawer'
 import Header from './components/Header'
 import List from './components/List'
-import { stylesheet } from './styles'
+import { styles } from './styles'
 import { useBookController } from './useBookController'
 
 import Loading from '@/components/Loading'
 
 const Book = () => {
-  const { styles } = useStyles(stylesheet)
   const {
     onViewableItemsChanged,
     handleScrollToIndex,
@@ -31,7 +30,7 @@ const Book = () => {
   return (
     <View style={styles.container}>
       <Drawer
-        drawerRef={drawerRef}
+        drawerRef={drawerRef as React.RefObject<DrawerLayout>}
         chaptersNumber={chaptersNumber}
         handleScrollToIndex={handleScrollToIndex}
       >
@@ -42,7 +41,7 @@ const Book = () => {
         />
 
         <List
-          listRef={listRef}
+          listRef={listRef as React.RefObject<SectionList>}
           onViewableItemsChanged={onViewableItemsChanged}
           scrollY={scrollY}
           handleOnScrollFailed={handleOnScrollFailed}

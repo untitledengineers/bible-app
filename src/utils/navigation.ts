@@ -1,4 +1,8 @@
-import { CommonActions, NavigationContainerRef } from '@react-navigation/native'
+import {
+  CommonActions,
+  NavigationContainerRef,
+  StackActions
+} from '@react-navigation/native'
 
 import { RootStackParamList } from '../@types/navigation'
 
@@ -20,4 +24,20 @@ export function navigate(
       params
     })
   )
+}
+
+export function reset(routeName: string, index = 0): void {
+  navigator?.dispatch(
+    CommonActions.reset({
+      index,
+      routes: [{ name: routeName }]
+    })
+  )
+}
+
+export function replace(
+  routeName: string,
+  params?: Record<string, unknown>
+): void {
+  navigator?.dispatch(StackActions.replace(routeName, params))
 }

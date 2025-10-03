@@ -1,9 +1,8 @@
-import { StyleSheet } from 'react-native'
-import { createStyleSheet } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 export const LIST_HEADER_HEIGHT = 112
 
-export const stylesheet = createStyleSheet(theme => ({
+export const styles = StyleSheet.create(theme => ({
   container: {
     height: LIST_HEADER_HEIGHT,
     alignItems: 'center',

@@ -1,10 +1,10 @@
 appId: com.untitledengineers.bible
 ---
 - launchApp
-- tapOn: "Próximo"
-- tapOn: "✓"
-- assertVisible: "Números"
+- tapOn: 'Próximo'
+- tapOn: '✓'
+- assertVisible: 'Números'
 - tapOn:
-    id: "theme-button"
+    id: 'theme-button'
 - tapOn:
-    id: "theme-button"
+    id: 'theme-button'
