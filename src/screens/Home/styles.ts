@@ -7,7 +7,8 @@ export const styles = StyleSheet.create(theme => ({
     flexDirection: 'row'
   },
   listContent: {
-    paddingTop: Constants.statusBarHeight
+    paddingTop: Constants.statusBarHeight,
+    paddingBottom: theme.spacing.largePlus
   },
   separator: {
     borderBottomColor: theme.colors.border,
