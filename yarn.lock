@@ -1626,7 +1626,7 @@
     "@babel/parser" "^7.27.2"
     "@babel/types" "^7.27.1"
 
-"@babel/traverse--for-generate-function-map@npm:@babel/traverse@^7.25.3", "@babel/traverse@^7.25.3", "@babel/traverse@^7.25.9":
+"@babel/traverse--for-generate-function-map@npm:@babel/traverse@^7.25.3":
   version "7.25.9"
   resolved "https://registry.yarnpkg.com/@babel/traverse/-/traverse-7.25.9.tgz#a50f8fe49e7f69f53de5bea7e413cd35c5e13c84"
   integrity sha512-ZCuvfwOwlz/bawvAuvcj8rrithP2/N55Tzz342AkTvq4qaWbGfmCk/tKhNaV2cthijKrPAA8SRJV5WWe7IBMJw==
@@ -1652,6 +1652,19 @@
     "@babel/helper-split-export-declaration" "^7.22.6"
     "@babel/parser" "^7.23.9"
     "@babel/types" "^7.23.9"
+    debug "^4.3.1"
+    globals "^11.1.0"
+
+"@babel/traverse@^7.25.3", "@babel/traverse@^7.25.9":
+  version "7.25.9"
+  resolved "https://registry.yarnpkg.com/@babel/traverse/-/traverse-7.25.9.tgz#a50f8fe49e7f69f53de5bea7e413cd35c5e13c84"
+  integrity sha512-ZCuvfwOwlz/bawvAuvcj8rrithP2/N55Tzz342AkTvq4qaWbGfmCk/tKhNaV2cthijKrPAA8SRJV5WWe7IBMJw==
+  dependencies:
+    "@babel/code-frame" "^7.25.9"
+    "@babel/generator" "^7.25.9"
+    "@babel/parser" "^7.25.9"
+    "@babel/template" "^7.25.9"
+    "@babel/types" "^7.25.9"
     debug "^4.3.1"
     globals "^11.1.0"
 
@@ -1806,7 +1819,7 @@
     wrap-ansi "^7.0.0"
     ws "^8.12.1"
 
-"@expo/code-signing-certificates@^0.0.5":
+"@expo/code-signing-certificates@0.0.5", "@expo/code-signing-certificates@^0.0.5":
   version "0.0.5"
   resolved "https://registry.yarnpkg.com/@expo/code-signing-certificates/-/code-signing-certificates-0.0.5.tgz#a693ff684fb20c4725dade4b88a6a9f96b02496c"
   integrity sha512-BNhXkY1bblxKZpltzAx98G2Egj9g1Q+JRcvR7E99DOj862FTCX+ZPsAUtPTr7aHxwtrL7+fL3r0JSmM9kBm+Bw==
@@ -3263,6 +3276,11 @@ application-config-path@^0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/application-config-path/-/application-config-path-0.1.1.tgz#8b5ac64ff6afdd9bd70ce69f6f64b6998f5f756e"
   integrity sha512-zy9cHePtMP0YhwG+CfHm0bgwdnga2X3gZexpdCwEj//dpb+TKajtiC8REEUJUSq6Ab4f9cgNy2l8ObXzCXFkEw==
+
+arg@4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/arg/-/arg-4.1.0.tgz#583c518199419e0037abb74062c37f8519e575f0"
+  integrity sha512-ZWc51jO3qegGkVh8Hwpv636EkbesNV5ZNQPCtRa+0qytRYPEs9IYT9qITY9buezqUH5uqyzlWLcufrzU2rffdg==
 
 arg@^5.0.2:
   version "5.0.2"
@@ -4766,6 +4784,11 @@ expo-dev-menu@7.0.11:
   dependencies:
     expo-dev-menu-interface "2.0.0"
 
+expo-eas-client@~1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/expo-eas-client/-/expo-eas-client-1.0.7.tgz#9c9c7909d7bb9b6ceb4bef6875f1b9119ef22a8c"
+  integrity sha512-Q/b1X0fM+3beqqvffok14pjxMF600NxopdSr9WJY61fF4xllcVnALS0kEudffp9ihMOfcb5xWYqzKj6jMqYDIw==
+
 expo-file-system@~19.0.14:
   version "19.0.14"
   resolved "https://registry.yarnpkg.com/expo-file-system/-/expo-file-system-19.0.14.tgz#1169fd9fcba8a5f1ef8e3c232ef8c62274ac4803"
@@ -4834,10 +4857,35 @@ expo-status-bar@~3.0.8:
   dependencies:
     react-native-is-edge-to-edge "^1.2.1"
 
+expo-structured-headers@~5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/expo-structured-headers/-/expo-structured-headers-5.0.0.tgz#b3cc223a7a58964652093f088a8988316db9ed9d"
+  integrity sha512-RmrBtnSphk5REmZGV+lcdgdpxyzio5rJw8CXviHE6qH5pKQQ83fhMEcigvrkBdsn2Efw2EODp4Yxl1/fqMvOZw==
+
 expo-updates-interface@~2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/expo-updates-interface/-/expo-updates-interface-2.0.0.tgz#7721cb64c37bcb46b23827b2717ef451a9378749"
   integrity sha512-pTzAIufEZdVPKql6iMi5ylVSPqV1qbEopz9G6TSECQmnNde2nwq42PxdFBaUEd8IZJ/fdJLQnOT3m6+XJ5s7jg==
+
+expo-updates@~29.0.12:
+  version "29.0.12"
+  resolved "https://registry.yarnpkg.com/expo-updates/-/expo-updates-29.0.12.tgz#cb43a20a6d32426694d414a2551f7300a4f75631"
+  integrity sha512-gE3bU6qi5g8Y1TtBzoeHac3utR0i1Wj1ufThh+zpDyFjFbegFm+gwvNLVCBagZUClYKk/4CKxh5ytnwZmPzH+g==
+  dependencies:
+    "@expo/code-signing-certificates" "0.0.5"
+    "@expo/plist" "^0.4.7"
+    "@expo/spawn-async" "^1.7.2"
+    arg "4.1.0"
+    chalk "^4.1.2"
+    debug "^4.3.4"
+    expo-eas-client "~1.0.7"
+    expo-manifests "~1.0.8"
+    expo-structured-headers "~5.0.0"
+    expo-updates-interface "~2.0.0"
+    getenv "^2.0.0"
+    glob "^10.4.2"
+    ignore "^5.3.1"
+    resolve-from "^5.0.0"
 
 expo@^54.0.0:
   version "54.0.7"
@@ -8270,7 +8318,16 @@ strict-uri-encode@^2.0.0:
   resolved "https://registry.yarnpkg.com/strict-uri-encode/-/strict-uri-encode-2.0.0.tgz#b9c7330c7042862f6b142dc274bbcc5866ce3546"
   integrity sha512-QwiXZgpRcKkhTj2Scnn++4PKtWsH0kpzZ62L2R6c/LUVYv7hVnZqcg2+sMuT6R7Jusu1vviK/MFsu6kNJfWlEQ==
 
-"string-width-cjs@npm:string-width@^4.2.0", string-width@^4.1.0, string-width@^4.2.0, string-width@^4.2.3:
+"string-width-cjs@npm:string-width@^4.2.0":
+  version "4.2.3"
+  resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
+  integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
+  dependencies:
+    emoji-regex "^8.0.0"
+    is-fullwidth-code-point "^3.0.0"
+    strip-ansi "^6.0.1"
+
+string-width@^4.1.0, string-width@^4.2.0, string-width@^4.2.3:
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
   integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
@@ -8344,7 +8401,7 @@ string_decoder@~1.1.1:
   dependencies:
     safe-buffer "~5.1.0"
 
-"strip-ansi-cjs@npm:strip-ansi@^6.0.1", strip-ansi@^6.0.0, strip-ansi@^6.0.1:
+"strip-ansi-cjs@npm:strip-ansi@^6.0.1":
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-6.0.1.tgz#9e26c63d30f53443e9489495b2105d37b67a85d9"
   integrity sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==
@@ -8357,6 +8414,13 @@ strip-ansi@^5.0.0, strip-ansi@^5.2.0:
   integrity sha512-DuRs1gKbBqsMKIZlrffwlug8MHkcnpjs5VPmL1PAh+mA30U0DTotfDZ0d2UUsXpPmPmMMJ6W773MaA3J+lbiWA==
   dependencies:
     ansi-regex "^4.1.0"
+
+strip-ansi@^6.0.0, strip-ansi@^6.0.1:
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-6.0.1.tgz#9e26c63d30f53443e9489495b2105d37b67a85d9"
+  integrity sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==
+  dependencies:
+    ansi-regex "^5.0.1"
 
 strip-ansi@^7.0.1:
   version "7.1.0"
@@ -8952,7 +9016,7 @@ wonka@^6.3.2:
   resolved "https://registry.yarnpkg.com/wonka/-/wonka-6.3.4.tgz#76eb9316e3d67d7febf4945202b5bdb2db534594"
   integrity sha512-CjpbqNtBGNAeyNS/9W6q3kSkKE52+FjIj7AkFlLr11s/VWGUu6a2CdYSdGxocIhIVjaW/zchesBQUKPVU69Cqg==
 
-"wrap-ansi-cjs@npm:wrap-ansi@^7.0.0", wrap-ansi@^7.0.0:
+"wrap-ansi-cjs@npm:wrap-ansi@^7.0.0":
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/wrap-ansi/-/wrap-ansi-7.0.0.tgz#67e145cff510a6a6984bdf1152911d69d2eb9e43"
   integrity sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==
@@ -8965,6 +9029,15 @@ wrap-ansi@^6.2.0:
   version "6.2.0"
   resolved "https://registry.yarnpkg.com/wrap-ansi/-/wrap-ansi-6.2.0.tgz#e9393ba07102e6c91a3b221478f0257cd2856e53"
   integrity sha512-r6lPcBGxZXlIcymEu7InxDMhdW0KDxpLgoFLcguasxCaJ/SOIZwINatK9KY/tf+ZrlywOKU0UDj3ATXUBfxJXA==
+  dependencies:
+    ansi-styles "^4.0.0"
+    string-width "^4.1.0"
+    strip-ansi "^6.0.0"
+
+wrap-ansi@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/wrap-ansi/-/wrap-ansi-7.0.0.tgz#67e145cff510a6a6984bdf1152911d69d2eb9e43"
+  integrity sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==
   dependencies:
     ansi-styles "^4.0.0"
     string-width "^4.1.0"
