@@ -13,6 +13,8 @@ import { useSearch } from '../../context/search'
 import bibleData from '../../data/bible_acf.json'
 
 import { HEADER_HEIGHT } from '@/components/Header/styles'
+import { useFont } from '@/context/font'
+import { replace } from '@/utils/navigation'
 
 type IParams = {
   bookName: string
@@ -49,6 +51,9 @@ export const useBookController = () => {
   const drawerRef = useRef<DrawerLayout>(null)
   const { handleOpen } = useSearch()
   const timeout = useRef<ReturnType<typeof setTimeout>>(null)
+  const { fontScale } = useFont()
+  const firstRender = useRef(true)
+  const currentSectionTitle = useRef<number | null>(null)
 
   const scrollY = useRef(new Animated.Value(0)).current
   const diffClamp = Animated.diffClamp(
@@ -74,8 +79,10 @@ export const useBookController = () => {
 
   const onViewableItemsChanged = useCallback(
     (info: { viewableItems: ViewToken[] }) => {
-      // eslint-disable-next-line eqeqeq
-      if (info.viewableItems[0]?.section?.title == indexToScroll + 1) {
+      const sectionTitle = Number(info.viewableItems[0]?.section?.title)
+      currentSectionTitle.current = sectionTitle
+
+      if (sectionTitle === indexToScroll + 1) {
         setIsLoading(false)
       }
     },
@@ -158,6 +165,23 @@ export const useBookController = () => {
       )
     }
   }, [bookName, handleScrollToIndex, initialScrollIndex])
+
+  // workaround to avoid font scale scroll list bug
+  useEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false
+      return
+    }
+
+    if (currentSectionTitle.current && currentSectionTitle.current === 1) {
+      return
+    }
+
+    replace('Book', {
+      bookName,
+      initialScrollIndex: 0
+    })
+  }, [fontScale, bookName])
 
   const values = useMemo(
     () => ({
